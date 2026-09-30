@@ -2,7 +2,6 @@
 <html lang="it">
 
 <head>
-
 <meta charset="utf-8">
 
 <meta name="viewport"
@@ -43,7 +42,7 @@ body{
 main{
   max-width:620px;
   margin:0 auto;
-  padding:18px 16px 40px;
+  padding:18px 16px 50px;
 }
 
 h1{
@@ -56,13 +55,13 @@ h1{
   display:flex;
   align-items:center;
   gap:10px;
-  margin-bottom:5px;
+  margin-bottom:6px;
 }
 
 .badge{
   display:inline-flex;
   align-items:center;
-  padding:6px 12px;
+  padding:6px 13px;
   border-radius:999px;
   background:var(--acc);
   color:#fff;
@@ -86,7 +85,7 @@ h1{
 
 nav{
   display:flex;
-  gap:6px;
+  gap:7px;
   margin-bottom:16px;
 }
 
@@ -182,6 +181,7 @@ button:focus-visible{
 
 .btn:disabled{
   opacity:.5;
+  cursor:not-allowed;
 }
 
 .msg{
@@ -341,12 +341,52 @@ button:focus-visible{
   margin:8px 0;
 }
 
+.invite{
+  margin-top:12px;
+  padding:14px;
+  border-radius:13px;
+  background:#F8F5FF;
+  border:1px solid var(--line);
+}
+
+.invite-title{
+  font-weight:800;
+  margin-bottom:7px;
+}
+
+.invite-text{
+  white-space:pre-line;
+  font-size:14px;
+  line-height:1.5;
+  color:var(--ink);
+  background:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+}
+
+.invite-actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.invite-actions button{
+  flex:1;
+}
+
+.code-big{
+  font-size:32px;
+  font-weight:900;
+  letter-spacing:5px;
+  margin:5px 0 10px;
+}
+
 .loading{
   opacity:.7;
 }
 
 </style>
-
 </head>
 
 
@@ -367,22 +407,27 @@ button:focus-visible{
   <div class="msg" id="top"></div>
 
 
+  <!-- NAV ADMIN -->
+
   <nav id="nav" class="hidden">
 
-    <button data-tab="list" class="on">
+    <button
+      data-tab="list"
+      class="on">
       Prenotazioni
     </button>
 
-    <button data-tab="entry">
+    <button
+      data-tab="entry">
       Ingresso
     </button>
 
   </nav>
 
 
-  <!-- =====================================================
+  <!-- =========================
        PRENOTAZIONI
-       ===================================================== -->
+       ========================= -->
 
   <section id="list">
 
@@ -451,16 +496,14 @@ button:focus-visible{
         <button
           type="button"
           class="btn g active"
-          id="paidYes"
-        >
+          id="paidYes">
           ✓ PAGATO
         </button>
 
         <button
           type="button"
           class="btn g"
-          id="paidNo"
-        >
+          id="paidNo">
           DA PAGARE
         </button>
 
@@ -469,8 +512,7 @@ button:focus-visible{
 
       <div
         class="amount-wrap"
-        id="amountWrap"
-      >
+        id="amountWrap">
 
         <label for="amount">
           Importo pagato (€)
@@ -495,19 +537,22 @@ button:focus-visible{
 
       <button
         class="btn full primary"
-        id="add"
-      >
+        id="add">
+
         Crea prenotazione
+
       </button>
 
 
       <div
         class="msg"
-        id="fmsg"
-      ></div>
+        id="fmsg">
+      </div>
 
     </div>
 
+
+    <!-- RICERCA -->
 
     <input
       id="q"
@@ -520,20 +565,19 @@ button:focus-visible{
     <div
       class="box"
       id="items"
-      style="margin-top:12px"
-    ></div>
+      style="margin-top:12px">
+    </div>
 
   </section>
 
 
-  <!-- =====================================================
+  <!-- =========================
        INGRESSO ADMIN
-       ===================================================== -->
+       ========================= -->
 
   <section
     id="entry"
-    class="hidden"
-  >
+    class="hidden">
 
     <div class="box">
 
@@ -553,9 +597,10 @@ button:focus-visible{
 
       <button
         class="btn full primary"
-        id="checkCode"
-      >
+        id="checkCode">
+
         Verifica codice
+
       </button>
 
 
@@ -601,27 +646,27 @@ let entryBusy = false;
    ========================================================= */
 
 const $ =
-  id => document.getElementById(id);
+id => document.getElementById(id);
 
 
 const esc =
-  s => String(s ?? '')
-    .replace(
-      /[&<>"']/g,
-      c => ({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[c])
-    );
+s => String(s ?? '')
+.replace(
+  /[&<>"']/g,
+  c => ({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    '"':'&quot;',
+    "'":'&#39;'
+  }[c])
+);
 
 
 const rid =
-  () =>
-    Date.now().toString(36) +
-    Math.random().toString(36).slice(2,8);
+() =>
+Date.now().toString(36) +
+Math.random().toString(36).slice(2,8);
 
 
 /* =========================================================
@@ -639,11 +684,14 @@ const rid =
   if(p){
 
     try{
+
       localStorage.setItem(
         'k',
         p
       );
+
     }catch(e){}
+
 
     history.replaceState(
       null,
@@ -671,12 +719,6 @@ const rid =
 
 /* =========================================================
    API
-   =========================================================
-
-   IMPORTANTE:
-   ora usiamo GET invece di POST.
-   Questo evita il problema del
-   "Risposta non valida da Google".
    ========================================================= */
 
 async function api(
@@ -846,14 +888,12 @@ async function init(){
       'Link non valido.';
 
     return;
+
   }
 
 
   try{
 
-    /*
-     * UNA SOLA richiesta.
-     */
     const j =
       await api('init');
 
@@ -867,31 +907,28 @@ async function init(){
     FREE =
       j.free;
 
-
     USED =
       j.used;
 
-
     CAP =
       j.capacity;
-
 
     PRICE =
       j.ticketPrice || 25;
 
 
+    /* NOME ORGANIZZATORE */
+
     $('badge').textContent =
       j.name.toUpperCase();
-
 
     $('badge')
       .classList
       .remove('hidden');
 
 
-    /*
-     * Colore Molly
-     */
+    /* COLORE MOLLY */
+
     if(
       j.name.toLowerCase() ===
       'molly'
@@ -908,9 +945,8 @@ async function init(){
     }
 
 
-    /*
-     * Solo admin vede ingresso
-     */
+    /* SOLO ADMIN */
+
     if(
       j.role === 'admin'
     ){
@@ -930,10 +966,12 @@ async function init(){
 
     render();
 
-
   }catch(e){
 
     $('stats').textContent = '';
+
+    $('top').style.color =
+      'var(--bad)';
 
     $('top').textContent =
       e.message;
@@ -1051,6 +1089,153 @@ function render(){
 
 
 /* =========================================================
+   MESSAGGIO INVITO
+   ========================================================= */
+
+function makeInvite(
+  name,
+  count,
+  code
+){
+
+  const persone =
+    Number(count) === 1
+      ? '1 persona'
+      : `${count} persone`;
+
+
+  return `🎉 Ciao ${name}!
+
+Sei invitato alla Festa Indiana 🎉
+
+👥 Prenotazione: ${persone}
+🔑 Codice di accesso: ${code}
+
+Conserva questo codice e presentalo all'ingresso della festa.
+
+Ci vediamo alla festa! ❤️`;
+
+}
+
+
+/* =========================================================
+   CONDIVIDI INVITO
+   ========================================================= */
+
+async function shareInvite(
+  name,
+  count,
+  code
+){
+
+  const text =
+    makeInvite(
+      name,
+      count,
+      code
+    );
+
+
+  /* TELEFONO */
+
+  if(
+    navigator.share
+  ){
+
+    try{
+
+      await navigator.share({
+        title:'Invito Festa Indiana',
+        text:text
+      });
+
+      return;
+
+    }catch(e){
+
+      /*
+       * Se l'utente chiude il menu
+       * di condivisione non facciamo
+       * comparire errore.
+       */
+
+      if(
+        e.name === 'AbortError'
+      ){
+        return;
+      }
+
+    }
+
+  }
+
+
+  /* PC / BROWSER SENZA SHARE */
+
+  try{
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+    alert(
+      'Messaggio copiato negli appunti!'
+    );
+
+  }catch(e){
+
+    window.prompt(
+      'Copia questo messaggio:',
+      text
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   COPIA INVITO
+   ========================================================= */
+
+async function copyInvite(
+  name,
+  count,
+  code
+){
+
+  const text =
+    makeInvite(
+      name,
+      count,
+      code
+    );
+
+
+  try{
+
+    await navigator.clipboard.writeText(
+      text
+    );
+
+
+    alert(
+      'Messaggio copiato negli appunti!'
+    );
+
+  }catch(e){
+
+    window.prompt(
+      'Copia questo messaggio:',
+      text
+    );
+
+  }
+
+}
+
+
+/* =========================================================
    CARD PRENOTAZIONE
    ========================================================= */
 
@@ -1085,7 +1270,25 @@ function card(
          </span>`;
 
 
+  const inviteButtons = `
+    <button
+      class="btn s"
+      data-a="share"
+      data-c="${esc(b.code)}">
+      📤 Condividi invito
+    </button>
+
+    <button
+      class="btn g s"
+      data-a="copy"
+      data-c="${esc(b.code)}">
+      📋 Copia messaggio
+    </button>
+  `;
+
+
   return `
+
     <div class="it ${b.cancelled?'off':''}">
 
       <div class="topline">
@@ -1145,39 +1348,48 @@ function card(
 
       <div class="acts">
 
+        ${inviteButtons}
+
+
         <button
           class="btn g s"
           data-a="paid"
-          data-c="${esc(b.code)}"
-        >
+          data-c="${esc(b.code)}">
+
           ${
             b.paid
               ? 'Modifica pagamento'
               : 'Segna pagato'
           }
+
         </button>
 
 
         ${
           admin
           ? `
+
             <button
               class="btn g s"
               data-a="cancel"
-              data-c="${esc(b.code)}"
-            >
+              data-c="${esc(b.code)}">
+
               ${b.cancelled
                 ? 'Ripristina'
                 : 'Annulla'}
+
             </button>
+
 
             <button
               class="btn g s"
               data-a="entry"
-              data-c="${esc(b.code)}"
-            >
+              data-c="${esc(b.code)}">
+
               Ingresso
+
             </button>
+
           `
           : ''
         }
@@ -1185,17 +1397,18 @@ function card(
       </div>
 
     </div>
+
   `;
 
 }
 
 
 /* =========================================================
-   RICERCA ADMIN
+   RICERCA
    ========================================================= */
 
 $('q').oninput =
-  render;
+render;
 
 
 /* =========================================================
@@ -1256,7 +1469,7 @@ function renderNames(){
 
 
 $('pe').oninput =
-  renderNames;
+renderNames;
 
 
 /* =========================================================
@@ -1301,18 +1514,20 @@ function updateAmountDefault(){
 
 
 $('amount').oninput =
-  () => {
-    $('amount').dataset.edited =
-      '1';
-  };
+() => {
+
+  $('amount').dataset.edited =
+    '1';
+
+};
 
 
 $('paidYes').onclick =
-  () => setPaidChoice(true);
+() => setPaidChoice(true);
 
 
 $('paidNo').onclick =
-  () => setPaidChoice(false);
+() => setPaidChoice(false);
 
 
 function setPaidChoice(v){
@@ -1341,9 +1556,8 @@ function setPaidChoice(v){
     );
 
 
-  $('amount')
-    .disabled =
-      !v;
+  $('amount').disabled =
+    !v;
 
 
   if(
@@ -1363,161 +1577,257 @@ function setPaidChoice(v){
    ========================================================= */
 
 $('add').onclick =
-  async function(){
+async function(){
 
-    const btn =
-      $('add');
+  const btn =
+    $('add');
 
-    const msg =
-      $('fmsg');
+  const msg =
+    $('fmsg');
 
 
-    const n =
-      Math.max(
-        1,
-        Math.min(
-          50,
-          parseInt(
-            $('pe').value,
-            10
-          ) || 1
+  const n =
+    Math.max(
+      1,
+      Math.min(
+        50,
+        parseInt(
+          $('pe').value,
+          10
+        ) || 1
+      )
+    );
+
+
+  const names =
+    [
+      $('nm').value.trim(),
+
+      ...[
+        ...document.querySelectorAll(
+          '.nx'
         )
+      ].map(
+        i => i.value.trim()
+      )
+
+    ]
+    .slice(0,n);
+
+
+  while(
+    names.length < n
+  ){
+
+    names.push('');
+
+  }
+
+
+  const paid =
+    $('paidYes')
+      .classList
+      .contains('active');
+
+
+  const amount =
+    paid
+      ? Number(
+          $('amount').value || 0
+        )
+      : 0;
+
+
+  if(!names[0]){
+
+    msg.style.color =
+      'var(--bad)';
+
+    msg.textContent =
+      'Inserisci il nome della persona 1';
+
+    return;
+
+  }
+
+
+  if(
+    paid &&
+    amount <= 0
+  ){
+
+    msg.style.color =
+      'var(--bad)';
+
+    msg.textContent =
+      'Inserisci l’importo pagato';
+
+    return;
+
+  }
+
+
+  btn.disabled = true;
+
+  btn.textContent =
+    'Salvataggio…';
+
+  msg.textContent =
+    '';
+
+
+  try{
+
+    const j =
+      await api(
+        'create',
+        {
+          phone:$('ph').value,
+          names:names,
+          paid:paid,
+          amount:amount
+        }
       );
 
 
-    const names =
-      [
-        $('nm').value.trim(),
-        ...[
-          ...document.querySelectorAll(
-            '.nx'
+    /*
+     * Salviamo prima i dati dell'invito.
+     */
+
+    const inviteName =
+      names[0];
+
+    const inviteCount =
+      n;
+
+    const inviteCode =
+      j.code;
+
+
+    /*
+     * RESET FORM
+     */
+
+    $('nm').value = '';
+    $('ph').value = '';
+    $('pe').value = 1;
+
+    $('amount')
+      .dataset
+      .edited = '';
+
+    setPaidChoice(true);
+
+    renderNames();
+
+
+    /*
+     * AGGIORNA LISTA
+     */
+
+    await refresh();
+
+
+    /*
+     * MOSTRA RISULTATO
+     */
+
+    msg.style.color =
+      'var(--ok)';
+
+
+    msg.innerHTML = `
+
+      <div class="invite">
+
+        <div class="invite-title">
+          ✅ Prenotazione creata!
+        </div>
+
+        <div class="code-big">
+          ${esc(inviteCode)}
+        </div>
+
+        <div class="invite-text">${esc(
+          makeInvite(
+            inviteName,
+            inviteCount,
+            inviteCode
           )
-        ].map(
-          i => i.value.trim()
-        )
-      ]
-      .slice(0,n);
+        )}</div>
 
 
-    while(
-      names.length < n
-    ){
+        <div class="invite-actions">
 
-      names.push('');
+          <button
+            class="btn"
+            id="shareNewInvite">
 
-    }
+            📤 Condividi invito
 
-
-    const paid =
-      $('paidYes')
-        .classList
-        .contains('active');
+          </button>
 
 
-    const amount =
-      paid
-        ? Number(
-            $('amount').value || 0
-          )
-        : 0;
+          <button
+            class="btn g"
+            id="copyNewInvite">
+
+            📋 Copia
+
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
 
 
-    if(!names[0]){
+    /*
+     * PULSANTE CONDIVIDI
+     */
 
-      msg.textContent =
-        'Inserisci il nome della persona 1';
-
-      return;
-
-    }
-
-
-    if(
-      paid &&
-      amount <= 0
-    ){
-
-      msg.textContent =
-        'Inserisci l’importo pagato';
-
-      return;
-
-    }
-
-
-    btn.disabled = true;
-
-    btn.textContent =
-      'Salvataggio…';
-
-    msg.textContent =
-      '';
-
-
-    try{
-
-      const j =
-        await api(
-          'create',
-          {
-            phone:$('ph').value,
-            names:names,
-            paid:paid,
-            amount:amount
-          }
+    $('shareNewInvite').onclick =
+      () =>
+        shareInvite(
+          inviteName,
+          inviteCount,
+          inviteCode
         );
 
 
-      $('nm').value = '';
+    /*
+     * PULSANTE COPIA
+     */
 
-      $('ph').value = '';
-
-      $('pe').value = 1;
-
-      $('amount')
-        .dataset
-        .edited = '';
-
-
-      setPaidChoice(true);
-
-      renderNames();
+    $('copyNewInvite').onclick =
+      () =>
+        copyInvite(
+          inviteName,
+          inviteCount,
+          inviteCode
+        );
 
 
-      /*
-       * Aggiorna senza bloccare
-       * la pagina.
-       */
-      await refresh();
+  }catch(e){
 
+    msg.style.color =
+      'var(--bad)';
 
-      msg.style.color =
-        'var(--ok)';
+    msg.textContent =
+      e.message;
 
+  }finally{
 
-      msg.textContent =
-        `Prenotazione creata.
-         Codice: ${j.code}`;
+    btn.disabled =
+      false;
 
+    btn.textContent =
+      'Crea prenotazione';
 
-    }catch(e){
+  }
 
-      msg.style.color =
-        'var(--bad)';
-
-      msg.textContent =
-        e.message;
-
-    }finally{
-
-      btn.disabled = false;
-
-      btn.textContent =
-        'Crea prenotazione';
-
-    }
-
-  };
+};
 
 
 /* =========================================================
@@ -1539,7 +1849,6 @@ async function refresh(){
   FREE =
     j.free;
 
-
   USED =
     j.used;
 
@@ -1554,185 +1863,232 @@ async function refresh(){
    ========================================================= */
 
 $('items').onclick =
-  async function(e){
+async function(e){
 
-    const t =
-      e.target.closest(
-        'button'
-      );
-
-
-    if(!t){
-      return;
-    }
+  const t =
+    e.target.closest(
+      'button'
+    );
 
 
-    const b =
-      L.find(
-        x =>
-          x.code ===
-          t.dataset.c
-      );
+  if(!t){
+    return;
+  }
 
 
-    if(!b){
-      return;
-    }
+  const b =
+    L.find(
+      x =>
+        x.code ===
+        t.dataset.c
+    );
 
 
-    t.disabled = true;
+  if(!b){
+    return;
+  }
 
 
-    try{
+  /*
+   * CONDIVIDI
+   */
 
-      /* PAGAMENTO */
+  if(
+    t.dataset.a ===
+    'share'
+  ){
 
-      if(
-        t.dataset.a ===
-        'paid'
-      ){
+    await shareInvite(
+      b.name,
+      b.att.length,
+      b.code
+    );
 
-        const value =
-          !b.paid;
+    return;
+
+  }
 
 
-        let amount =
-          Number(
-            b.amount || 0
+  /*
+   * COPIA
+   */
+
+  if(
+    t.dataset.a ===
+    'copy'
+  ){
+
+    await copyInvite(
+      b.name,
+      b.att.length,
+      b.code
+    );
+
+    return;
+
+  }
+
+
+  t.disabled = true;
+
+
+  try{
+
+    /*
+     * PAGAMENTO
+     */
+
+    if(
+      t.dataset.a ===
+      'paid'
+    ){
+
+      const value =
+        !b.paid;
+
+
+      let amount =
+        Number(
+          b.amount || 0
+        );
+
+
+      if(value){
+
+        const answer =
+          prompt(
+            'Importo pagato (€):',
+            amount > 0
+              ? amount.toFixed(2)
+              : (
+                  b.att.length *
+                  PRICE
+                ).toFixed(2)
           );
 
 
-        if(value){
+        if(
+          answer === null
+        ){
 
-          const answer =
-            prompt(
-              'Importo pagato (€):',
-              amount > 0
-                ? amount.toFixed(2)
-                : (
-                    b.att.length *
-                    PRICE
-                  ).toFixed(2)
-            );
+          t.disabled =
+            false;
 
-
-          if(
-            answer === null
-          ){
-
-            t.disabled = false;
-
-            return;
-
-          }
-
-
-          amount =
-            Number(
-              String(answer)
-                .replace(',','.')
-            );
-
-
-          if(
-            !isFinite(amount) ||
-            amount <= 0
-          ){
-
-            throw new Error(
-              'Importo non valido'
-            );
-
-          }
+          return;
 
         }
 
 
-        await api(
-          'paid',
-          {
-            code:b.code,
-            value:value,
-            amount:amount
-          }
-        );
+        amount =
+          Number(
+            String(answer)
+              .replace(',','.')
+          );
 
-      }
-
-
-      /* ANNULLA */
-
-      else if(
-        t.dataset.a ===
-        'cancel'
-      ){
-
-        await api(
-          'cancel',
-          {
-            code:b.code,
-            value:!b.cancelled
-          }
-        );
-
-      }
-
-
-      /* INGRESSO */
-
-      else if(
-        t.dataset.a ===
-        'entry'
-      ){
 
         if(
-          ME.role !==
-          'admin'
+          !isFinite(amount) ||
+          amount <= 0
         ){
 
           throw new Error(
-            'Non autorizzato'
+            'Importo non valido'
           );
 
         }
 
+      }
 
-        switchTab(
-          'entry'
+
+      await api(
+        'paid',
+        {
+          code:b.code,
+          value:value,
+          amount:amount
+        }
+      );
+
+    }
+
+
+    /*
+     * ANNULLA
+     */
+
+    else if(
+      t.dataset.a ===
+      'cancel'
+    ){
+
+      await api(
+        'cancel',
+        {
+          code:b.code,
+          value:!b.cancelled
+        }
+      );
+
+    }
+
+
+    /*
+     * INGRESSO
+     */
+
+    else if(
+      t.dataset.a ===
+      'entry'
+    ){
+
+      if(
+        ME.role !==
+        'admin'
+      ){
+
+        throw new Error(
+          'Non autorizzato'
         );
-
-
-        $('entryCode').value =
-          b.code;
-
-
-        await verifyCode();
-
-
-        return;
 
       }
 
 
-      await refresh();
+      switchTab(
+        'entry'
+      );
 
 
-    }catch(err){
+      $('entryCode').value =
+        b.code;
 
-      $('fmsg').style.color =
-        'var(--bad)';
 
-      $('fmsg').textContent =
-        err.message;
+      await verifyCode();
 
-    }finally{
 
-      t.disabled =
-        false;
+      return;
 
     }
 
-  };
+
+    await refresh();
+
+
+  }catch(err){
+
+    $('fmsg').style.color =
+      'var(--bad)';
+
+    $('fmsg').textContent =
+      err.message;
+
+  }finally{
+
+    t.disabled =
+      false;
+
+  }
+
+};
 
 
 /* =========================================================
@@ -1745,9 +2101,7 @@ function switchTab(tab){
     ME.role !==
     'admin'
   ){
-
     return;
-
   }
 
 
@@ -1783,21 +2137,23 @@ function switchTab(tab){
 
 
 $('nav').onclick =
-  e => {
+e => {
 
-    const t =
-      e.target.closest(
-        'button'
-      );
+  const t =
+    e.target.closest(
+      'button'
+    );
 
 
-    if(t){
-      switchTab(
-        t.dataset.tab
-      );
-    }
+  if(t){
 
-  };
+    switchTab(
+      t.dataset.tab
+    );
+
+  }
+
+};
 
 
 /* =========================================================
@@ -1805,21 +2161,21 @@ $('nav').onclick =
    ========================================================= */
 
 $('checkCode').onclick =
-  verifyCode;
+verifyCode;
 
 
 $('entryCode').onkeydown =
-  e => {
+e => {
 
-    if(
-      e.key === 'Enter'
-    ){
+  if(
+    e.key === 'Enter'
+  ){
 
-      verifyCode();
+    verifyCode();
 
-    }
+  }
 
-  };
+};
 
 
 async function verifyCode(){
@@ -1840,8 +2196,8 @@ async function verifyCode(){
     !/^\d{4}$/.test(code)
   ){
 
-    $('res').innerHTML =
-      `
+    $('res').innerHTML = `
+
       <div class="result bad">
 
         <h2>
@@ -1854,7 +2210,8 @@ async function verifyCode(){
         </p>
 
       </div>
-      `;
+
+    `;
 
     return;
 
@@ -1967,17 +2324,20 @@ async function verifyCode(){
              : 'DA PAGARE'
          }`
       ],
+
       `
-      <div style="text-align:left;margin-top:12px">
+
+      <div
+        style="text-align:left;margin-top:12px">
 
         ${
           pending
             .map(
               a =>
                 `
+
                 <label
-                  class="person-check"
-                >
+                  class="person-check">
 
                   <input
                     type="checkbox"
@@ -1992,6 +2352,7 @@ async function verifyCode(){
                   )}
 
                 </label>
+
                 `
             )
             .join('')
@@ -2002,10 +2363,12 @@ async function verifyCode(){
 
       <button
         class="btn full primary"
-        id="go"
-      >
+        id="go">
+
         Conferma ingresso
+
       </button>
+
       `
     );
 
@@ -2029,9 +2392,7 @@ async function verifyCode(){
         if(
           !ix.length
         ){
-
           return;
-
         }
 
 
@@ -2064,8 +2425,10 @@ async function verifyCode(){
               [
                 `Entrano:
                  ${rr.entered.join(', ')}`,
+
                 `Totale entrati
                  ${rr.total} su ${rr.of}`,
+
                 'Ora: ' + rr.t
               ]
             );
@@ -2138,14 +2501,16 @@ function showResult(
 ){
 
   $('res').innerHTML =
+
     `
+
     <div
-      class="result ${kind}"
-    >
+      class="result ${kind}">
 
       <h2>
         ${title}
       </h2>
+
 
       ${
         lines
@@ -2157,9 +2522,11 @@ function showResult(
           .join('')
       }
 
+
       ${extra}
 
     </div>
+
     `;
 
 }
@@ -2168,6 +2535,10 @@ function showResult(
 /* =========================================================
    AVVIO
    ========================================================= */
+
+renderNames();
+
+setPaidChoice(true);
 
 init();
 
