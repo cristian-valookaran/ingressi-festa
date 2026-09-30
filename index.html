@@ -2,16 +2,36 @@
 <html lang="it">
 
 <head>
+
 <meta charset="utf-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, viewport-fit=cover"
+>
 
 <title>Ingressi festa</title>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&display=swap"
+  rel="stylesheet"
+>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+
+<script>
+window.jsQR || document.write(
+  '<script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"><\/script>'
+);
+</script>
+
 
 <style>
 
 :root{
+
   --bg:#F6F3FF;
   --card:#fff;
   --ink:#1E1B3A;
@@ -19,432 +39,786 @@
   --line:#DDD8F2;
 
   --acc:#D62D6A;
-  --molly:#635BDB;
+  --onacc:#fff;
 
   --ok:#0F7A55;
   --okbg:#D6F4E6;
 
   --bad:#B3243A;
   --badbg:#FCDDE2;
+
+  box-sizing:border-box;
+
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
 
-*{
-  box-sizing:border-box;
+
+/* ============================================================
+   COLORI ORGANIZZATORI
+   ============================================================ */
+
+body.anuraj{
+
+  --acc:#7C3AED;
+
 }
+
+
+body.molly{
+
+  --acc:#1677FF;
+
+}
+
+
+body.admin{
+
+  --acc:#D62D6A;
+
+}
+
+
+/* DARK MODE */
+
+@media (prefers-color-scheme:dark){
+
+  :root:not([data-theme="light"]){
+
+    --bg:#15132B;
+    --card:#211E42;
+    --ink:#F2EFFF;
+    --mut:#A9A5CF;
+    --line:#38346A;
+
+    --acc:#FF5C8A;
+    --onacc:#1B0A12;
+
+    --ok:#5EE0A8;
+    --okbg:#0F3A2B;
+
+    --bad:#FF8A9B;
+    --badbg:#4A1622;
+
+  }
+
+}
+
+
+:root[data-theme="dark"]{
+
+  --bg:#15132B;
+  --card:#211E42;
+  --ink:#F2EFFF;
+  --mut:#A9A5CF;
+  --line:#38346A;
+
+  --acc:#FF5C8A;
+  --onacc:#1B0A12;
+
+  --ok:#5EE0A8;
+  --okbg:#0F3A2B;
+
+  --bad:#FF8A9B;
+  --badbg:#4A1622;
+}
+
+
+html{
+
+  scroll-padding-top:env(safe-area-inset-top,0px);
+
+}
+
+
+*,
+*::before,
+*::after{
+
+  box-sizing:inherit;
+
+}
+
 
 body{
+
   margin:0;
+
   background:var(--bg);
+
   color:var(--ink);
-  font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  font:
+    16px/1.45
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+
 }
+
 
 main{
-  max-width:620px;
+
+  max-width:560px;
+
   margin:0 auto;
-  padding:18px 16px 50px;
+
+  padding:18px 16px 40px;
+
 }
+
 
 h1{
-  font-size:30px;
-  line-height:1.1;
+
+  font:
+    800 30px/1.1
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif;
+
   margin:0 0 6px;
+
 }
 
-.head{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:6px;
-}
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  padding:6px 13px;
-  border-radius:999px;
-  background:var(--acc);
-  color:#fff;
-  font-weight:800;
-  font-size:13px;
-}
-
-.badge.molly{
-  background:var(--molly);
-}
 
 .stats{
+
   color:var(--mut);
+
   font-size:14px;
+
   margin-bottom:16px;
+
 }
+
 
 .stats b{
+
   color:var(--ink);
+
 }
+
+
+.userBadge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  padding:5px 10px;
+
+  border-radius:999px;
+
+  background:var(--acc);
+
+  color:var(--onacc);
+
+  font-size:12px;
+
+  font-weight:800;
+
+  margin-bottom:10px;
+
+}
+
 
 nav{
+
   display:flex;
-  gap:7px;
+
+  gap:6px;
+
   margin-bottom:16px;
+
 }
+
 
 nav button{
+
   flex:1;
+
   padding:12px;
-  border:1.5px solid var(--line);
+
+  border:
+    1.5px solid
+    var(--line);
+
   background:var(--card);
+
   color:var(--ink);
+
   border-radius:12px;
-  font-weight:700;
-  cursor:pointer;
+
+  font:
+    600 15px
+    system-ui;
+
 }
+
 
 nav button.on{
+
   background:var(--acc);
-  color:white;
+
+  color:var(--onacc);
+
   border-color:var(--acc);
+
 }
 
-.molly-theme nav button.on,
-.molly-theme .primary{
-  background:var(--molly);
-  border-color:var(--molly);
-}
 
 .box{
+
   background:var(--card);
-  border:1px solid var(--line);
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:16px;
+
   padding:14px;
+
   margin-bottom:14px;
+
 }
+
 
 label{
+
   display:block;
+
   font-size:13px;
+
   color:var(--mut);
+
   margin:8px 0 4px;
+
 }
 
+
 input{
+
   width:100%;
+
   padding:12px;
+
   font:inherit;
+
   background:var(--bg);
+
   color:var(--ink);
-  border:1.5px solid var(--line);
+
+  border:
+    1.5px solid
+    var(--line);
+
   border-radius:10px;
+
 }
+
 
 input:focus,
 button:focus-visible{
-  outline:3px solid var(--acc);
+
+  outline:
+    3px solid
+    var(--acc);
+
   outline-offset:1px;
+
 }
+
 
 .row{
+
   display:flex;
+
   gap:8px;
+
 }
+
 
 .row>*{
+
   flex:1;
+
 }
+
 
 .btn{
+
   padding:12px 16px;
+
   border:0;
+
   border-radius:12px;
+
   background:var(--acc);
-  color:white;
-  font-weight:700;
-  font-size:16px;
+
+  color:var(--onacc);
+
+  font:
+    700 16px
+    system-ui;
+
   cursor:pointer;
+
 }
+
 
 .btn.g{
+
   background:transparent;
+
   color:var(--ink);
-  border:1.5px solid var(--line);
+
+  border:
+    1.5px solid
+    var(--line);
+
 }
+
 
 .btn.s{
+
   padding:8px 12px;
+
   font-size:14px;
+
 }
+
 
 .btn.full{
+
   width:100%;
+
   margin-top:12px;
+
 }
+
 
 .btn:disabled{
+
   opacity:.5;
-  cursor:not-allowed;
+
 }
+
 
 .msg{
+
   min-height:20px;
+
   margin-top:8px;
+
   font-size:14px;
+
+  color:var(--bad);
+
 }
 
-.payrow{
-  display:flex;
-  gap:8px;
-  margin-top:8px;
-}
-
-.payrow button{
-  flex:1;
-}
-
-.payrow .active{
-  background:var(--ok);
-  color:white;
-  border-color:var(--ok);
-}
-
-.amount-wrap{
-  margin-top:8px;
-}
-
-.hidden{
-  display:none!important;
-}
 
 .it{
-  padding:14px 0;
-  border-top:1px solid var(--line);
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  align-items:center;
+
+  gap:8px 10px;
+
+  padding:12px 0;
+
+  border-top:
+    1px solid
+    var(--line);
+
 }
+
 
 .it:first-child{
+
   border-top:0;
+
 }
 
-.topline{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-}
 
 .who{
-  flex:1;
+
+  flex:
+    1 1 60%;
+
   min-width:0;
+
 }
+
 
 .who b{
+
   display:block;
-  font-size:17px;
+
 }
+
 
 .who span{
+
   font-size:13px;
+
   color:var(--mut);
+
 }
 
-.code{
-  font:800 22px/1 monospace;
-  letter-spacing:3px;
-  background:var(--bg);
-  padding:8px 12px;
-  border-radius:10px;
+
+.pp{
+
+  font:
+    800 18px
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif;
+
+  min-width:44px;
+
+  text-align:right;
+
 }
 
-.meta{
-  margin-top:7px;
-  font-size:14px;
-}
-
-.paid{
-  color:var(--ok);
-  font-weight:800;
-}
-
-.unpaid{
-  color:var(--bad);
-  font-weight:800;
-}
-
-.people{
-  margin-top:7px;
-  color:var(--mut);
-  font-size:13px;
-}
 
 .acts{
+
   display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-  margin-top:10px;
+
+  gap:6px;
+
+  width:100%;
+
 }
 
-.off{
-  opacity:.55;
+
+.it.off{
+
+  opacity:.5;
+
 }
 
-.off .who b{
+
+.it.off .who b{
+
   text-decoration:line-through;
+
 }
 
-.result{
-  border-radius:16px;
-  padding:20px;
-  margin-top:14px;
-  text-align:center;
-}
 
-.result.ok{
-  background:var(--okbg);
+.done{
+
   color:var(--ok);
+
 }
 
-.result.bad{
-  background:var(--badbg);
-  color:var(--bad);
+
+#vid{
+
+  width:100%;
+
+  aspect-ratio:1;
+
+  object-fit:cover;
+
+  background:#000;
+
+  border-radius:16px;
+
+  display:block;
+
 }
 
-.result h2{
-  margin:0 0 8px;
-  font-size:27px;
-}
 
-.result p{
-  margin:5px 0;
-  color:var(--ink);
-}
+.res{
 
-.person-check{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:10px 0;
-  font-size:17px;
-}
+  border-radius:16px;
 
-.person-check input{
-  width:24px;
-  height:24px;
-}
+  padding:20px;
 
-.entry-code{
-  font-size:30px;
-  letter-spacing:5px;
+  margin-top:14px;
+
   text-align:center;
-  font-weight:800;
+
 }
+
+
+.res.ok{
+
+  background:var(--okbg);
+
+  color:var(--ok);
+
+}
+
+
+.res.bad{
+
+  background:var(--badbg);
+
+  color:var(--bad);
+
+}
+
+
+.res h2{
+
+  margin:0 0 8px;
+
+  font:
+    800 28px/1.1
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif;
+
+}
+
+
+.res p{
+
+  margin:4px 0;
+
+  color:var(--ink);
+
+}
+
+
+.ov{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(10,8,30,.7);
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:16px;
+
+  z-index:9;
+
+}
+
+
+.ov.on{
+
+  display:flex;
+
+}
+
+
+.pop{
+
+  background:var(--card);
+
+  border-radius:18px;
+
+  padding:14px;
+
+  max-width:420px;
+
+  width:100%;
+
+  max-height:100%;
+
+  overflow:auto;
+
+  text-align:center;
+
+}
+
+
+.pop img{
+
+  width:100%;
+
+  border-radius:10px;
+
+  background:#fff;
+
+}
+
 
 .hint{
+
   font-size:13px;
+
   color:var(--mut);
+
   margin:8px 0;
+
 }
 
-.invite{
-  margin-top:12px;
-  padding:14px;
-  border-radius:13px;
-  background:#F8F5FF;
-  border:1px solid var(--line);
-}
 
-.invite-title{
+.money{
+
   font-weight:800;
-  margin-bottom:7px;
+
+  color:var(--ok);
+
 }
 
-.invite-text{
-  white-space:pre-line;
-  font-size:14px;
-  line-height:1.5;
-  color:var(--ink);
-  background:white;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:12px;
-}
 
-.invite-actions{
-  display:flex;
-  gap:8px;
+.payBox{
+
   margin-top:10px;
+
+  padding:10px;
+
+  background:var(--bg);
+
+  border-radius:12px;
+
 }
 
-.invite-actions button{
-  flex:1;
+
+.payRow{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
 }
 
-.code-big{
-  font-size:32px;
-  font-weight:900;
-  letter-spacing:5px;
-  margin:5px 0 10px;
+
+.payRow input[type="checkbox"]{
+
+  width:22px;
+
+  height:22px;
+
+  flex:0 0 auto;
+
 }
 
-.loading{
-  opacity:.7;
+
+.amountInput{
+
+  margin-top:8px;
+
+}
+
+
+.totalBox{
+
+  margin-bottom:12px;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  background:var(--card);
+
+  border:1px solid var(--line);
+
+}
+
+
+.totalBox strong{
+
+  font-size:22px;
+
+}
+
+
+[hidden]{
+
+  display:none!important;
+
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-<main id="app">
+<main>
 
-  <div class="head">
-    <span id="badge" class="badge hidden"></span>
+
+  <div
+    class="userBadge"
+    id="userBadge"
+    hidden
+  >
+    —
   </div>
+
 
   <h1>Ingressi festa</h1>
 
-  <div class="stats" id="stats">
+
+  <div
+    class="stats"
+    id="stats"
+  >
     Caricamento…
   </div>
 
-  <div class="msg" id="top"></div>
+
+  <div
+    class="msg"
+    id="top"
+  ></div>
 
 
-  <!-- NAV ADMIN -->
-
-  <nav id="nav" class="hidden">
+  <nav
+    id="nav"
+    hidden
+  >
 
     <button
       data-tab="list"
-      class="on">
+      class="on"
+    >
       Prenotazioni
     </button>
 
     <button
-      data-tab="entry">
-      Ingresso
+      data-tab="scan"
+    >
+      Scanner
     </button>
 
   </nav>
 
 
-  <!-- =========================
-       PRENOTAZIONI
-       ========================= -->
+  <section
+    id="list"
+    hidden
+  >
 
-  <section id="list">
 
     <div class="box">
 
+
       <label for="nm">
-        Nome di chi prenota
+        Nome di chi prenota (persona 1)
       </label>
+
 
       <input
         id="nm"
         placeholder="Paolo Rossi"
-        autocomplete="name"
       >
 
 
       <div class="row">
+
 
         <div>
 
@@ -479,199 +853,242 @@ button:focus-visible{
 
         </div>
 
+
       </div>
 
 
       <div id="names"></div>
 
 
-      <!-- PAGAMENTO -->
-
-      <label>
-        Pagamento
-      </label>
-
-      <div class="payrow">
-
-        <button
-          type="button"
-          class="btn g active"
-          id="paidYes">
-          ✓ PAGATO
-        </button>
-
-        <button
-          type="button"
-          class="btn g"
-          id="paidNo">
-          DA PAGARE
-        </button>
-
-      </div>
-
-
-      <div
-        class="amount-wrap"
-        id="amountWrap">
-
-        <label for="amount">
-          Importo pagato (€)
-        </label>
-
-        <input
-          id="amount"
-          type="number"
-          min="0"
-          step="0.01"
-          inputmode="decimal"
-          value="25"
-        >
-
-        <div class="hint">
-          Prezzo previsto:
-          €<span id="expected">25</span>
-        </div>
-
-      </div>
-
-
       <button
-        class="btn full primary"
-        id="add">
-
-        Crea prenotazione
-
+        class="btn full"
+        id="add"
+      >
+        Crea prenotazione e QR
       </button>
 
 
       <div
         class="msg"
-        id="fmsg">
-      </div>
+        id="fmsg"
+      ></div>
+
 
     </div>
 
 
-    <!-- RICERCA -->
+    <div
+      class="totalBox"
+      id="totalBox"
+      hidden
+    >
+      <div>Totale incassato</div>
+
+      <strong id="totalCollected">
+        € 0,00
+      </strong>
+    </div>
+
 
     <input
       id="q"
       type="search"
       placeholder="Cerca per nome, telefono o codice"
-      class="hidden"
+      hidden
     >
 
 
     <div
       class="box"
       id="items"
-      style="margin-top:12px">
-    </div>
+      style="margin-top:12px"
+    ></div>
+
 
   </section>
 
-
-  <!-- =========================
-       INGRESSO ADMIN
-       ========================= -->
 
   <section
-    id="entry"
-    class="hidden">
+    id="scan"
+    hidden
+  >
 
-    <div class="box">
 
-      <label for="entryCode">
-        Codice invitato
-      </label>
+    <video
+      id="vid"
+      playsinline
+      muted
+    ></video>
+
+
+    <p
+      class="hint"
+      id="cam"
+    ></p>
+
+
+    <label
+      class="btn g s"
+      style="display:block;text-align:center;margin:0"
+    >
+
+      Scatta foto del QR
 
       <input
-        id="entryCode"
-        class="entry-code"
-        maxlength="4"
-        inputmode="numeric"
-        autocomplete="off"
-        placeholder="4827"
+        id="pic"
+        type="file"
+        accept="image/*"
+        capture="environment"
+        hidden
       >
 
+    </label>
+
+
+    <div
+      class="row"
+      style="margin-top:10px"
+    >
+
+      <input
+        id="man"
+        placeholder="Codice a 4 cifre"
+        inputmode="numeric"
+        maxlength="4"
+      >
 
       <button
-        class="btn full primary"
-        id="checkCode">
-
-        Verifica codice
-
+        class="btn s"
+        id="manGo"
+        style="flex:0 0 auto"
+      >
+        Verifica
       </button>
-
-
-      <div class="hint">
-        L'invitato deve comunicare solo
-        le 4 cifre del proprio codice.
-      </div>
-
-
-      <div id="res"></div>
 
     </div>
 
+
+    <div id="res"></div>
+
+
   </section>
+
 
 </main>
 
 
+<div
+  class="ov"
+  id="ov"
+>
+
+  <div class="pop">
+
+
+    <img
+      id="qimg"
+      alt="QR della prenotazione"
+    >
+
+
+    <p class="hint">
+      Tieni premuto sull'immagine per salvarla
+      o inviarla su WhatsApp.
+    </p>
+
+
+    <div class="row">
+
+
+      <button
+        class="btn s"
+        id="share"
+      >
+        Condividi
+      </button>
+
+
+      <button
+        class="btn g s"
+        id="close"
+      >
+        Chiudi
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
 <script>
 
-/* =========================================================
+
+/* ============================================================
    CONFIG
-   ========================================================= */
+   ============================================================ */
 
 const API =
-'https://script.google.com/macros/s/AKfycbxO-R2yW13gYo4jHB-rls7jxcv-GDUsv8jsaFsWVwkTLRmrkc4RRERwDSSPU8HUMLov/exec';
+  'https://script.google.com/macros/s/AKfycbxO-R2yW13gYo4jHB-rls7jxcv-GDUsv8jsaFsWVwkTLRmrkc4RRERwDSSPU8HUMLov/exec';
 
 
 let K = null;
+
 let ME = null;
+
 let L = [];
 
 let FREE = 0;
+
 let USED = 0;
+
 let CAP = 180;
-let PRICE = 25;
 
-let entryBusy = false;
+let COLLECTED = 0;
+
+let cur = null;
 
 
-/* =========================================================
-   UTILITY
-   ========================================================= */
+/* ============================================================
+   UTILITÀ
+   ============================================================ */
 
 const $ =
-id => document.getElementById(id);
+  id => document.getElementById(id);
 
 
 const esc =
-s => String(s ?? '')
-.replace(
-  /[&<>"']/g,
-  c => ({
-    '&':'&amp;',
-    '<':'&lt;',
-    '>':'&gt;',
-    '"':'&quot;',
-    "'":'&#39;'
-  }[c])
-);
+  s => String(s ?? '').replace(
+    /[&<>"']/g,
+    c => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[c])
+  );
 
 
-const rid =
-() =>
-Date.now().toString(36) +
-Math.random().toString(36).slice(2,8);
+const money =
+  n =>
+    new Intl.NumberFormat(
+      'it-IT',
+      {
+        style:'currency',
+        currency:'EUR'
+      }
+    ).format(
+      Number(n || 0)
+    );
 
 
-/* =========================================================
+/* ============================================================
    CHIAVE
-   ========================================================= */
+   ============================================================ */
 
 (function(){
 
@@ -698,7 +1115,6 @@ Math.random().toString(36).slice(2,8);
       '',
       location.pathname
     );
-
   }
 
 
@@ -717,279 +1133,283 @@ Math.random().toString(36).slice(2,8);
 })();
 
 
-/* =========================================================
+/* ============================================================
    API
-   ========================================================= */
+   ============================================================ */
 
 async function api(
   action,
-  data = {}
+  d
 ){
 
-  const params =
-    new URLSearchParams();
+  const body =
+    JSON.stringify(
+      Object.assign(
+        {
+          key:K,
+          action,
 
+          rid:
+            Date.now().toString(36) +
+            Math.random()
+              .toString(36)
+              .slice(2,8)
 
-  params.set(
-    'key',
-    K || ''
-  );
-
-
-  params.set(
-    'action',
-    action
-  );
-
-
-  params.set(
-    'rid',
-    rid()
-  );
-
-
-  Object.keys(data).forEach(
-    key => {
-
-      const value =
-        data[key];
-
-
-      if(
-        value === undefined ||
-        value === null
-      ){
-        return;
-      }
-
-
-      if(
-        Array.isArray(value) ||
-        typeof value === 'object'
-      ){
-
-        params.set(
-          key,
-          JSON.stringify(value)
-        );
-
-      }else{
-
-        params.set(
-          key,
-          String(value)
-        );
-
-      }
-
-    }
-  );
-
-
-  const controller =
-    new AbortController();
-
-
-  const timer =
-    setTimeout(
-      () => controller.abort(),
-      15000
+        },
+        d || {}
+      )
     );
 
 
-  try{
-
-    const response =
-      await fetch(
-        API +
-        '?' +
-        params.toString(),
-        {
-          method:'GET',
-          cache:'no-store',
-          signal:controller.signal
-        }
-      );
+  let last =
+    '';
 
 
-    const text =
-      await response.text();
+  for(
+    let i=0;
+    i<3;
+    i++
+  ){
 
+    let r;
 
-    let json;
+    let t;
+
+    let j;
 
 
     try{
 
-      json =
-        JSON.parse(text);
+      r =
+        await fetch(
+          API,
+          {
+            method:'POST',
+            body
+          }
+        );
+
+
+      t =
+        await r.text();
+
 
     }catch(e){
 
-      console.error(
-        'Risposta Google:',
-        text
+      last =
+        'Nessuna connessione a Google';
+
+      await new Promise(
+        r =>
+          setTimeout(
+            r,
+            500 * (i+1)
+          )
       );
 
+      continue;
+    }
+
+
+    try{
+
+      j =
+        JSON.parse(t);
+
+
+    }catch(e){
+
+      last =
+        'Google non ha risposto correttamente (codice ' +
+        r.status +
+        ')';
+
+      await new Promise(
+        r =>
+          setTimeout(
+            r,
+            500 * (i+1)
+          )
+      );
+
+      continue;
+    }
+
+
+    if(!j.ok){
+
       throw new Error(
-        'Google non ha restituito JSON. Controlla il deployment Apps Script.'
+        j.error ||
+        'Errore'
       );
 
     }
 
 
-    if(!json.ok){
-
-      throw new Error(
-        json.error ||
-        'Errore Google'
-      );
-
-    }
-
-
-    return json;
-
-  }catch(e){
-
-    if(
-      e.name === 'AbortError'
-    ){
-
-      throw new Error(
-        'Google sta rispondendo troppo lentamente. Riprova.'
-      );
-
-    }
-
-
-    throw e;
-
-  }finally{
-
-    clearTimeout(timer);
-
+    return j;
   }
 
+
+  throw new Error(
+    last +
+    '. Riprova tra qualche secondo.'
+  );
 }
 
 
-/* =========================================================
+/* ============================================================
+   REFRESH LEGGERO
+   ============================================================ */
+
+async function refresh(){
+
+  const j =
+    await api('list');
+
+
+  L =
+    j.list || [];
+
+
+  FREE =
+    j.free || 0;
+
+
+  USED =
+    j.used || 0;
+
+
+  COLLECTED =
+    j.collected || 0;
+
+
+  render();
+}
+
+
+/* ============================================================
    INIT
-   ========================================================= */
+   ============================================================ */
 
 async function init(){
 
   if(!K){
 
-    $('stats').textContent = '';
+    $('stats').textContent='';
 
     $('top').textContent =
-      'Link non valido.';
+      'Link non valido. Chiedi il link giusto a chi organizza.';
 
     return;
-
   }
 
 
   try{
 
     const j =
-      await api('init');
+      await api('whoami');
 
 
-    ME = j;
+    ME =
+      j;
 
-    L =
-      j.list || [];
-
-
-    FREE =
-      j.free;
-
-    USED =
-      j.used;
 
     CAP =
       j.capacity;
 
-    PRICE =
-      j.ticketPrice || 25;
 
+    /*
+      Colore pagina.
+    */
 
-    /* NOME ORGANIZZATORE */
-
-    $('badge').textContent =
-      j.name.toUpperCase();
-
-    $('badge')
-      .classList
-      .remove('hidden');
-
-
-    /* COLORE MOLLY */
-
-    if(
-      j.name.toLowerCase() ===
+    document.body.classList.remove(
+      'admin',
+      'anuraj',
       'molly'
-    ){
+    );
 
-      $('badge')
-        .classList
-        .add('molly');
-
-      $('app')
-        .classList
-        .add('molly-theme');
-
-    }
-
-
-    /* SOLO ADMIN */
 
     if(
-      j.role === 'admin'
+      j.name &&
+      j.name.toLowerCase() === 'anuraj'
     ){
 
-      $('nav')
-        .classList
-        .remove('hidden');
+      document.body.classList.add(
+        'anuraj'
+      );
 
-      $('q')
-        .classList
-        .remove('hidden');
+    }
+    else if(
+      j.name &&
+      j.name.toLowerCase() === 'molly'
+    ){
+
+      document.body.classList.add(
+        'molly'
+      );
+
+    }
+    else{
+
+      document.body.classList.add(
+        'admin'
+      );
 
     }
 
 
-    updateAmountDefault();
+    /*
+      Nome in testata.
+    */
 
-    render();
+    $('userBadge').textContent =
+      j.role === 'admin'
+        ? 'ADMIN'
+        : j.name.toUpperCase();
+
+
+    $('userBadge').hidden =
+      false;
+
+
+    $('list').hidden =
+      false;
+
+
+    if(j.role === 'admin'){
+
+      $('nav').hidden =
+        false;
+
+      $('q').hidden =
+        false;
+
+      $('totalBox').hidden =
+        false;
+    }
+
+
+    await refresh();
+
 
   }catch(e){
 
-    $('stats').textContent = '';
-
-    $('top').style.color =
-      'var(--bad)';
+    $('stats').textContent='';
 
     $('top').textContent =
       e.message;
 
   }
-
 }
 
 
-/* =========================================================
+/* ============================================================
    RENDER
-   ========================================================= */
+   ============================================================ */
 
 function render(){
 
-  if(!ME){
-    return;
-  }
+  if(!ME) return;
 
 
   const admin =
@@ -1004,14 +1424,14 @@ function render(){
       : '';
 
 
-  const entered =
+  const ent =
     L
       .filter(
         b => !b.cancelled
       )
       .reduce(
-        (total,b) =>
-          total +
+        (t,b) =>
+          t +
           b.att.filter(
             a => a.e
           ).length,
@@ -1019,36 +1439,24 @@ function render(){
       );
 
 
-  const paidTotal =
-    L
-      .filter(
-        b =>
-          !b.cancelled &&
-          b.paid
-      )
-      .reduce(
-        (total,b) =>
-          total +
-          Number(
-            b.amount || 0
-          ),
-        0
-      );
+  $('stats').innerHTML =
+    admin
+      ? `
+        Prenotati <b>${USED}</b>
+        su ${CAP}
+        · Entrati <b>${ent}</b>
+        · Liberi <b>${FREE}</b>
+      `
+      : `
+        Posti ancora liberi:
+        <b>${FREE}</b>
+      `;
 
 
   if(admin){
 
-    $('stats').innerHTML =
-      `Prenotati <b>${USED}</b> su ${CAP}
-       · Entrati <b>${entered}</b>
-       · Liberi <b>${FREE}</b>
-       · Incassati <b>€${paidTotal.toFixed(2)}</b>`;
-
-  }else{
-
-    $('stats').innerHTML =
-      `Posti ancora liberi:
-       <b>${FREE}</b>`;
+    $('totalCollected').textContent =
+      money(COLLECTED);
 
   }
 
@@ -1078,342 +1486,172 @@ function render(){
 
   $('items').innerHTML =
     R.length
-      ? R
-          .map(
-            b => card(b,admin)
-          )
-          .join('')
-      : '<p class="hint" style="margin:0">Nessuna prenotazione.</p>';
+      ? R.map(
+          b => {
 
-}
+            const n =
+              b.att.length;
 
 
-/* =========================================================
-   MESSAGGIO INVITO
-   ========================================================= */
+            const e =
+              b.att.filter(
+                a => a.e
+              ).length;
+
+
+            return `
+
+              <div
+                class="it ${b.cancelled?'off':''}"
+              >
+
+                <div class="who">
+
+                  <b>
+                    ${esc(
+                      b.name ||
+                      b.phone
+                    )}
+                  </b>
+
+                  <span>
+
+                    ${esc(b.phone)}
+
+                    ·
+
+                    ${n}
+                    ${n==1?'persona':'persone'}
+
+                    ·
+
+                    Codice
+                    <strong>
+                      ${esc(b.code)}
+                    </strong>
 
-function makeInvite(
-  name,
-  count,
-  code
-){
+                    ${
+                      admin
+                        ? (
+                          b.paid
+                            ? ` · <span class="money">pagato ${money(b.amount)}</span>`
+                            : ' · da pagare'
+                        )
+                        : ''
+                    }
 
-  const persone =
-    Number(count) === 1
-      ? '1 persona'
-      : `${count} persone`;
+                    ${
+                      n>1
+                        ? '<br>' +
+                          esc(
+                            b.att
+                              .map(
+                                a =>
+                                  (a.e?'✓ ':'') +
+                                  (a.n||'senza nome')
+                              )
+                              .join(', ')
+                          )
+                        : ''
+                    }
 
+                  </span>
 
-  return `🎉 Ciao ${name}!
+                </div>
 
-Sei invitato alla Festa Indiana 🎉
 
-👥 Prenotazione: ${persone}
-🔑 Codice di accesso: ${code}
+                ${
+                  admin
+                    ? `
+                      <div
+                        class="pp ${e>=n&&!b.cancelled?'done':''}"
+                      >
+                        ${e}/${n}
+                      </div>
+                    `
+                    : ''
+                }
 
-Conserva questo codice e presentalo all'ingresso della festa.
 
-Ci vediamo alla festa! ❤️`;
+                <div class="acts">
 
-}
 
+                  <button
+                    class="btn s"
+                    data-a="qr"
+                    data-c="${esc(b.code)}"
+                    ${b.cancelled?'hidden':''}
+                  >
+                    QR
+                  </button>
 
-/* =========================================================
-   CONDIVIDI INVITO
-   ========================================================= */
 
-async function shareInvite(
-  name,
-  count,
-  code
-){
+                  ${
+                    admin
+                      ? `
+
+                        <button
+                          class="btn g s"
+                          data-a="paid"
+                          data-c="${esc(b.code)}"
+                        >
+                          ${
+                            b.paid
+                              ? 'Modifica pagamento'
+                              : 'Segna pagato'
+                          }
+                        </button>
+
+
+                        <button
+                          class="btn g s"
+                          data-a="tog"
+                          data-c="${esc(b.code)}"
+                        >
+                          ${
+                            b.cancelled
+                              ? 'Ripristina'
+                              : 'Annulla'
+                          }
+                        </button>
+
+                      `
+                      : ''
+                  }
+
+
+                </div>
+
+
+              </div>
+            `;
 
-  const text =
-    makeInvite(
-      name,
-      count,
-      code
-    );
-
-
-  /* TELEFONO */
-
-  if(
-    navigator.share
-  ){
-
-    try{
-
-      await navigator.share({
-        title:'Invito Festa Indiana',
-        text:text
-      });
-
-      return;
-
-    }catch(e){
-
-      /*
-       * Se l'utente chiude il menu
-       * di condivisione non facciamo
-       * comparire errore.
-       */
-
-      if(
-        e.name === 'AbortError'
-      ){
-        return;
-      }
-
-    }
-
-  }
-
-
-  /* PC / BROWSER SENZA SHARE */
-
-  try{
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-    alert(
-      'Messaggio copiato negli appunti!'
-    );
-
-  }catch(e){
-
-    window.prompt(
-      'Copia questo messaggio:',
-      text
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   COPIA INVITO
-   ========================================================= */
-
-async function copyInvite(
-  name,
-  count,
-  code
-){
-
-  const text =
-    makeInvite(
-      name,
-      count,
-      code
-    );
-
-
-  try{
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-
-    alert(
-      'Messaggio copiato negli appunti!'
-    );
-
-  }catch(e){
-
-    window.prompt(
-      'Copia questo messaggio:',
-      text
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   CARD PRENOTAZIONE
-   ========================================================= */
-
-function card(
-  b,
-  admin
-){
-
-  const n =
-    b.att.length;
-
-
-  const people =
-    b.att
-      .map(
-        a =>
-          (a.e ? '✓ ' : '') +
-          (a.n || 'senza nome')
-      )
-      .join(', ');
-
-
-  const payment =
-    b.paid
-      ? `<span class="paid">
-           PAGATO · €${Number(
-             b.amount || 0
-           ).toFixed(2)}
-         </span>`
-      : `<span class="unpaid">
-           DA PAGARE
-         </span>`;
-
-
-  const inviteButtons = `
-    <button
-      class="btn s"
-      data-a="share"
-      data-c="${esc(b.code)}">
-      📤 Condividi invito
-    </button>
-
-    <button
-      class="btn g s"
-      data-a="copy"
-      data-c="${esc(b.code)}">
-      📋 Copia messaggio
-    </button>
-  `;
-
-
-  return `
-
-    <div class="it ${b.cancelled?'off':''}">
-
-      <div class="topline">
-
-        <div class="who">
-
-          <b>
-            ${esc(
-              b.name ||
-              b.phone
-            )}
-          </b>
-
-          <span>
-            ${esc(b.phone)}
-            · ${n}
-            ${n===1?'persona':'persone'}
-          </span>
-
-        </div>
-
-
-        <div class="code">
-          ${esc(b.code)}
-        </div>
-
-      </div>
-
-
-      <div class="meta">
-        ${payment}
-      </div>
-
-
-      ${
-        n > 1
-        ? `
-          <div class="people">
-            ${esc(people)}
-          </div>
-        `
-        : ''
-      }
-
-
-      ${
-        admin
-        ? `
-          <div class="hint">
-            Creato da:
-            ${esc(b.by)}
-          </div>
-        `
-        : ''
-      }
-
-
-      <div class="acts">
-
-        ${inviteButtons}
-
-
-        <button
-          class="btn g s"
-          data-a="paid"
-          data-c="${esc(b.code)}">
-
-          ${
-            b.paid
-              ? 'Modifica pagamento'
-              : 'Segna pagato'
           }
-
-        </button>
-
-
-        ${
-          admin
-          ? `
-
-            <button
-              class="btn g s"
-              data-a="cancel"
-              data-c="${esc(b.code)}">
-
-              ${b.cancelled
-                ? 'Ripristina'
-                : 'Annulla'}
-
-            </button>
+        ).join('')
 
 
-            <button
-              class="btn g s"
-              data-a="entry"
-              data-c="${esc(b.code)}">
-
-              Ingresso
-
-            </button>
-
-          `
-          : ''
-        }
-
-      </div>
-
-    </div>
-
-  `;
-
+      : `
+        <p
+          class="hint"
+          style="margin:0"
+        >
+          Nessuna prenotazione.
+        </p>
+      `;
 }
 
 
-/* =========================================================
+/* ============================================================
    RICERCA
-   ========================================================= */
+   ============================================================ */
 
 $('q').oninput =
-render;
+  render;
 
 
-/* =========================================================
-   PERSONE
-   ========================================================= */
+/* ============================================================
+   NOMI
+   ============================================================ */
 
 function renderNames(){
 
@@ -1435,825 +1673,1328 @@ function renderNames(){
       ...document.querySelectorAll(
         '.nx'
       )
-    ]
-    .map(
+    ].map(
       i => i.value
     );
 
 
   $('names').innerHTML =
-    Array
-      .from(
-        {length:n-1},
-        (_,i) =>
-          `
-          <label>
-            Persona ${i+2}
-          </label>
+    Array.from(
+      {
+        length:
+          n - 1
+      },
+      (_,i) => `
 
-          <input
-            class="nx"
-            placeholder="Nome"
-            value="${esc(
-              old[i] || ''
-            )}"
-          >
-          `
-      )
-      .join('');
+        <label>
+          Persona ${i+2}
+        </label>
 
+        <input
+          class="nx"
+          placeholder="Nome"
+          value="${esc(
+            old[i] || ''
+          )}"
+        >
 
-  updateAmountDefault();
-
+      `
+    ).join('');
 }
 
 
 $('pe').oninput =
-renderNames;
+  renderNames;
 
 
-/* =========================================================
-   IMPORTO
-   ========================================================= */
-
-function updateAmountDefault(){
-
-  const n =
-    Math.max(
-      1,
-      Math.min(
-        50,
-        parseInt(
-          $('pe').value,
-          10
-        ) || 1
-      )
-    );
+renderNames();
 
 
-  const expected =
-    n * PRICE;
-
-
-  $('expected').textContent =
-    expected
-      .toFixed(2)
-      .replace('.00','');
-
-
-  if(
-    !$('amount').dataset.edited
-  ){
-
-    $('amount').value =
-      expected.toFixed(2);
-
-  }
-
-}
-
-
-$('amount').oninput =
-() => {
-
-  $('amount').dataset.edited =
-    '1';
-
-};
-
-
-$('paidYes').onclick =
-() => setPaidChoice(true);
-
-
-$('paidNo').onclick =
-() => setPaidChoice(false);
-
-
-function setPaidChoice(v){
-
-  $('paidYes')
-    .classList
-    .toggle(
-      'active',
-      v
-    );
-
-
-  $('paidNo')
-    .classList
-    .toggle(
-      'active',
-      !v
-    );
-
-
-  $('amountWrap')
-    .classList
-    .toggle(
-      'hidden',
-      !v
-    );
-
-
-  $('amount').disabled =
-    !v;
-
-
-  if(
-    v &&
-    !$('amount').value
-  ){
-
-    updateAmountDefault();
-
-  }
-
-}
-
-
-/* =========================================================
+/* ============================================================
    CREA PRENOTAZIONE
-   ========================================================= */
+   ============================================================ */
 
 $('add').onclick =
-async function(){
+  async () => {
 
-  const btn =
-    $('add');
-
-  const msg =
-    $('fmsg');
+    const m =
+      $('fmsg');
 
 
-  const n =
-    Math.max(
-      1,
-      Math.min(
-        50,
-        parseInt(
-          $('pe').value,
-          10
-        ) || 1
+    const btn =
+      $('add');
+
+
+    const n =
+      Math.max(
+        1,
+        Math.min(
+          50,
+          parseInt(
+            $('pe').value,
+            10
+          ) || 1
+        )
+      );
+
+
+    const names =
+      [
+        $('nm').value.trim(),
+        ...[
+          ...document.querySelectorAll(
+            '.nx'
+          )
+        ].map(
+          i => i.value.trim()
+        )
+      ].slice(
+        0,
+        n
+      );
+
+
+    while(
+      names.length < n
+    ){
+      names.push('');
+    }
+
+
+    /*
+      Prezzo fisso 25€ per persona.
+    */
+
+    const amount =
+      n * 25;
+
+
+    btn.disabled =
+      true;
+
+
+    btn.textContent =
+      'Salvataggio…';
+
+
+    m.textContent =
+      '';
+
+
+    try{
+
+      const j =
+        await api(
+          'create',
+          {
+            phone:
+              $('ph').value,
+
+            names,
+
+            amount
+          }
+        );
+
+
+      /*
+        Aggiorniamo la UI senza
+        fare subito un nuovo GET.
+      */
+
+      L.push({
+
+        code:j.code,
+
+        name:names[0],
+
+        phone:$('ph').value,
+
+        paid:false,
+
+        amount:j.amount,
+
+        cancelled:false,
+
+        att:names.map(
+          name => ({
+            n:name
+          })
+        )
+
+      });
+
+
+      FREE =
+        j.free;
+
+
+      USED =
+        CAP - FREE;
+
+
+      render();
+
+
+      /*
+        Reset del form.
+      */
+
+      const label =
+        names[0] ||
+        'Prenotazione';
+
+
+      $('nm').value='';
+
+      $('ph').value='';
+
+      $('pe').value=1;
+
+      renderNames();
+
+
+      /*
+        QR immediato.
+      */
+
+      showQR({
+
+        code:j.code,
+
+        label,
+
+        n:n
+
+      });
+
+
+    }catch(e){
+
+      m.textContent =
+        e.message;
+
+    }
+
+
+    btn.disabled =
+      false;
+
+
+    btn.textContent =
+      'Crea prenotazione e QR';
+  };
+
+
+/* ============================================================
+   AZIONI LISTA
+   ============================================================ */
+
+$('items').onclick =
+  async e => {
+
+    const t =
+      e.target.closest(
+        'button'
+      );
+
+
+    if(!t) return;
+
+
+    const b =
+      L.find(
+        x =>
+          x.code ===
+          t.dataset.c
+      );
+
+
+    if(!b) return;
+
+
+    /*
+      QR
+    */
+
+    if(
+      t.dataset.a === 'qr'
+    ){
+
+      showQR({
+
+        code:b.code,
+
+        label:
+          b.name ||
+          b.phone,
+
+        n:b.att.length
+
+      });
+
+      return;
+    }
+
+
+    /*
+      PAGAMENTO
+    */
+
+    if(
+      t.dataset.a === 'paid'
+    ){
+
+      await managePayment(b);
+
+      return;
+    }
+
+
+    /*
+      ANNULLA / RIPRISTINA
+    */
+
+    if(
+      t.dataset.a === 'tog'
+    ){
+
+      t.disabled =
+        true;
+
+
+      try{
+
+        const j =
+          await api(
+            'cancel',
+            {
+              code:b.code,
+
+              value:
+                !b.cancelled
+            }
+          );
+
+
+        b.cancelled =
+          j.cancelled;
+
+
+        render();
+
+
+      }catch(err){
+
+        $('fmsg').textContent =
+          err.message;
+
+      }
+
+
+      t.disabled =
+        false;
+    }
+
+  };
+
+
+/* ============================================================
+   PAGAMENTO
+   ============================================================ */
+
+async function managePayment(b){
+
+  const defaultAmount =
+    b.amount > 0
+      ? b.amount
+      : b.att.length * 25;
+
+
+  const raw =
+    prompt(
+      b.paid
+        ? 'Importo pagato in euro. Inserisci 0 per segnare NON PAGATO:'
+        : 'Importo pagato in euro:',
+      String(
+        b.paid
+          ? defaultAmount
+          : defaultAmount
       )
     );
 
 
-  const names =
-    [
-      $('nm').value.trim(),
-
-      ...[
-        ...document.querySelectorAll(
-          '.nx'
-        )
-      ].map(
-        i => i.value.trim()
-      )
-
-    ]
-    .slice(0,n);
+  if(raw === null) return;
 
 
-  while(
-    names.length < n
+  let amount =
+    Number(
+      String(raw)
+        .replace(',','.')
+    );
+
+
+  if(
+    !isFinite(amount) ||
+    amount < 0
   ){
 
-    names.push('');
+    alert(
+      'Importo non valido.'
+    );
 
+    return;
   }
+
+
+  amount =
+    Math.round(
+      amount * 100
+    ) / 100;
 
 
   const paid =
-    $('paidYes')
-      .classList
-      .contains('active');
-
-
-  const amount =
-    paid
-      ? Number(
-          $('amount').value || 0
-        )
-      : 0;
-
-
-  if(!names[0]){
-
-    msg.style.color =
-      'var(--bad)';
-
-    msg.textContent =
-      'Inserisci il nome della persona 1';
-
-    return;
-
-  }
-
-
-  if(
-    paid &&
-    amount <= 0
-  ){
-
-    msg.style.color =
-      'var(--bad)';
-
-    msg.textContent =
-      'Inserisci l’importo pagato';
-
-    return;
-
-  }
-
-
-  btn.disabled = true;
-
-  btn.textContent =
-    'Salvataggio…';
-
-  msg.textContent =
-    '';
+    amount > 0;
 
 
   try{
 
     const j =
       await api(
-        'create',
+        'paid',
         {
-          phone:$('ph').value,
-          names:names,
-          paid:paid,
+          code:b.code,
+
+          value:paid,
+
           amount:amount
         }
       );
 
 
-    /*
-     * Salviamo prima i dati dell'invito.
-     */
+    b.paid =
+      j.paid;
 
-    const inviteName =
-      names[0];
 
-    const inviteCount =
-      n;
-
-    const inviteCode =
-      j.code;
+    b.amount =
+      j.amount;
 
 
     /*
-     * RESET FORM
-     */
-
-    $('nm').value = '';
-    $('ph').value = '';
-    $('pe').value = 1;
-
-    $('amount')
-      .dataset
-      .edited = '';
-
-    setPaidChoice(true);
-
-    renderNames();
-
-
-    /*
-     * AGGIORNA LISTA
-     */
+      Aggiornamento totale locale.
+    */
 
     await refresh();
-
-
-    /*
-     * MOSTRA RISULTATO
-     */
-
-    msg.style.color =
-      'var(--ok)';
-
-
-    msg.innerHTML = `
-
-      <div class="invite">
-
-        <div class="invite-title">
-          ✅ Prenotazione creata!
-        </div>
-
-        <div class="code-big">
-          ${esc(inviteCode)}
-        </div>
-
-        <div class="invite-text">${esc(
-          makeInvite(
-            inviteName,
-            inviteCount,
-            inviteCode
-          )
-        )}</div>
-
-
-        <div class="invite-actions">
-
-          <button
-            class="btn"
-            id="shareNewInvite">
-
-            📤 Condividi invito
-
-          </button>
-
-
-          <button
-            class="btn g"
-            id="copyNewInvite">
-
-            📋 Copia
-
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-
-    /*
-     * PULSANTE CONDIVIDI
-     */
-
-    $('shareNewInvite').onclick =
-      () =>
-        shareInvite(
-          inviteName,
-          inviteCount,
-          inviteCode
-        );
-
-
-    /*
-     * PULSANTE COPIA
-     */
-
-    $('copyNewInvite').onclick =
-      () =>
-        copyInvite(
-          inviteName,
-          inviteCount,
-          inviteCode
-        );
 
 
   }catch(e){
 
-    msg.style.color =
-      'var(--bad)';
-
-    msg.textContent =
-      e.message;
-
-  }finally{
-
-    btn.disabled =
-      false;
-
-    btn.textContent =
-      'Crea prenotazione';
-
-  }
-
-};
-
-
-/* =========================================================
-   REFRESH
-   ========================================================= */
-
-async function refresh(){
-
-  const j =
-    await api(
-      'list'
+    alert(
+      e.message
     );
 
-
-  L =
-    j.list || [];
-
-
-  FREE =
-    j.free;
-
-  USED =
-    j.used;
-
-
-  render();
-
+  }
 }
 
 
-/* =========================================================
-   CLICK PRENOTAZIONI
-   ========================================================= */
+/* ============================================================
+   QR
+   ============================================================ */
 
-$('items').onclick =
-async function(e){
+function qrCanvas(b){
 
-  const t =
-    e.target.closest(
-      'button'
+  const q =
+    qrcode(
+      0,
+      'M'
     );
 
 
-  if(!t){
-    return;
-  }
+  q.addData(
+    String(b.code)
+  );
 
 
-  const b =
-    L.find(
-      x =>
-        x.code ===
-        t.dataset.c
+  q.make();
+
+
+  const n =
+    q.getModuleCount();
+
+
+  const m =
+    4;
+
+
+  const cell =
+    Math.floor(
+      600 /
+      (n + 2*m)
     );
 
 
-  if(!b){
-    return;
-  }
+  const sz =
+    cell *
+    (n + 2*m);
 
 
-  /*
-   * CONDIVIDI
-   */
+  const W =
+    720;
 
-  if(
-    t.dataset.a ===
-    'share'
+
+  const H =
+    sz + 230;
+
+
+  const oy =
+    30;
+
+
+  const ox =
+    (W-sz)/2;
+
+
+  const c =
+    document.createElement(
+      'canvas'
+    );
+
+
+  c.width =
+    W;
+
+
+  c.height =
+    H;
+
+
+  const x =
+    c.getContext(
+      '2d'
+    );
+
+
+  x.fillStyle =
+    '#fff';
+
+
+  x.fillRect(
+    0,
+    0,
+    W,
+    H
+  );
+
+
+  x.fillStyle =
+    '#000';
+
+
+  for(
+    let r=0;
+    r<n;
+    r++
   ){
 
-    await shareInvite(
-      b.name,
-      b.att.length,
-      b.code
-    );
-
-    return;
-
-  }
-
-
-  /*
-   * COPIA
-   */
-
-  if(
-    t.dataset.a ===
-    'copy'
-  ){
-
-    await copyInvite(
-      b.name,
-      b.att.length,
-      b.code
-    );
-
-    return;
-
-  }
-
-
-  t.disabled = true;
-
-
-  try{
-
-    /*
-     * PAGAMENTO
-     */
-
-    if(
-      t.dataset.a ===
-      'paid'
-    ){
-
-      const value =
-        !b.paid;
-
-
-      let amount =
-        Number(
-          b.amount || 0
-        );
-
-
-      if(value){
-
-        const answer =
-          prompt(
-            'Importo pagato (€):',
-            amount > 0
-              ? amount.toFixed(2)
-              : (
-                  b.att.length *
-                  PRICE
-                ).toFixed(2)
-          );
-
-
-        if(
-          answer === null
-        ){
-
-          t.disabled =
-            false;
-
-          return;
-
-        }
-
-
-        amount =
-          Number(
-            String(answer)
-              .replace(',','.')
-          );
-
-
-        if(
-          !isFinite(amount) ||
-          amount <= 0
-        ){
-
-          throw new Error(
-            'Importo non valido'
-          );
-
-        }
-
-      }
-
-
-      await api(
-        'paid',
-        {
-          code:b.code,
-          value:value,
-          amount:amount
-        }
-      );
-
-    }
-
-
-    /*
-     * ANNULLA
-     */
-
-    else if(
-      t.dataset.a ===
-      'cancel'
-    ){
-
-      await api(
-        'cancel',
-        {
-          code:b.code,
-          value:!b.cancelled
-        }
-      );
-
-    }
-
-
-    /*
-     * INGRESSO
-     */
-
-    else if(
-      t.dataset.a ===
-      'entry'
+    for(
+      let k=0;
+      k<n;
+      k++
     ){
 
       if(
-        ME.role !==
-        'admin'
+        q.isDark(
+          r,
+          k
+        )
       ){
 
-        throw new Error(
-          'Non autorizzato'
+        x.fillRect(
+          ox+(m+k)*cell,
+          oy+(m+r)*cell,
+          cell,
+          cell
         );
 
       }
 
-
-      switchTab(
-        'entry'
-      );
-
-
-      $('entryCode').value =
-        b.code;
-
-
-      await verifyCode();
-
-
-      return;
-
     }
 
-
-    await refresh();
-
-
-  }catch(err){
-
-    $('fmsg').style.color =
-      'var(--bad)';
-
-    $('fmsg').textContent =
-      err.message;
-
-  }finally{
-
-    t.disabled =
-      false;
-
   }
 
-};
+
+  x.fillStyle =
+    '#1E1B3A';
 
 
-/* =========================================================
-   TAB
-   ========================================================= */
+  x.textAlign =
+    'center';
 
-function switchTab(tab){
+
+  x.font =
+    '700 44px system-ui,sans-serif';
+
+
+  x.fillText(
+    String(
+      b.label
+    ).slice(
+      0,
+      26
+    ),
+    W/2,
+    oy+sz+60
+  );
+
+
+  x.font =
+    '32px system-ui,sans-serif';
+
+
+  x.fillText(
+    b.n +
+      (
+        b.n==1
+          ? ' persona'
+          : ' persone'
+      ),
+    W/2,
+    oy+sz+112
+  );
+
+
+  x.font =
+    '700 40px monospace';
+
+
+  x.fillText(
+    b.code,
+    W/2,
+    oy+sz+164
+  );
+
+
+  return c;
+}
+
+
+function showQR(b){
+
+  cur =
+    b;
+
+
+  $('qimg').src =
+    qrCanvas(
+      b
+    ).toDataURL(
+      'image/png'
+    );
+
+
+  $('ov')
+    .classList
+    .add('on');
+}
+
+
+$('close').onclick =
+  () =>
+    $('ov')
+      .classList
+      .remove('on');
+
+
+$('share').onclick =
+  () => {
+
+    qrCanvas(
+      cur
+    ).toBlob(
+      async bl => {
+
+        try{
+
+          const f =
+            new File(
+              [bl],
+              cur.code +
+              '.png',
+              {
+                type:
+                  'image/png'
+              }
+            );
+
+
+          if(
+            navigator.canShare &&
+            navigator.canShare({
+              files:[f]
+            })
+          ){
+
+            await navigator.share({
+
+              files:[f],
+
+              text:
+                'Ecco il tuo QR per entrare alla festa. Mostralo all\'ingresso.'
+
+            });
+
+          }
+          else{
+
+            alert(
+              'Su questo telefono tieni premuto sull\'immagine per salvarla o inviarla.'
+            );
+
+          }
+
+        }catch(e){}
+
+      }
+    );
+  };
+
+
+/* ============================================================
+   SCANNER - SOLO ADMIN
+   ============================================================ */
+
+let stream =
+  null;
+
+
+let scanning =
+  false;
+
+
+let hold =
+  false;
+
+
+const v =
+  $('vid');
+
+
+const cv =
+  document.createElement(
+    'canvas'
+  );
+
+
+const cx =
+  cv.getContext(
+    '2d',
+    {
+      willReadFrequently:true
+    }
+  );
+
+
+let bd =
+  null;
+
+
+let busy =
+  false;
+
+
+let tk =
+  0;
+
+
+try{
 
   if(
-    ME.role !==
-    'admin'
+    'BarcodeDetector'
+    in window &&
+    BarcodeDetector
+      .getSupportedFormats
   ){
-    return;
+
+    BarcodeDetector
+      .getSupportedFormats()
+      .then(
+        f => {
+
+          if(
+            f.includes(
+              'qr_code'
+            )
+          ){
+
+            bd =
+              new BarcodeDetector({
+                formats:[
+                  'qr_code'
+                ]
+              });
+
+          }
+
+        }
+      )
+      .catch(
+        () => {}
+      );
+
   }
 
+}catch(e){}
 
-  document
-    .querySelectorAll(
-      'nav button'
-    )
-    .forEach(
-      x =>
-        x.classList.toggle(
-          'on',
-          x.dataset.tab === tab
+
+/* ============================================================
+   START SCANNER
+   ============================================================ */
+
+async function startScan(){
+
+  if(scanning)
+    return;
+
+
+  $('cam').textContent =
+    'Avvio fotocamera…';
+
+
+  try{
+
+    stream =
+      await navigator
+        .mediaDevices
+        .getUserMedia({
+
+          video:{
+            facingMode:{
+              ideal:
+                'environment'
+            },
+
+            width:{
+              ideal:1280
+            },
+
+            height:{
+              ideal:720
+            }
+
+          },
+
+          audio:false
+
+        });
+
+
+    v.srcObject =
+      stream;
+
+
+    await v.play();
+
+
+    try{
+
+      const tr =
+        stream
+          .getVideoTracks()[0];
+
+
+      const cap =
+        tr.getCapabilities
+          ? tr.getCapabilities()
+          : {};
+
+
+      if(
+        cap.focusMode &&
+        cap.focusMode.includes(
+          'continuous'
         )
+      ){
+
+        await tr.applyConstraints({
+          advanced:[
+            {
+              focusMode:
+                'continuous'
+            }
+          ]
+        });
+
+      }
+
+    }catch(e){}
+
+
+    scanning =
+      true;
+
+
+    $('cam').textContent =
+      'Fotocamera attiva: tieni il QR fermo davanti, a 15-25 cm, con lo schermo alla massima luminosità.';
+
+
+    tick(
+      ++tk
     );
 
 
-  $('list')
-    .classList
-    .toggle(
-      'hidden',
-      tab !== 'list'
-    );
+  }catch(e){
+
+    const n =
+      e &&
+      e.name;
 
 
-  $('entry')
-    .classList
-    .toggle(
-      'hidden',
-      tab !== 'entry'
-    );
+    $('cam').textContent =
+      n === 'NotAllowedError'
+        ? 'Fotocamera bloccata: consenti l\'accesso alla fotocamera per questo sito, poi ricarica.'
+
+        : n === 'NotFoundError'
+        ? 'Nessuna fotocamera trovata su questo dispositivo.'
+
+        : n === 'NotReadableError'
+        ? 'La fotocamera è usata da un\'altra app: chiudila e riprova.'
+
+        : 'Fotocamera non disponibile: apri il link nel browser normale (Chrome o Safari).';
+
+  }
 
 }
 
 
-$('nav').onclick =
-e => {
+function stopScan(){
 
-  const t =
-    e.target.closest(
-      'button'
-    );
+  scanning =
+    false;
 
 
-  if(t){
+  if(stream){
 
-    switchTab(
-      t.dataset.tab
-    );
+    stream
+      .getTracks()
+      .forEach(
+        t =>
+          t.stop()
+      );
 
+
+    stream =
+      null;
   }
-
-};
-
-
-/* =========================================================
-   CODICE INGRESSO
-   ========================================================= */
-
-$('checkCode').onclick =
-verifyCode;
+}
 
 
-$('entryCode').onkeydown =
-e => {
+/* ============================================================
+   SCANNER LOOP
+   ============================================================ */
+
+async function tick(id){
 
   if(
-    e.key === 'Enter'
-  ){
-
-    verifyCode();
-
-  }
-
-};
-
-
-async function verifyCode(){
-
-  if(entryBusy){
+    !scanning ||
+    id !== tk
+  )
     return;
-  }
-
-
-  const code =
-    $('entryCode')
-      .value
-      .trim()
-      .toUpperCase();
 
 
   if(
-    !/^\d{4}$/.test(code)
+    !hold &&
+    !busy &&
+    v.readyState >= 2 &&
+    v.videoWidth
   ){
 
-    $('res').innerHTML = `
+    busy =
+      true;
 
-      <div class="result bad">
+
+    try{
+
+      let data =
+        null;
+
+
+      if(bd){
+
+        const c =
+          await bd.detect(
+            v
+          );
+
+
+        if(c.length)
+          data =
+            c[0].rawValue;
+
+      }
+      else if(
+        window.jsQR
+      ){
+
+        const sc =
+          Math.min(
+            1,
+            960 /
+            v.videoWidth
+          );
+
+
+        cv.width =
+          v.videoWidth * sc;
+
+
+        cv.height =
+          v.videoHeight * sc;
+
+
+        cx.drawImage(
+          v,
+          0,
+          0,
+          cv.width,
+          cv.height
+        );
+
+
+        const im =
+          cx.getImageData(
+            0,
+            0,
+            cv.width,
+            cv.height
+          );
+
+
+        const r =
+          jsQR(
+            im.data,
+            im.width,
+            im.height,
+            {
+              inversionAttempts:
+                'dontInvert'
+            }
+          );
+
+
+        if(r)
+          data =
+            r.data;
+
+      }
+
+
+      if(data){
+
+        hold =
+          true;
+
+
+        handle(
+          data
+        );
+      }
+
+
+    }catch(e){}
+
+
+    busy =
+      false;
+  }
+
+
+  setTimeout(
+    () =>
+      requestAnimationFrame(
+        () =>
+          tick(id)
+      ),
+    80
+  );
+}
+
+
+/* ============================================================
+   FOTO QR
+   ============================================================ */
+
+$('pic').onchange =
+  e => {
+
+    const f =
+      e.target.files[0];
+
+
+    if(!f)
+      return;
+
+
+    const img =
+      new Image();
+
+
+    img.onload =
+      () => {
+
+        const sc =
+          Math.min(
+            1,
+            1200 /
+            Math.max(
+              img.width,
+              img.height
+            )
+          );
+
+
+        cv.width =
+          img.width * sc;
+
+
+        cv.height =
+          img.height * sc;
+
+
+        cx.drawImage(
+          img,
+          0,
+          0,
+          cv.width,
+          cv.height
+        );
+
+
+        const im =
+          cx.getImageData(
+            0,
+            0,
+            cv.width,
+            cv.height
+          );
+
+
+        const r =
+          jsQR(
+            im.data,
+            im.width,
+            im.height
+          );
+
+
+        if(
+          r &&
+          r.data
+        ){
+
+          handle(
+            r.data
+          );
+
+        }
+        else{
+
+          show(
+            'bad',
+            'QR NON LETTO',
+            [
+              'Riprova con più luce e il QR ben centrato.'
+            ]
+          );
+
+        }
+
+      };
+
+
+    img.src =
+      URL.createObjectURL(
+        f
+      );
+
+
+    e.target.value =
+      '';
+
+  };
+
+
+/* ============================================================
+   CODICE MANUALE
+   ============================================================ */
+
+$('manGo').onclick =
+  () => {
+
+    let c =
+      $('man')
+        .value
+        .trim()
+        .replace(/\D/g,'');
+
+
+    if(
+      !c
+    )
+      return;
+
+
+    if(
+      c.length !== 4
+    ){
+
+      show(
+        'bad',
+        'CODICE NON VALIDO',
+        [
+          'Il codice deve contenere 4 cifre.'
+        ]
+      );
+
+      return;
+    }
+
+
+    $('man')
+      .value =
+      '';
+
+
+    hold =
+      true;
+
+
+    handle(
+      c
+    );
+  };
+
+
+/* ============================================================
+   ENTER MANUALE
+   ============================================================ */
+
+$('man').addEventListener(
+  'keydown',
+  e => {
+
+    if(
+      e.key === 'Enter'
+    ){
+
+      $('manGo')
+        .click();
+
+    }
+
+  }
+);
+
+
+/* ============================================================
+   RISULTATI SCANNER
+   ============================================================ */
+
+function show(
+  kind,
+  title,
+  lines,
+  extra
+){
+
+  $('res').innerHTML =
+    `
+      <div
+        class="res ${kind}"
+      >
 
         <h2>
-          Codice non valido
+          ${title}
         </h2>
 
-        <p>
-          Inserisci esattamente
-          4 cifre.
-        </p>
+        ${
+          lines
+            .filter(Boolean)
+            .map(
+              l =>
+                `<p>${l}</p>`
+            )
+            .join('')
+        }
+
+        ${extra || ''}
 
       </div>
-
     `;
-
-    return;
-
-  }
-
-
-  entryBusy = true;
-
-  $('checkCode').disabled =
-    true;
-
-  $('checkCode').textContent =
-    'Verifica…';
 
 
   try{
+
+    if(
+      navigator.vibrate
+    ){
+
+      navigator.vibrate(
+        kind === 'ok'
+          ? 80
+          : [120,80,120]
+      );
+
+    }
+
+  }catch(e){}
+}
+
+
+const release =
+  ms =>
+    setTimeout(
+      () => {
+        hold =
+          false;
+      },
+      ms
+    );
+
+
+/* ============================================================
+   GESTIONE QR
+   ============================================================ */
+
+async function handle(
+  raw
+){
+
+  show(
+    'ok',
+    'Verifica in corso…',
+    []
+  );
+
+
+  try{
+
+    /*
+      Il QR ora contiene direttamente
+      il codice a 4 cifre.
+    */
 
     const r =
       await api(
         'scan',
         {
-          code:code
+          code:
+            String(raw)
+              .trim()
+              .toUpperCase(),
+
+          auto:1
         }
       );
-
-
-    if(
-      r.status ===
-      'invalid'
-    ){
-
-      showResult(
-        'bad',
-        '❌ CODICE NON VALIDO',
-        [
-          'Il codice non è presente nella lista.'
-        ]
-      );
-
-      return;
-
-    }
 
 
     const b =
@@ -2261,120 +3002,184 @@ async function verifyCode(){
 
 
     if(
-      r.status ===
-      'cancelled'
+      r.status === 'invalid'
     ){
 
-      showResult(
+      show(
+        'bad',
+        '❌ NON VALIDO',
+        [
+          'Questo QR non è nella lista.'
+        ]
+      );
+
+
+      release(2500);
+
+      return;
+    }
+
+
+    const nm =
+      esc(
+        b.name ||
+        b.phone
+      );
+
+
+    if(
+      r.status === 'cancelled'
+    ){
+
+      show(
         'bad',
         '❌ ANNULLATO',
         [
-          b.name,
+          nm,
           'La prenotazione è stata annullata.'
         ]
       );
 
-      return;
 
+      release(2500);
+
+      return;
     }
 
 
     if(
-      r.status ===
-      'used'
+      r.status === 'used'
     ){
 
-      showResult(
+      show(
         'bad',
         '❌ GIÀ UTILIZZATO',
         [
-          b.name,
-          `Tutte le ${b.att.length}
-           persone sono già entrate.`
+          nm,
+
+          `Tutte le ${b.att.length} persone sono già entrate.`,
+
+          r.last
+            ? 'Ultimo ingresso: ' +
+              r.last
+            : ''
         ]
       );
 
-      return;
 
+      release(2500);
+
+      return;
     }
 
 
-    const pending =
+    if(
+      r.status === 'admitted'
+    ){
+
+      show(
+        'ok',
+        '✅ INGRESSO CONSENTITO',
+        [
+          esc(
+            b.name ||
+            b.phone
+          ),
+
+          'Ingresso: ' +
+          r.t
+        ]
+      );
+
+
+      release(1500);
+
+      return;
+    }
+
+
+    const pend =
       b.att.filter(
         a => !a.e
       );
 
 
-    showResult(
+    show(
       'ok',
-      'CODICE VALIDO',
+      '✅ QR VALIDO',
       [
-        b.name,
-        `${b.att.length}
-         ${b.att.length===1
-           ? 'persona'
-           : 'persone'}`,
-        `Pagamento:
-         ${
-           b.paid
-             ? 'PAGATO · €' +
-               Number(
-                 b.amount || 0
-               ).toFixed(2)
-             : 'DA PAGARE'
-         }`
+        nm,
+
+        `Prenotazione per ${b.att.length} persone · già entrate ${b.att.length-pend.length}`,
+
+        'Spunta chi entra adesso:'
       ],
 
       `
+        <div
+          style="
+            text-align:left;
+            margin:12px 0
+          "
+        >
 
-      <div
-        style="text-align:left;margin-top:12px">
+          ${
+            pend
+              .map(
+                a =>
+                  `
+                    <label
+                      style="
+                        display:flex;
+                        gap:12px;
+                        align-items:center;
+                        margin:0;
+                        padding:10px 0;
+                        font-size:18px;
+                        color:var(--ink)
+                      "
+                    >
 
-        ${
-          pending
-            .map(
-              a =>
-                `
+                      <input
+                        type="checkbox"
+                        class="ck"
+                        value="${a.k}"
+                        checked
+                        style="
+                          width:26px;
+                          height:26px;
+                          padding:0;
+                          flex:0 0 auto
+                        "
+                      >
 
-                <label
-                  class="person-check">
+                      ${esc(
+                        a.n ||
+                        'Persona ' +
+                        a.k
+                      )}
 
-                  <input
-                    type="checkbox"
-                    class="ck"
-                    value="${a.k}"
-                    checked
-                  >
+                    </label>
+                  `
+              )
+              .join('')
+          }
 
-                  ${esc(
-                    a.n ||
-                    'Persona ' + a.k
-                  )}
-
-                </label>
-
-                `
-            )
-            .join('')
-        }
-
-      </div>
+        </div>
 
 
-      <button
-        class="btn full primary"
-        id="go">
-
-        Conferma ingresso
-
-      </button>
-
+        <button
+          class="btn full"
+          id="go"
+        >
+          Conferma ingresso
+        </button>
       `
     );
 
 
     $('go').onclick =
-      async function(){
+      () => {
 
         const ix =
           [
@@ -2384,165 +3189,210 @@ async function verifyCode(){
               )
           ]
           .map(
-            x =>
-              Number(x.value)
+            c => +c.value
           );
 
 
         if(
           !ix.length
         ){
+
+          hold =
+            false;
+
+
+          $('res').innerHTML =
+            '';
+
+
           return;
         }
 
 
-        $('go').disabled =
-          true;
-
-        $('go').textContent =
-          'Registrazione…';
-
-
-        try{
-
-          const rr =
-            await api(
-              'admit',
-              {
-                code:b.code,
-                idx:ix
-              }
-            );
-
-
-          if(
-            rr.entered.length
-          ){
-
-            showResult(
-              'ok',
-              '✅ INGRESSO CONSENTITO',
-              [
-                `Entrano:
-                 ${rr.entered.join(', ')}`,
-
-                `Totale entrati
-                 ${rr.total} su ${rr.of}`,
-
-                'Ora: ' + rr.t
-              ]
-            );
-
-          }else{
-
-            showResult(
-              'bad',
-              '❌ GIÀ UTILIZZATI',
-              [
-                'Le persone selezionate risultano già entrate.'
-              ]
-            );
-
-          }
-
-
-          await refresh();
-
-
-        }catch(e){
-
-          showResult(
-            'bad',
-            'ERRORE',
-            [
-              e.message
-            ]
-          );
-
-        }
+        admit(
+          b,
+          ix
+        );
 
       };
 
 
   }catch(e){
 
-    showResult(
+    show(
       'bad',
       'ERRORE',
       [
-        e.message
+        esc(
+          e.message
+        )
       ]
     );
 
-  }finally{
 
-    entryBusy = false;
-
-    $('checkCode').disabled =
-      false;
-
-    $('checkCode').textContent =
-      'Verifica codice';
-
+    release(2500);
   }
-
 }
 
 
-/* =========================================================
-   RISULTATO
-   ========================================================= */
+/* ============================================================
+   ADMIT
+   ============================================================ */
 
-function showResult(
-  kind,
-  title,
-  lines,
-  extra = ''
+async function admit(
+  b,
+  ix
 ){
 
-  $('res').innerHTML =
+  try{
 
-    `
+    const r =
+      await api(
+        'admit',
+        {
+          code:b.code,
+          idx:ix
+        }
+      );
 
-    <div
-      class="result ${kind}">
 
-      <h2>
-        ${title}
-      </h2>
+    if(
+      !r.entered.length
+    ){
 
+      show(
+        'bad',
+        '❌ GIÀ UTILIZZATO',
+        [
+          esc(
+            b.name ||
+            b.phone
+          ),
 
-      ${
-        lines
-          .filter(Boolean)
-          .map(
-            x =>
-              `<p>${esc(x)}</p>`
+          'Già entrato: ' +
+          esc(
+            r.skipped.join(', ')
           )
-          .join('')
-      }
+        ]
+      );
+
+    }
+    else{
+
+      show(
+        'ok',
+        '✅ INGRESSO CONSENTITO',
+        [
+          esc(
+            b.name ||
+            b.phone
+          ),
+
+          'Entrano: ' +
+          esc(
+            r.entered.join(', ')
+          ),
+
+          `Totale entrati ${r.total} su ${r.of}`,
+
+          'Ingresso: ' +
+          r.t
+        ]
+      );
+
+    }
 
 
-      ${extra}
+    release(1500);
 
-    </div>
 
-    `;
+  }catch(e){
 
+    show(
+      'bad',
+      'ERRORE',
+      [
+        esc(
+          e.message
+        )
+      ]
+    );
+
+
+    release(2500);
+  }
 }
 
 
-/* =========================================================
+/* ============================================================
+   NAVIGAZIONE
+   ============================================================ */
+
+$('nav').onclick =
+  e => {
+
+    const t =
+      e.target.closest(
+        'button'
+      );
+
+
+    if(!t)
+      return;
+
+
+    document
+      .querySelectorAll(
+        'nav button'
+      )
+      .forEach(
+        x =>
+          x.classList.toggle(
+            'on',
+            x === t
+          )
+      );
+
+
+    $('list').hidden =
+      t.dataset.tab !==
+      'list';
+
+
+    $('scan').hidden =
+      t.dataset.tab !==
+      'scan';
+
+
+    if(
+      t.dataset.tab ===
+      'scan'
+    ){
+
+      hold =
+        false;
+
+
+      startScan();
+
+    }
+    else{
+
+      stopScan();
+
+    }
+
+  };
+
+
+/* ============================================================
    AVVIO
-   ========================================================= */
-
-renderNames();
-
-setPaidChoice(true);
+   ============================================================ */
 
 init();
 
 </script>
 
 </body>
+
 </html>
