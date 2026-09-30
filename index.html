@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ingressi festa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js"></script>
+<style>
+:root{--bg:#F6F3FF;--card:#fff;--ink:#1E1B3A;--mut:#6B6890;--line:#DDD8F2;--acc:#D62D6A;--onacc:#fff;--ok:#0F7A55;--okbg:#D6F4E6;--bad:#B3243A;--badbg:#FCDDE2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15132B;--card:#211E42;--ink:#F2EFFF;--mut:#A9A5CF;--line:#38346A;--acc:#FF5C8A;--onacc:#1B0A12;--ok:#5EE0A8;--okbg:#0F3A2B;--bad:#FF8A9B;--badbg:#4A1622}}
+:root[data-theme="dark"]{--bg:#15132B;--card:#211E42;--ink:#F2EFFF;--mut:#A9A5CF;--line:#38346A;--acc:#FF5C8A;--onacc:#1B0A12;--ok:#5EE0A8;--okbg:#0F3A2B;--bad:#FF8A9B;--badbg:#4A1622}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+h1{font:800 30px/1.1 "Bricolage Grotesque",system-ui,sans-serif;margin:0 0 6px}
+.stats{color:var(--mut);font-size:14px;margin-bottom:16px}.stats b{color:var(--ink)}
+nav{display:flex;gap:6px;margin-bottom:16px}
+nav button{flex:1;padding:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;font:600 15px system-ui}
+nav button.on{background:var(--acc);color:var(--onacc);border-color:var(--acc)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--mut);margin:8px 0 4px}
+input{width:100%;padding:12px;font:inherit;background:var(--bg);color:var(--ink);border:1.5px solid var(--line);border-radius:10px}
+input:focus,button:focus-visible{outline:3px solid var(--acc);outline-offset:1px}
+.row{display:flex;gap:8px}.row>*{flex:1}
+.btn{padding:12px 16px;border:0;border-radius:12px;background:var(--acc);color:var(--onacc);font:700 16px system-ui;cursor:pointer}
+.btn.g{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.s{padding:8px 12px;font-size:14px}.btn.full{width:100%;margin-top:12px}
+.btn:disabled{opacity:.5}
+.msg{min-height:20px;margin-top:8px;font-size:14px;color:var(--bad)}
+.it{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding:12px 0;border-top:1px solid var(--line)}
+.it:first-child{border-top:0}
+.who{flex:1 1 60%;min-width:0}.who b{display:block}.who span{font-size:13px;color:var(--mut)}
+.pp{font:800 18px "Bricolage Grotesque",system-ui,sans-serif;min-width:44px;text-align:right}
+.acts{display:flex;gap:6px;width:100%}
+.it.off{opacity:.5}.it.off .who b{text-decoration:line-through}.done{color:var(--ok)}
+#vid{width:100%;aspect-ratio:1;object-fit:cover;background:#000;border-radius:16px;display:block}
+.res{border-radius:16px;padding:20px;margin-top:14px;text-align:center}
+.res.ok{background:var(--okbg);color:var(--ok)}.res.bad{background:var(--badbg);color:var(--bad)}
+.res h2{margin:0 0 8px;font:800 28px/1.1 "Bricolage Grotesque",system-ui,sans-serif}.res p{margin:4px 0;color:var(--ink)}
+.ov{position:fixed;inset:0;background:rgba(10,8,30,.7);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+.ov.on{display:flex}
+.pop{background:var(--card);border-radius:18px;padding:14px;max-width:420px;width:100%;max-height:100%;overflow:auto;text-align:center}
+.pop img{width:100%;border-radius:10px;background:#fff}
+.hint{font-size:13px;color:var(--mut);margin:8px 0}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<main>
+<h1>Ingressi festa</h1>
+<div class="stats" id="stats">Caricamento…</div>
+<div class="msg" id="top"></div>
+<nav id="nav" hidden><button data-tab="list" class="on">Prenotazioni</button><button data-tab="scan">Scanner</button></nav>
+
+<section id="list" hidden>
+ <div class="box">
+  <label for="nm">Nome di chi prenota (persona 1)</label><input id="nm" placeholder="Paolo Rossi">
+  <div class="row">
+   <div><label for="ph">Telefono</label><input id="ph" type="tel" inputmode="tel" placeholder="333 1234567"></div>
+   <div><label for="pe">Persone</label><input id="pe" type="number" min="1" max="50" value="1" inputmode="numeric"></div>
+  </div>
+  <div id="names"></div>
+  <button class="btn full" id="add">Crea prenotazione e QR</button>
+  <div class="msg" id="fmsg"></div>
+ </div>
+ <input id="q" type="search" placeholder="Cerca per nome, telefono o codice" hidden>
+ <div class="box" id="items" style="margin-top:12px"></div>
+</section>
+
+<section id="scan" hidden>
+ <video id="vid" playsinline muted></video>
+ <p class="hint" id="cam"></p>
+ <label class="btn g s" style="display:block;text-align:center;margin:0">Scatta foto del QR<input id="pic" type="file" accept="image/*" capture="environment" hidden></label>
+ <div class="row" style="margin-top:10px"><input id="man" placeholder="Oppure scrivi il codice (BDAY-…)"><button class="btn s" id="manGo" style="flex:0 0 auto">Verifica</button></div>
+ <div id="res"></div>
+</section>
+</main>
+
+<div class="ov" id="ov"><div class="pop">
+ <img id="qimg" alt="QR della prenotazione">
+ <p class="hint">Tieni premuto sull'immagine per salvarla o inviarla su WhatsApp.</p>
+ <div class="row"><button class="btn s" id="share">Condividi</button><button class="btn g s" id="close">Chiudi</button></div>
+</div></div>
+
+<script>
+const API='https://script.google.com/macros/s/AKfycbxO-R2yW13gYo4jHB-rls7jxcv-GDUsv8jsaFsWVwkTLRmrkc4RRERwDSSPU8HUMLov/exec';
+let K=null,ME=null,L=[],FREE=0,USED=0,CAP=180,cur=null;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+(function(){const p=new URLSearchParams(location.search).get('k');
+ if(p){try{localStorage.setItem('k',p)}catch(e){}history.replaceState(null,'',location.pathname)}
+ try{K=p||localStorage.getItem('k')}catch(e){K=p}})();
+
+async function api(action,d){
+ let j;
+ try{const r=await fetch(API,{method:'POST',body:JSON.stringify(Object.assign({key:K,action},d||{}))});j=await r.json()}
+ catch(e){throw new Error('Nessuna connessione. Riprova.')}
+ if(!j.ok)throw new Error(j.error||'Errore');return j;
+}
+async function refresh(){const j=await api('list');L=j.list;FREE=j.free;USED=j.used;render()}
+async function init(){
+ if(!K){$('stats').textContent='';$('top').textContent='Link non valido. Chiedi il link giusto a chi organizza.';return}
+ try{const j=await api('whoami');ME=j;CAP=j.capacity;$('list').hidden=false;
+  if(j.role==='admin'){$('nav').hidden=false;$('q').hidden=false}
+  await refresh()}
+ catch(e){$('stats').textContent='';$('top').textContent=e.message}
+}
+
+function render(){
+ const admin=ME.role==='admin',q=admin?$('q').value.trim().toLowerCase():'';
+ const ent=L.filter(b=>!b.cancelled).reduce((t,b)=>t+b.att.filter(a=>a.e).length,0);
+ $('stats').innerHTML=admin?`Prenotati <b>${USED}</b> su ${CAP} · Entrati <b>${ent}</b> · Liberi <b>${FREE}</b>`:`Posti ancora liberi: <b>${FREE}</b>`;
+ const R=L.filter(b=>!q||(b.name+' '+b.phone+' '+b.code+' '+b.att.map(a=>a.n).join(' ')).toLowerCase().includes(q)).slice().reverse();
+ $('items').innerHTML=R.length?R.map(b=>{
+  const n=b.att.length,e=b.att.filter(a=>a.e).length;
+  return `<div class="it ${b.cancelled?'off':''}"><div class="who"><b>${esc(b.name||b.phone)}</b><span>${esc(b.phone)} · ${n} ${n==1?'persona':'persone'}${admin?(b.paid?' · pagato':' · da pagare'):''}${n>1?'<br>'+esc(b.att.map(a=>(a.e?'✓ ':'')+(a.n||'senza nome')).join(', ')):''}</span></div>${admin?`<div class="pp ${e>=n&&!b.cancelled?'done':''}">${e}/${n}</div>`:''}<div class="acts"><button class="btn s" data-a="qr" data-c="${b.code}" ${b.cancelled?'hidden':''}>QR</button>${admin?`<button class="btn g s" data-a="paid" data-c="${b.code}">${b.paid?'Segna non pagato':'Segna pagato'}</button><button class="btn g s" data-a="tog" data-c="${b.code}">${b.cancelled?'Ripristina':'Annulla'}</button>`:''}</div></div>`}).join(''):'<p class="hint" style="margin:0">Nessuna prenotazione.</p>';
+}
+$('q').oninput=render;
+
+function renderNames(){
+ const n=Math.max(1,Math.min(50,parseInt($('pe').value,10)||1)),old=[...document.querySelectorAll('.nx')].map(i=>i.value);
+ $('names').innerHTML=Array.from({length:n-1},(_,i)=>`<label>Persona ${i+2}</label><input class="nx" placeholder="Nome" value="${esc(old[i]||'')}">`).join('');
+}
+$('pe').oninput=renderNames;
+
+$('add').onclick=async()=>{
+ const m=$('fmsg'),btn=$('add'),n=Math.max(1,Math.min(50,parseInt($('pe').value,10)||1));
+ const names=[$('nm').value.trim(),...[...document.querySelectorAll('.nx')].map(i=>i.value.trim())].slice(0,n);
+ while(names.length<n)names.push('');
+ btn.disabled=true;btn.textContent='Salvataggio…';m.textContent='';
+ try{
+  const j=await api('create',{phone:$('ph').value,names});
+  $('nm').value='';$('ph').value='';$('pe').value=1;renderNames();
+  await refresh();showQR({code:j.code,label:names[0]||$('ph').value,n});
+ }catch(e){m.textContent=e.message}
+ btn.disabled=false;btn.textContent='Crea prenotazione e QR';
+};
+
+$('items').onclick=async e=>{
+ const t=e.target.closest('button');if(!t)return;
+ const b=L.find(x=>x.code===t.dataset.c);if(!b)return;
+ if(t.dataset.a==='qr'){showQR({code:b.code,label:b.name||b.phone,n:b.att.length});return}
+ t.disabled=true;
+ try{await api(t.dataset.a==='paid'?'paid':'cancel',{code:b.code,value:t.dataset.a==='paid'?!b.paid:!b.cancelled});await refresh()}
+ catch(err){$('fmsg').textContent=err.message;t.disabled=false}
+};
+
+function qrCanvas(b){
+ const q=qrcode(0,'M');q.addData(b.code);q.make();
+ const n=q.getModuleCount(),m=4,cell=Math.floor(600/(n+2*m)),sz=cell*(n+2*m),W=720,H=sz+230,oy=30,ox=(W-sz)/2;
+ const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+ x.fillStyle='#fff';x.fillRect(0,0,W,H);x.fillStyle='#000';
+ for(let r=0;r<n;r++)for(let k=0;k<n;k++)if(q.isDark(r,k))x.fillRect(ox+(m+k)*cell,oy+(m+r)*cell,cell,cell);
+ x.fillStyle='#1E1B3A';x.textAlign='center';
+ x.font='700 44px system-ui,sans-serif';x.fillText(String(b.label).slice(0,26),W/2,oy+sz+60);
+ x.font='32px system-ui,sans-serif';x.fillText(b.n+(b.n==1?' persona':' persone'),W/2,oy+sz+112);
+ x.font='28px monospace';x.fillText(b.code,W/2,oy+sz+164);
+ return c;
+}
+function showQR(b){cur=b;$('qimg').src=qrCanvas(b).toDataURL('image/png');$('ov').classList.add('on')}
+$('close').onclick=()=>$('ov').classList.remove('on');
+$('share').onclick=()=>{
+ qrCanvas(cur).toBlob(async bl=>{
+  try{const f=new File([bl],cur.code+'.png',{type:'image/png'});
+   if(navigator.canShare&&navigator.canShare({files:[f]}))await navigator.share({files:[f],text:'Ecco il tuo QR per entrare alla festa. Mostralo all\'ingresso.'});
+   else alert('Su questo telefono tieni premuto sull\'immagine per salvarla o inviarla.');
+  }catch(e){}
+ });
+};
+
+/* Scanner (solo admin) */
+let stream=null,scanning=false,hold=false;
+const v=$('vid'),cv=document.createElement('canvas'),cx=cv.getContext('2d',{willReadFrequently:true});
+async function startScan(){
+ if(scanning)return;
+ try{stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false});
+  v.srcObject=stream;await v.play();scanning=true;$('cam').textContent='Inquadra il QR dell\'invitato.';tick()}
+ catch(e){$('cam').textContent='Fotocamera non disponibile: consenti l\'accesso nelle impostazioni del browser, oppure usa "Scatta foto del QR" o scrivi il codice.'}
+}
+function stopScan(){scanning=false;if(stream){stream.getTracks().forEach(t=>t.stop());stream=null}}
+function tick(){
+ if(!scanning)return;
+ if(!hold&&v.readyState===v.HAVE_ENOUGH_DATA&&v.videoWidth){
+  const sc=Math.min(1,640/v.videoWidth);cv.width=v.videoWidth*sc;cv.height=v.videoHeight*sc;
+  cx.drawImage(v,0,0,cv.width,cv.height);
+  const im=cx.getImageData(0,0,cv.width,cv.height),r=jsQR(im.data,im.width,im.height);
+  if(r&&r.data){hold=true;handle(r.data)}
+ }
+ requestAnimationFrame(tick);
+}
+$('pic').onchange=e=>{
+ const f=e.target.files[0];if(!f)return;
+ const img=new Image();img.onload=()=>{
+  const sc=Math.min(1,1200/Math.max(img.width,img.height));cv.width=img.width*sc;cv.height=img.height*sc;
+  cx.drawImage(img,0,0,cv.width,cv.height);
+  const im=cx.getImageData(0,0,cv.width,cv.height),r=jsQR(im.data,im.width,im.height);
+  if(r&&r.data)handle(r.data);else show('bad','QR NON LETTO',['Riprova con più luce e il QR ben centrato.']);
+ };img.src=URL.createObjectURL(f);e.target.value='';
+};
+$('manGo').onclick=()=>{let c=$('man').value.trim().toUpperCase();if(!c)return;if(!c.startsWith('BDAY-'))c='BDAY-'+c;$('man').value='';hold=true;handle(c)};
+
+function show(kind,title,lines,extra){
+ $('res').innerHTML=`<div class="res ${kind}"><h2>${title}</h2>${lines.filter(Boolean).map(l=>`<p>${l}</p>`).join('')}${extra||''}</div>`;
+ try{navigator.vibrate&&navigator.vibrate(kind==='ok'?80:[120,80,120])}catch(e){}
+}
+const release=ms=>setTimeout(()=>{hold=false},ms);
+async function handle(raw){
+ show('ok','Verifica in corso…',[]);
+ try{
+  const r=await api('scan',{code:String(raw).trim().toUpperCase()}),b=r.b;
+  if(r.status==='invalid'){show('bad','❌ NON VALIDO',['Questo QR non è nella lista.']);release(2500);return}
+  const nm=esc(b.name||b.phone);
+  if(r.status==='cancelled'){show('bad','❌ ANNULLATO',[nm,'La prenotazione è stata annullata.']);release(2500);return}
+  if(r.status==='used'){show('bad','❌ GIÀ UTILIZZATO',[nm,`Tutte le ${b.att.length} persone sono già entrate.`,r.last?'Ultimo ingresso: '+r.last:'']);release(2500);return}
+  if(b.att.length===1){admit(b,[1]);return}
+  const pend=b.att.filter(a=>!a.e);
+  show('ok','✅ QR VALIDO',[nm,`Prenotazione per ${b.att.length} persone · già entrate ${b.att.length-pend.length}`,'Spunta chi entra adesso:'],
+   `<div style="text-align:left;margin:12px 0">${pend.map(a=>`<label style="display:flex;gap:12px;align-items:center;margin:0;padding:10px 0;font-size:18px;color:var(--ink)"><input type="checkbox" class="ck" value="${a.k}" checked style="width:26px;height:26px;padding:0;flex:0 0 auto"> ${esc(a.n||'Persona '+a.k)}</label>`).join('')}</div><button class="btn full" id="go">Conferma ingresso</button>`);
+  $('go').onclick=()=>{const ix=[...document.querySelectorAll('.ck:checked')].map(c=>+c.value);if(!ix.length){hold=false;$('res').innerHTML='';return}admit(b,ix)};
+ }catch(e){show('bad','ERRORE',[esc(e.message)]);release(2500)}
+}
+async function admit(b,ix){
+ try{
+  const r=await api('admit',{code:b.code,idx:ix});
+  if(!r.entered.length)show('bad','❌ GIÀ UTILIZZATO',[esc(b.name||b.phone),'Già entrato: '+esc(r.skipped.join(', '))]);
+  else show('ok','✅ INGRESSO CONSENTITO',[esc(b.name||b.phone),'Entrano: '+esc(r.entered.join(', ')),`Totale entrati ${r.total} su ${r.of}`,'Ingresso: '+r.t]);
+  release(2500);refresh().catch(()=>{});
+ }catch(e){show('bad','ERRORE',[esc(e.message)]);release(2500)}
+}
+
+$('nav').onclick=e=>{
+ const t=e.target.closest('button');if(!t)return;
+ document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===t));
+ $('list').hidden=t.dataset.tab!=='list';$('scan').hidden=t.dataset.tab!=='scan';
+ if(t.dataset.tab==='scan'){hold=false;startScan()}else{stopScan();refresh().catch(()=>{})}
+};
+init();
+</script>
+</body>
+</html>
