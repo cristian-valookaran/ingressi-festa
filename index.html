@@ -1,3237 +1,1529 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
-
 <head>
 
-<meta charset="utf-8">
-
+<meta charset="UTF-8">
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1, viewport-fit=cover"
+  content="width=device-width, initial-scale=1.0"
 >
 
 <title>Ingressi festa</title>
 
-<link
-  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&display=swap"
-  rel="stylesheet"
->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
-
-<script>
-window.jsQR || document.write(
-  '<script src="https://cdnjs.cloudflare.com/ajax/libs/jsqr/1.4.0/jsQR.min.js"><\/script>'
-);
-</script>
-
-
 <style>
 
-:root{
-
-  --bg:#F6F3FF;
-  --card:#fff;
-  --ink:#1E1B3A;
-  --mut:#6B6890;
-  --line:#DDD8F2;
-
-  --acc:#D62D6A;
-  --onacc:#fff;
-
-  --ok:#0F7A55;
-  --okbg:#D6F4E6;
-
-  --bad:#B3243A;
-  --badbg:#FCDDE2;
-
-  box-sizing:border-box;
-
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
+* {
+  box-sizing: border-box;
 }
 
-
-/* ============================================================
-   COLORI ORGANIZZATORI
-   ============================================================ */
-
-body.Anuraj{
-
-  --acc:#7C3AED;
-
-}
-
-
-body.Molly{
-
-  --acc:#1677FF;
-
-}
-
-
-body.admin{
-
-  --acc:#D62D6A;
-
-}
-
-
-/* DARK MODE */
-
-@media (prefers-color-scheme:dark){
-
-  :root:not([data-theme="light"]){
-
-    --bg:#15132B;
-    --card:#211E42;
-    --ink:#F2EFFF;
-    --mut:#A9A5CF;
-    --line:#38346A;
-
-    --acc:#FF5C8A;
-    --onacc:#1B0A12;
-
-    --ok:#5EE0A8;
-    --okbg:#0F3A2B;
-
-    --bad:#FF8A9B;
-    --badbg:#4A1622;
-
-  }
-
-}
-
-
-:root[data-theme="dark"]{
-
-  --bg:#15132B;
-  --card:#211E42;
-  --ink:#F2EFFF;
-  --mut:#A9A5CF;
-  --line:#38346A;
-
-  --acc:#FF5C8A;
-  --onacc:#1B0A12;
-
-  --ok:#5EE0A8;
-  --okbg:#0F3A2B;
-
-  --bad:#FF8A9B;
-  --badbg:#4A1622;
-}
-
-
-html{
-
-  scroll-padding-top:env(safe-area-inset-top,0px);
-
-}
-
-
-*,
-*::before,
-*::after{
-
-  box-sizing:inherit;
-
-}
-
-
-body{
-
-  margin:0;
-
-  background:var(--bg);
-
-  color:var(--ink);
-
-  font:
-    16px/1.45
-    system-ui,
-    -apple-system,
-    "Segoe UI",
+body {
+  margin: 0;
+  font-family:
+    Inter,
+    Arial,
     sans-serif;
 
+  background: #f5f2ff;
+  color: #17203a;
 }
 
-
-main{
-
-  max-width:560px;
-
-  margin:0 auto;
-
-  padding:18px 16px 40px;
-
+.app {
+  width: min(620px, 94%);
+  margin: 25px auto 60px;
 }
 
-
-h1{
-
-  font:
-    800 30px/1.1
-    "Bricolage Grotesque",
-    system-ui,
-    sans-serif;
-
-  margin:0 0 6px;
-
+.header {
+  margin-bottom: 25px;
 }
 
+.user-badge {
+  display: inline-block;
 
-.stats{
+  padding: 8px 15px;
 
-  color:var(--mut);
+  border-radius: 999px;
 
-  font-size:14px;
+  color: white;
 
-  margin-bottom:16px;
+  font-weight: 800;
 
+  font-size: 13px;
+
+  margin-bottom: 10px;
 }
 
-
-.stats b{
-
-  color:var(--ink);
-
+.admin {
+  background: #17203a;
 }
 
-
-.userBadge{
-
-  display:inline-flex;
-
-  align-items:center;
-
-  gap:7px;
-
-  padding:5px 10px;
-
-  border-radius:999px;
-
-  background:var(--acc);
-
-  color:var(--onacc);
-
-  font-size:12px;
-
-  font-weight:800;
-
-  margin-bottom:10px;
-
+.anuraj {
+  background: #d92b6d;
 }
 
-
-nav{
-
-  display:flex;
-
-  gap:6px;
-
-  margin-bottom:16px;
-
+.molly {
+  background: #6c4bd8;
 }
 
+h1 {
+  margin: 0 0 5px;
 
-nav button{
-
-  flex:1;
-
-  padding:12px;
-
-  border:
-    1.5px solid
-    var(--line);
-
-  background:var(--card);
-
-  color:var(--ink);
-
-  border-radius:12px;
-
-  font:
-    600 15px
-    system-ui;
-
+  font-size: 32px;
 }
 
-
-nav button.on{
-
-  background:var(--acc);
-
-  color:var(--onacc);
-
-  border-color:var(--acc);
-
+.subtitle {
+  color: #66708c;
 }
 
+.card {
+  background: white;
 
-.box{
+  border: 1px solid #ddd8f0;
 
-  background:var(--card);
+  border-radius: 20px;
 
-  border:
-    1px solid
-    var(--line);
+  padding: 18px;
 
-  border-radius:16px;
+  margin-bottom: 18px;
 
-  padding:14px;
-
-  margin-bottom:14px;
-
+  box-shadow:
+    0 4px 18px
+    rgba(40, 30, 80, .04);
 }
 
+label {
+  display: block;
 
-label{
+  font-size: 14px;
 
-  display:block;
+  color: #66708c;
 
-  font-size:13px;
+  margin-bottom: 7px;
 
-  color:var(--mut);
-
-  margin:8px 0 4px;
-
+  font-weight: 600;
 }
 
+input,
+select {
 
-input{
+  width: 100%;
 
-  width:100%;
+  padding: 14px;
 
-  padding:12px;
+  border-radius: 12px;
 
-  font:inherit;
+  border: 1px solid #ddd8f0;
 
-  background:var(--bg);
+  background: #f8f6ff;
 
-  color:var(--ink);
+  font-size: 16px;
 
-  border:
-    1.5px solid
-    var(--line);
-
-  border-radius:10px;
-
+  outline: none;
 }
 
-
-input:focus,
-button:focus-visible{
-
-  outline:
-    3px solid
-    var(--acc);
-
-  outline-offset:1px;
-
+input:focus {
+  border-color: #8a73e8;
 }
 
+.row {
+  display: grid;
 
-.row{
+  grid-template-columns:
+    1fr 1fr;
 
-  display:flex;
-
-  gap:8px;
-
+  gap: 10px;
 }
 
+button {
 
-.row>*{
+  border: 0;
 
-  flex:1;
+  border-radius: 12px;
 
+  padding: 13px 16px;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  background: #d92b6d;
+
+  color: white;
 }
 
+button.secondary {
+  background: #eeeaf9;
 
-.btn{
-
-  padding:12px 16px;
-
-  border:0;
-
-  border-radius:12px;
-
-  background:var(--acc);
-
-  color:var(--onacc);
-
-  font:
-    700 16px
-    system-ui;
-
-  cursor:pointer;
-
+  color: #313954;
 }
 
-
-.btn.g{
-
-  background:transparent;
-
-  color:var(--ink);
-
-  border:
-    1.5px solid
-    var(--line);
-
+button.green {
+  background: #15966c;
 }
 
-
-.btn.s{
-
-  padding:8px 12px;
-
-  font-size:14px;
-
+button.red {
+  background: #d94a4a;
 }
 
+button:disabled {
+  opacity: .5;
 
-.btn.full{
-
-  width:100%;
-
-  margin-top:12px;
-
+  cursor: not-allowed;
 }
 
-
-.btn:disabled{
-
-  opacity:.5;
-
+.full {
+  width: 100%;
 }
 
+.payment-row {
 
-.msg{
+  display: flex;
 
-  min-height:20px;
+  gap: 8px;
 
-  margin-top:8px;
-
-  font-size:14px;
-
-  color:var(--bad);
-
+  margin-bottom: 10px;
 }
 
+.payment-row button {
+  flex: 1;
+}
 
-.it{
+.payment-row button.active {
+  box-shadow:
+    0 0 0 3px
+    rgba(217,43,109,.18);
+}
 
-  display:flex;
+.amount {
+  display: none;
+}
 
-  flex-wrap:wrap;
+.amount.show {
+  display: block;
+}
 
-  align-items:center;
-
-  gap:8px 10px;
-
-  padding:12px 0;
+.booking {
 
   border-top:
-    1px solid
-    var(--line);
+    1px solid #e7e2f3;
+
+  padding: 17px 0;
 
 }
 
-
-.it:first-child{
-
-  border-top:0;
-
+.booking:first-child {
+  border-top: 0;
 }
 
+.booking-name {
 
-.who{
+  font-size: 18px;
 
-  flex:
-    1 1 60%;
+  font-weight: 800;
 
-  min-width:0;
-
+  margin-bottom: 6px;
 }
 
+.booking-info {
 
-.who b{
+  color: #66708c;
 
-  display:block;
+  font-size: 14px;
 
+  margin-bottom: 10px;
 }
 
+.code {
 
-.who span{
+  display: inline-block;
 
-  font-size:13px;
+  background: #f0ecff;
 
-  color:var(--mut);
+  padding: 7px 10px;
 
+  border-radius: 8px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  margin: 4px 0;
 }
 
+.status {
 
-.pp{
+  display: inline-block;
 
-  font:
-    800 18px
-    "Bricolage Grotesque",
-    system-ui,
-    sans-serif;
+  padding: 5px 9px;
 
-  min-width:44px;
+  border-radius: 999px;
 
-  text-align:right;
+  font-size: 12px;
 
+  font-weight: 800;
+
+  margin-left: 5px;
 }
 
-
-.acts{
-
-  display:flex;
-
-  gap:6px;
-
-  width:100%;
-
+.paid {
+  background: #d9f5e9;
+  color: #127452;
 }
 
-
-.it.off{
-
-  opacity:.5;
-
+.unpaid {
+  background: #fff0cf;
+  color: #936100;
 }
 
-
-.it.off .who b{
-
-  text-decoration:line-through;
-
+.entered {
+  background: #dceeff;
+  color: #235b8f;
 }
 
-
-.done{
-
-  color:var(--ok);
-
+.cancelled {
+  opacity: .5;
 }
 
+.person {
 
-#vid{
+  display: flex;
 
-  width:100%;
+  align-items: center;
 
-  aspect-ratio:1;
+  justify-content: space-between;
 
-  object-fit:cover;
+  padding: 8px 0;
 
-  background:#000;
+  border-top:
+    1px solid #eeeaf5;
 
-  border-radius:16px;
-
-  display:block;
-
+  font-size: 14px;
 }
 
+.person button {
 
-.res{
+  padding: 7px 11px;
 
-  border-radius:16px;
-
-  padding:20px;
-
-  margin-top:14px;
-
-  text-align:center;
-
+  font-size: 13px;
 }
 
+.search-box {
 
-.res.ok{
+  display: flex;
 
-  background:var(--okbg);
-
-  color:var(--ok);
-
+  gap: 8px;
 }
 
+.search-box input {
+  flex: 1;
 
-.res.bad{
+  font-size: 22px;
 
-  background:var(--badbg);
+  letter-spacing: 4px;
 
-  color:var(--bad);
-
+  text-align: center;
 }
 
-
-.res h2{
-
-  margin:0 0 8px;
-
-  font:
-    800 28px/1.1
-    "Bricolage Grotesque",
-    system-ui,
-    sans-serif;
-
+.result {
+  margin-top: 15px;
 }
 
+.message {
 
-.res p{
+  padding: 12px;
 
-  margin:4px 0;
+  border-radius: 10px;
 
-  color:var(--ink);
+  background: #f1eff8;
 
+  color: #555d73;
+
+  margin-bottom: 15px;
 }
 
+.error {
 
-.ov{
+  background: #ffe4e4;
 
-  position:fixed;
-
-  inset:0;
-
-  background:rgba(10,8,30,.7);
-
-  display:none;
-
-  align-items:center;
-
-  justify-content:center;
-
-  padding:16px;
-
-  z-index:9;
-
+  color: #a12626;
 }
 
+.loading {
 
-.ov.on{
+  color: #747b91;
 
-  display:flex;
-
+  font-size: 14px;
 }
 
-
-.pop{
-
-  background:var(--card);
-
-  border-radius:18px;
-
-  padding:14px;
-
-  max-width:420px;
-
-  width:100%;
-
-  max-height:100%;
-
-  overflow:auto;
-
-  text-align:center;
-
+.hidden {
+  display: none !important;
 }
 
+@media(max-width: 500px) {
 
-.pop img{
+  .row {
+    grid-template-columns: 1fr;
+  }
 
-  width:100%;
+  h1 {
+    font-size: 27px;
+  }
 
-  border-radius:10px;
-
-  background:#fff;
-
-}
-
-
-.hint{
-
-  font-size:13px;
-
-  color:var(--mut);
-
-  margin:8px 0;
-
-}
-
-
-.money{
-
-  font-weight:800;
-
-  color:var(--ok);
-
-}
-
-
-.payBox{
-
-  margin-top:10px;
-
-  padding:10px;
-
-  background:var(--bg);
-
-  border-radius:12px;
-
-}
-
-
-.payRow{
-
-  display:flex;
-
-  align-items:center;
-
-  gap:8px;
-
-}
-
-
-.payRow input[type="checkbox"]{
-
-  width:22px;
-
-  height:22px;
-
-  flex:0 0 auto;
-
-}
-
-
-.amountInput{
-
-  margin-top:8px;
-
-}
-
-
-.totalBox{
-
-  margin-bottom:12px;
-
-  padding:14px;
-
-  border-radius:14px;
-
-  background:var(--card);
-
-  border:1px solid var(--line);
-
-}
-
-
-.totalBox strong{
-
-  font-size:22px;
-
-}
-
-
-[hidden]{
-
-  display:none!important;
-
+  .app {
+    width: 94%;
+  }
 }
 
 </style>
 
 </head>
 
-
 <body>
 
-<main>
+<div class="app">
 
+  <div class="header">
 
-  <div
-    class="userBadge"
-    id="userBadge"
-    hidden
-  >
-    —
+    <div
+      id="userBadge"
+      class="user-badge"
+    >
+      CARICAMENTO
+    </div>
+
+    <h1>
+      Ingressi festa
+    </h1>
+
+    <div class="subtitle">
+      Posti ancora liberi:
+      <strong id="free">
+        ...
+      </strong>
+    </div>
+
   </div>
 
 
-  <h1>Ingressi festa</h1>
-
-
-  <div
-    class="stats"
-    id="stats"
-  >
-    Caricamento…
-  </div>
-
+  <!-- ======================================================
+       ADMIN
+       ====================================================== -->
 
   <div
-    class="msg"
-    id="top"
-  ></div>
-
-
-  <nav
-    id="nav"
-    hidden
+    id="adminPanel"
+    class="hidden"
   >
 
-    <button
-      data-tab="list"
-      class="on"
-    >
-      Prenotazioni
-    </button>
+    <div class="card">
 
-    <button
-      data-tab="scan"
-    >
-      Scanner
-    </button>
+      <h2>
+        Ingresso
+      </h2>
 
-  </nav>
+      <p class="loading">
+        Inserisci il codice a 4 cifre dell'invitato.
+      </p>
+
+      <div class="search-box">
+
+        <input
+          id="searchCode"
+          maxlength="4"
+          inputmode="numeric"
+          placeholder="0000"
+        >
+
+        <button
+          onclick="searchBooking()"
+        >
+          CERCA
+        </button>
+
+      </div>
+
+      <div
+        id="searchResult"
+        class="result"
+      ></div>
+
+    </div>
 
 
-  <section
-    id="list"
-    hidden
-  >
+    <div class="card">
 
+      <h2>
+        Prenotazioni
+      </h2>
 
-    <div class="box">
-
-
-      <label for="nm">
-        Nome di chi prenota (persona 1)
-      </label>
-
-
-      <input
-        id="nm"
-        placeholder="Paolo Rossi"
+      <div
+        id="adminList"
       >
+        <div class="loading">
+          Caricamento...
+        </div>
+      </div>
 
+    </div>
+
+  </div>
+
+
+  <!-- ======================================================
+       ORGANIZZATORE
+       ====================================================== -->
+
+  <div
+    id="organizerPanel"
+    class="hidden"
+  >
+
+    <div class="card">
 
       <div class="row">
 
+        <div>
+
+          <label>
+            Nome di chi prenota
+          </label>
+
+          <input
+            id="bookingName"
+            placeholder="Paolo Rossi"
+          >
+
+        </div>
 
         <div>
 
-          <label for="ph">
+          <label>
             Telefono
           </label>
 
           <input
-            id="ph"
-            type="tel"
+            id="bookingPhone"
+            placeholder="3331234567"
             inputmode="tel"
-            placeholder="333 1234567"
           >
 
         </div>
-
-
-        <div>
-
-          <label for="pe">
-            Persone
-          </label>
-
-          <input
-            id="pe"
-            type="number"
-            min="1"
-            max="50"
-            value="1"
-            inputmode="numeric"
-          >
-
-        </div>
-
 
       </div>
 
 
-      <div id="names"></div>
+      <br>
 
 
-      <button
-        class="btn full"
-        id="add"
+      <label>
+        Numero persone
+      </label>
+
+      <input
+        id="bookingPeople"
+        type="number"
+        min="1"
+        max="50"
+        value="1"
       >
-        Crea prenotazione e QR
-      </button>
+
+
+      <br>
+
+
+      <label>
+        Pagamento
+      </label>
+
+      <div class="payment-row">
+
+        <button
+          id="paidBtn"
+          class="secondary"
+          onclick="setPayment(true)"
+        >
+          ✓ PAGATO
+        </button>
+
+        <button
+          id="unpaidBtn"
+          class="secondary active"
+          onclick="setPayment(false)"
+        >
+          DA PAGARE
+        </button>
+
+      </div>
 
 
       <div
-        class="msg"
-        id="fmsg"
-      ></div>
-
-
-    </div>
-
-
-    <div
-      class="totalBox"
-      id="totalBox"
-      hidden
-    >
-      <div>Totale incassato</div>
-
-      <strong id="totalCollected">
-        € 0,00
-      </strong>
-    </div>
-
-
-    <input
-      id="q"
-      type="search"
-      placeholder="Cerca per nome, telefono o codice"
-      hidden
-    >
-
-
-    <div
-      class="box"
-      id="items"
-      style="margin-top:12px"
-    ></div>
-
-
-  </section>
-
-
-  <section
-    id="scan"
-    hidden
-  >
-
-
-    <video
-      id="vid"
-      playsinline
-      muted
-    ></video>
-
-
-    <p
-      class="hint"
-      id="cam"
-    ></p>
-
-
-    <label
-      class="btn g s"
-      style="display:block;text-align:center;margin:0"
-    >
-
-      Scatta foto del QR
-
-      <input
-        id="pic"
-        type="file"
-        accept="image/*"
-        capture="environment"
-        hidden
+        id="amountContainer"
+        class="amount"
       >
 
-    </label>
+        <label>
+          Importo pagato (€)
+        </label>
+
+        <input
+          id="amount"
+          type="number"
+          min="0"
+          step="0.01"
+          value="25"
+        >
+
+      </div>
 
 
-    <div
-      class="row"
-      style="margin-top:10px"
-    >
+      <br>
 
-      <input
-        id="man"
-        placeholder="Codice a 4 cifre"
-        inputmode="numeric"
-        maxlength="4"
-      >
 
       <button
-        class="btn s"
-        id="manGo"
-        style="flex:0 0 auto"
+        class="full"
+        onclick="createBooking()"
+        id="createButton"
       >
-        Verifica
+        CREA PRENOTAZIONE
       </button>
 
     </div>
 
 
-    <div id="res"></div>
+    <div class="card">
 
+      <h2>
+        Le mie prenotazioni
+      </h2>
 
-  </section>
-
-
-</main>
-
-
-<div
-  class="ov"
-  id="ov"
->
-
-  <div class="pop">
-
-
-    <img
-      id="qimg"
-      alt="QR della prenotazione"
-    >
-
-
-    <p class="hint">
-      Tieni premuto sull'immagine per salvarla
-      o inviarla su WhatsApp.
-    </p>
-
-
-    <div class="row">
-
-
-      <button
-        class="btn s"
-        id="share"
+      <div
+        id="bookingList"
       >
-        Condividi
-      </button>
-
-
-      <button
-        class="btn g s"
-        id="close"
-      >
-        Chiudi
-      </button>
-
+        <div class="loading">
+          Caricamento...
+        </div>
+      </div>
 
     </div>
-
 
   </div>
+
+
+  <div
+    id="globalMessage"
+    class="hidden"
+  ></div>
 
 </div>
 
 
 <script>
 
-
 /* ============================================================
-   CONFIG
+   CONFIGURAZIONE
+   ============================================================
+
+   IMPORTANTE:
+   metti qui lo STESSO URL /exec che usavi nel vecchio HTML.
+
+   Esempio:
+   https://script.google.com/macros/s/XXXXXXXX/exec
    ============================================================ */
 
-const API =
-  'https://script.google.com/macros/s/AKfycbxO-R2yW13gYo4jHB-rls7jxcv-GDUsv8jsaFsWVwkTLRmrkc4RRERwDSSPU8HUMLov/exec';
-
-
-let K = null;
-
-let ME = null;
-
-let L = [];
-
-let FREE = 0;
-
-let USED = 0;
-
-let CAP = 180;
-
-let COLLECTED = 0;
-
-let cur = null;
+const API_URL =
+  'INCOLLA_QUI_IL_TUO_URL_APPS_SCRIPT_EXEC';
 
 
 /* ============================================================
-   UTILITÀ
+   STATO
    ============================================================ */
 
-const $ =
-  id => document.getElementById(id);
-
-
-const esc =
-  s => String(s ?? '').replace(
-    /[&<>"']/g,
-    c => ({
-      '&':'&amp;',
-      '<':'&lt;',
-      '>':'&gt;',
-      '"':'&quot;',
-      "'":'&#39;'
-    }[c])
+const params =
+  new URLSearchParams(
+    window.location.search
   );
 
+const KEY =
+  params.get('k') || '';
 
-const money =
-  n =>
-    new Intl.NumberFormat(
-      'it-IT',
-      {
-        style:'currency',
-        currency:'EUR'
-      }
-    ).format(
-      Number(n || 0)
-    );
+let user = null;
 
+let bookings = [];
 
-/* ============================================================
-   CHIAVE
-   ============================================================ */
-
-(function(){
-
-  const p =
-    new URLSearchParams(
-      location.search
-    ).get('k');
-
-
-  if(p){
-
-    try{
-
-      localStorage.setItem(
-        'k',
-        p
-      );
-
-    }catch(e){}
-
-
-    history.replaceState(
-      null,
-      '',
-      location.pathname
-    );
-  }
-
-
-  try{
-
-    K =
-      p ||
-      localStorage.getItem('k');
-
-  }catch(e){
-
-    K = p;
-
-  }
-
-})();
+let paymentSelected = false;
 
 
 /* ============================================================
    API
    ============================================================ */
 
-async function api(
-  action,
-  d
-){
+async function api(action, data = {}) {
 
-  const body =
-    JSON.stringify(
-      Object.assign(
-        {
-          key:K,
-          action,
+  const body = {
 
-          rid:
-            Date.now().toString(36) +
-            Math.random()
-              .toString(36)
-              .slice(2,8)
+    action,
 
+    key: KEY,
+
+    rid:
+      Date.now().toString() +
+      Math.random()
+        .toString(36)
+        .slice(2)
+
+  };
+
+
+  Object.assign(body, data);
+
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type':
+            'text/plain;charset=utf-8'
         },
-        d || {}
-      )
+
+        body:
+          JSON.stringify(body)
+      }
     );
 
 
-  let last =
-    '';
+  const text =
+    await response.text();
 
 
-  for(
-    let i=0;
-    i<3;
-    i++
-  ){
+  let result;
 
-    let r;
+  try {
 
-    let t;
+    result =
+      JSON.parse(text);
 
-    let j;
+  } catch (e) {
 
-
-    try{
-
-      r =
-        await fetch(
-          API,
-          {
-            method:'POST',
-            body
-          }
-        );
-
-
-      t =
-        await r.text();
-
-
-    }catch(e){
-
-      last =
-        'Nessuna connessione a Google';
-
-      await new Promise(
-        r =>
-          setTimeout(
-            r,
-            500 * (i+1)
-          )
-      );
-
-      continue;
-    }
-
-
-    try{
-
-      j =
-        JSON.parse(t);
-
-
-    }catch(e){
-
-      last =
-        'Google non ha risposto correttamente (codice ' +
-        r.status +
-        ')';
-
-      await new Promise(
-        r =>
-          setTimeout(
-            r,
-            500 * (i+1)
-          )
-      );
-
-      continue;
-    }
-
-
-    if(!j.ok){
-
-      throw new Error(
-        j.error ||
-        'Errore'
-      );
-
-    }
-
-
-    return j;
+    throw new Error(
+      'Risposta non valida da Google.'
+    );
   }
 
 
-  throw new Error(
-    last +
-    '. Riprova tra qualche secondo.'
-  );
-}
+  if (!result.ok) {
+
+    throw new Error(
+      result.error ||
+      'Errore'
+    );
+  }
 
 
-/* ============================================================
-   REFRESH LEGGERO
-   ============================================================ */
-
-async function refresh(){
-
-  const j =
-    await api('list');
-
-
-  L =
-    j.list || [];
-
-
-  FREE =
-    j.free || 0;
-
-
-  USED =
-    j.used || 0;
-
-
-  COLLECTED =
-    j.collected || 0;
-
-
-  render();
+  return result;
 }
 
 
 /* ============================================================
    INIT
+   ============================================================
+
+   La pagina NON aspetta questa funzione per essere mostrata.
+   Questo è fondamentale per evitare l'effetto dei 30 secondi.
    ============================================================ */
 
-async function init(){
+async function init() {
 
-  if(!K){
+  try {
 
-    $('stats').textContent='';
+    const result =
+      await api('init');
 
-    $('top').textContent =
-      'Link non valido. Chiedi il link giusto a chi organizza.';
+
+    user = result;
+
+
+    setupUser();
+
+
+    updateFree(
+      result.free
+    );
+
+
+    bookings =
+      result.list || [];
+
+
+    if (user.role === 'admin') {
+
+      renderAdmin();
+
+    } else {
+
+      renderOrganizer();
+    }
+
+
+  } catch (err) {
+
+    showError(
+      err.message
+    );
+
+  }
+
+}
+
+
+/* ============================================================
+   USER
+   ============================================================ */
+
+function setupUser() {
+
+  const badge =
+    document.getElementById(
+      'userBadge'
+    );
+
+
+  badge.textContent =
+    user.name.toUpperCase();
+
+
+  badge.className =
+    'user-badge ' +
+    (
+      user.role === 'admin'
+        ? 'admin'
+        : user.name.toLowerCase()
+    );
+
+
+  if (user.role === 'admin') {
+
+    document
+      .getElementById(
+        'adminPanel'
+      )
+      .classList.remove(
+        'hidden'
+      );
+
+  } else {
+
+    document
+      .getElementById(
+        'organizerPanel'
+      )
+      .classList.remove(
+        'hidden'
+      );
+  }
+
+}
+
+
+/* ============================================================
+   FREE
+   ============================================================ */
+
+function updateFree(n) {
+
+  document
+    .getElementById('free')
+    .textContent =
+      n;
+}
+
+
+/* ============================================================
+   PAYMENT
+   ============================================================ */
+
+function setPayment(value) {
+
+  paymentSelected =
+    value;
+
+
+  const paidBtn =
+    document.getElementById(
+      'paidBtn'
+    );
+
+  const unpaidBtn =
+    document.getElementById(
+      'unpaidBtn'
+    );
+
+  const amount =
+    document.getElementById(
+      'amountContainer'
+    );
+
+
+  paidBtn.classList.toggle(
+    'active',
+    value
+  );
+
+
+  unpaidBtn.classList.toggle(
+    'active',
+    !value
+  );
+
+
+  amount.classList.toggle(
+    'show',
+    value
+  );
+
+
+  if (value) {
+
+    const people =
+      Number(
+        document.getElementById(
+          'bookingPeople'
+        ).value
+      ) || 1;
+
+
+    document
+      .getElementById(
+        'amount'
+      )
+      .value =
+        people *
+        (user.ticketPrice || 25);
+  }
+
+}
+
+
+/* ============================================================
+   CREATE
+   ============================================================ */
+
+async function createBooking() {
+
+  const name =
+    document
+      .getElementById(
+        'bookingName'
+      )
+      .value
+      .trim();
+
+
+  const phone =
+    document
+      .getElementById(
+        'bookingPhone'
+      )
+      .value
+      .trim();
+
+
+  const people =
+    Number(
+      document
+        .getElementById(
+          'bookingPeople'
+        )
+        .value
+    );
+
+
+  if (!name) {
+
+    showError(
+      'Inserisci il nome.'
+    );
 
     return;
   }
 
 
-  try{
+  if (!phone) {
 
-    const j =
-      await api('whoami');
-
-
-    ME =
-      j;
-
-
-    CAP =
-      j.capacity;
-
-
-    /*
-      Colore pagina.
-    */
-
-    document.body.classList.remove(
-      'admin',
-      'anuraj',
-      'molly'
+    showError(
+      'Inserisci il telefono.'
     );
 
-
-    if(
-      j.name &&
-      j.name.toLowerCase() === 'anuraj'
-    ){
-
-      document.body.classList.add(
-        'anuraj'
-      );
-
-    }
-    else if(
-      j.name &&
-      j.name.toLowerCase() === 'molly'
-    ){
-
-      document.body.classList.add(
-        'molly'
-      );
-
-    }
-    else{
-
-      document.body.classList.add(
-        'admin'
-      );
-
-    }
-
-
-    /*
-      Nome in testata.
-    */
-
-    $('userBadge').textContent =
-      j.role === 'admin'
-        ? 'ADMIN'
-        : j.name.toUpperCase();
-
-
-    $('userBadge').hidden =
-      false;
-
-
-    $('list').hidden =
-      false;
-
-
-    if(j.role === 'admin'){
-
-      $('nav').hidden =
-        false;
-
-      $('q').hidden =
-        false;
-
-      $('totalBox').hidden =
-        false;
-    }
-
-
-    await refresh();
-
-
-  }catch(e){
-
-    $('stats').textContent='';
-
-    $('top').textContent =
-      e.message;
-
-  }
-}
-
-
-/* ============================================================
-   RENDER
-   ============================================================ */
-
-function render(){
-
-  if(!ME) return;
-
-
-  const admin =
-    ME.role === 'admin';
-
-
-  const q =
-    admin
-      ? $('q').value
-          .trim()
-          .toLowerCase()
-      : '';
-
-
-  const ent =
-    L
-      .filter(
-        b => !b.cancelled
-      )
-      .reduce(
-        (t,b) =>
-          t +
-          b.att.filter(
-            a => a.e
-          ).length,
-        0
-      );
-
-
-  $('stats').innerHTML =
-    admin
-      ? `
-        Prenotati <b>${USED}</b>
-        su ${CAP}
-        · Entrati <b>${ent}</b>
-        · Liberi <b>${FREE}</b>
-      `
-      : `
-        Posti ancora liberi:
-        <b>${FREE}</b>
-      `;
-
-
-  if(admin){
-
-    $('totalCollected').textContent =
-      money(COLLECTED);
-
+    return;
   }
 
 
-  const R =
-    L
-      .filter(
-        b =>
-          !q ||
-          (
-            b.name +
-            ' ' +
-            b.phone +
-            ' ' +
-            b.code +
-            ' ' +
-            b.att
-              .map(a => a.n)
-              .join(' ')
-          )
-          .toLowerCase()
-          .includes(q)
-      )
-      .slice()
-      .reverse();
+  if (
+    !people ||
+    people < 1 ||
+    people > 50
+  ) {
 
-
-  $('items').innerHTML =
-    R.length
-      ? R.map(
-          b => {
-
-            const n =
-              b.att.length;
-
-
-            const e =
-              b.att.filter(
-                a => a.e
-              ).length;
-
-
-            return `
-
-              <div
-                class="it ${b.cancelled?'off':''}"
-              >
-
-                <div class="who">
-
-                  <b>
-                    ${esc(
-                      b.name ||
-                      b.phone
-                    )}
-                  </b>
-
-                  <span>
-
-                    ${esc(b.phone)}
-
-                    ·
-
-                    ${n}
-                    ${n==1?'persona':'persone'}
-
-                    ·
-
-                    Codice
-                    <strong>
-                      ${esc(b.code)}
-                    </strong>
-
-                    ${
-                      admin
-                        ? (
-                          b.paid
-                            ? ` · <span class="money">pagato ${money(b.amount)}</span>`
-                            : ' · da pagare'
-                        )
-                        : ''
-                    }
-
-                    ${
-                      n>1
-                        ? '<br>' +
-                          esc(
-                            b.att
-                              .map(
-                                a =>
-                                  (a.e?'✓ ':'') +
-                                  (a.n||'senza nome')
-                              )
-                              .join(', ')
-                          )
-                        : ''
-                    }
-
-                  </span>
-
-                </div>
-
-
-                ${
-                  admin
-                    ? `
-                      <div
-                        class="pp ${e>=n&&!b.cancelled?'done':''}"
-                      >
-                        ${e}/${n}
-                      </div>
-                    `
-                    : ''
-                }
-
-
-                <div class="acts">
-
-
-                  <button
-                    class="btn s"
-                    data-a="qr"
-                    data-c="${esc(b.code)}"
-                    ${b.cancelled?'hidden':''}
-                  >
-                    QR
-                  </button>
-
-
-                  ${
-                    admin
-                      ? `
-
-                        <button
-                          class="btn g s"
-                          data-a="paid"
-                          data-c="${esc(b.code)}"
-                        >
-                          ${
-                            b.paid
-                              ? 'Modifica pagamento'
-                              : 'Segna pagato'
-                          }
-                        </button>
-
-
-                        <button
-                          class="btn g s"
-                          data-a="tog"
-                          data-c="${esc(b.code)}"
-                        >
-                          ${
-                            b.cancelled
-                              ? 'Ripristina'
-                              : 'Annulla'
-                          }
-                        </button>
-
-                      `
-                      : ''
-                  }
-
-
-                </div>
-
-
-              </div>
-            `;
-
-          }
-        ).join('')
-
-
-      : `
-        <p
-          class="hint"
-          style="margin:0"
-        >
-          Nessuna prenotazione.
-        </p>
-      `;
-}
-
-
-/* ============================================================
-   RICERCA
-   ============================================================ */
-
-$('q').oninput =
-  render;
-
-
-/* ============================================================
-   NOMI
-   ============================================================ */
-
-function renderNames(){
-
-  const n =
-    Math.max(
-      1,
-      Math.min(
-        50,
-        parseInt(
-          $('pe').value,
-          10
-        ) || 1
-      )
+    showError(
+      'Numero persone non valido.'
     );
 
-
-  const old =
-    [
-      ...document.querySelectorAll(
-        '.nx'
-      )
-    ].map(
-      i => i.value
-    );
+    return;
+  }
 
 
-  $('names').innerHTML =
-    Array.from(
-      {
-        length:
-          n - 1
-      },
-      (_,i) => `
+  const names = [];
 
-        <label>
-          Persona ${i+2}
-        </label>
+  for (
+    let i = 0;
+    i < people;
+    i++
+  ) {
 
-        <input
-          class="nx"
-          placeholder="Nome"
-          value="${esc(
-            old[i] || ''
-          )}"
-        >
+    if (i === 0) {
 
-      `
-    ).join('');
-}
+      names.push(name);
 
+    } else {
 
-$('pe').oninput =
-  renderNames;
-
-
-renderNames();
-
-
-/* ============================================================
-   CREA PRENOTAZIONE
-   ============================================================ */
-
-$('add').onclick =
-  async () => {
-
-    const m =
-      $('fmsg');
-
-
-    const btn =
-      $('add');
-
-
-    const n =
-      Math.max(
-        1,
-        Math.min(
-          50,
-          parseInt(
-            $('pe').value,
-            10
-          ) || 1
-        )
+      names.push(
+        name +
+        ' - Persona ' +
+        (i + 1)
       );
 
-
-    const names =
-      [
-        $('nm').value.trim(),
-        ...[
-          ...document.querySelectorAll(
-            '.nx'
-          )
-        ].map(
-          i => i.value.trim()
-        )
-      ].slice(
-        0,
-        n
-      );
-
-
-    while(
-      names.length < n
-    ){
-      names.push('');
     }
+  }
+
+
+  let amount = 0;
+
+
+  if (paymentSelected) {
+
+    amount =
+      Number(
+        document
+          .getElementById(
+            'amount'
+          )
+          .value
+      ) || 0;
+  }
+
+
+  const button =
+    document.getElementById(
+      'createButton'
+    );
+
+
+  button.disabled = true;
+
+  button.textContent =
+    'SALVATAGGIO...';
+
+
+  try {
+
+    const result =
+      await api(
+        'create',
+        {
+          names,
+          phone,
+          paid:
+            paymentSelected,
+          amount
+        }
+      );
 
 
     /*
-      Prezzo fisso 25€ per persona.
-    */
+     * Aggiorniamo subito la UI.
+     * Non aspettiamo una seconda richiesta.
+     */
 
-    const amount =
-      n * 25;
+    bookings.unshift({
 
+      code:
+        result.code,
 
-    btn.disabled =
-      true;
+      name:
+        result.name,
 
+      phone:
+        result.phone,
 
-    btn.textContent =
-      'Salvataggio…';
+      paid:
+        result.paid,
 
+      amount:
+        result.amount,
 
-    m.textContent =
-      '';
+      cancelled:
+        false,
 
+      by:
+        user.name,
 
-    try{
-
-      const j =
-        await api(
-          'create',
-          {
-            phone:
-              $('ph').value,
-
-            names,
-
-            amount
-          }
-        );
-
-
-      /*
-        Aggiorniamo la UI senza
-        fare subito un nuovo GET.
-      */
-
-      L.push({
-
-        code:j.code,
-
-        name:names[0],
-
-        phone:$('ph').value,
-
-        paid:false,
-
-        amount:j.amount,
-
-        cancelled:false,
-
-        att:names.map(
-          name => ({
-            n:name
+      att:
+        names.map(
+          (n, i) => ({
+            n,
+            e: false,
+            k: i + 1
           })
         )
+    });
 
-      });
 
+    updateFree(
+      result.free
+    );
 
-      FREE =
-        j.free;
 
+    renderOrganizer();
 
-      USED =
-        CAP - FREE;
 
-
-      render();
-
-
-      /*
-        Reset del form.
-      */
-
-      const label =
-        names[0] ||
-        'Prenotazione';
-
-
-      $('nm').value='';
-
-      $('ph').value='';
-
-      $('pe').value=1;
-
-      renderNames();
-
-
-      /*
-        QR immediato.
-      */
-
-      showQR({
-
-        code:j.code,
-
-        label,
-
-        n:n
-
-      });
-
-
-    }catch(e){
-
-      m.textContent =
-        e.message;
-
-    }
-
-
-    btn.disabled =
-      false;
-
-
-    btn.textContent =
-      'Crea prenotazione e QR';
-  };
-
-
-/* ============================================================
-   AZIONI LISTA
-   ============================================================ */
-
-$('items').onclick =
-  async e => {
-
-    const t =
-      e.target.closest(
-        'button'
-      );
-
-
-    if(!t) return;
-
-
-    const b =
-      L.find(
-        x =>
-          x.code ===
-          t.dataset.c
-      );
-
-
-    if(!b) return;
-
-
-    /*
-      QR
-    */
-
-    if(
-      t.dataset.a === 'qr'
-    ){
-
-      showQR({
-
-        code:b.code,
-
-        label:
-          b.name ||
-          b.phone,
-
-        n:b.att.length
-
-      });
-
-      return;
-    }
-
-
-    /*
-      PAGAMENTO
-    */
-
-    if(
-      t.dataset.a === 'paid'
-    ){
-
-      await managePayment(b);
-
-      return;
-    }
-
-
-    /*
-      ANNULLA / RIPRISTINA
-    */
-
-    if(
-      t.dataset.a === 'tog'
-    ){
-
-      t.disabled =
-        true;
-
-
-      try{
-
-        const j =
-          await api(
-            'cancel',
-            {
-              code:b.code,
-
-              value:
-                !b.cancelled
-            }
-          );
-
-
-        b.cancelled =
-          j.cancelled;
-
-
-        render();
-
-
-      }catch(err){
-
-        $('fmsg').textContent =
-          err.message;
-
-      }
-
-
-      t.disabled =
-        false;
-    }
-
-  };
-
-
-/* ============================================================
-   PAGAMENTO
-   ============================================================ */
-
-async function managePayment(b){
-
-  const defaultAmount =
-    b.amount > 0
-      ? b.amount
-      : b.att.length * 25;
-
-
-  const raw =
-    prompt(
-      b.paid
-        ? 'Importo pagato in euro. Inserisci 0 per segnare NON PAGATO:'
-        : 'Importo pagato in euro:',
-      String(
-        b.paid
-          ? defaultAmount
-          : defaultAmount
+    document
+      .getElementById(
+        'bookingName'
       )
+      .value = '';
+
+
+    document
+      .getElementById(
+        'bookingPhone'
+      )
+      .value = '';
+
+
+    document
+      .getElementById(
+        'bookingPeople'
+      )
+      .value = '1';
+
+
+    setPayment(false);
+
+
+    showMessage(
+      'Prenotazione creata. Codice: ' +
+      result.code
     );
 
 
-  if(raw === null) return;
+  } catch (err) {
+
+    showError(
+      err.message
+    );
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+      'CREA PRENOTAZIONE';
+  }
+
+}
 
 
-  let amount =
-    Number(
-      String(raw)
-        .replace(',','.')
+/* ============================================================
+   ORGANIZER LIST
+   ============================================================ */
+
+function renderOrganizer() {
+
+  const box =
+    document.getElementById(
+      'bookingList'
     );
 
 
-  if(
-    !isFinite(amount) ||
-    amount < 0
-  ){
+  if (!bookings.length) {
 
-    alert(
-      'Importo non valido.'
-    );
+    box.innerHTML =
+      '<div class="loading">' +
+      'Nessuna prenotazione.' +
+      '</div>';
 
     return;
   }
 
 
-  amount =
-    Math.round(
-      amount * 100
-    ) / 100;
+  box.innerHTML =
+    bookings
+      .map(
+        bookingHTML
+      )
+      .join('');
+}
 
+
+/* ============================================================
+   BOOKING HTML
+   ============================================================ */
+
+function bookingHTML(g) {
 
   const paid =
-    amount > 0;
+    g.paid === true;
 
 
-  try{
+  const cancelled =
+    g.cancelled === true;
 
-    const j =
-      await api(
-        'paid',
-        {
-          code:b.code,
 
-          value:paid,
+  const people =
+    g.att
+      ? g.att.length
+      : 0;
 
-          amount:amount
-        }
-      );
 
+  const entered =
+    g.att
+      ? g.att.filter(
+          a => a.e
+        ).length
+      : 0;
 
-    b.paid =
-      j.paid;
 
+  return `
 
-    b.amount =
-      j.amount;
+    <div class="booking ${
+      cancelled
+        ? 'cancelled'
+        : ''
+    }">
 
+      <div class="booking-name">
+        ${escapeHtml(g.name)}
+      </div>
 
-    /*
-      Aggiornamento totale locale.
-    */
+      <div class="booking-info">
 
-    await refresh();
-
-
-  }catch(e){
-
-    alert(
-      e.message
-    );
-
-  }
-}
-
-
-/* ============================================================
-   QR
-   ============================================================ */
-
-function qrCanvas(b){
-
-  const q =
-    qrcode(
-      0,
-      'M'
-    );
-
-
-  q.addData(
-    String(b.code)
-  );
-
-
-  q.make();
-
-
-  const n =
-    q.getModuleCount();
-
-
-  const m =
-    4;
-
-
-  const cell =
-    Math.floor(
-      600 /
-      (n + 2*m)
-    );
-
-
-  const sz =
-    cell *
-    (n + 2*m);
-
-
-  const W =
-    720;
-
-
-  const H =
-    sz + 230;
-
-
-  const oy =
-    30;
-
-
-  const ox =
-    (W-sz)/2;
-
-
-  const c =
-    document.createElement(
-      'canvas'
-    );
-
-
-  c.width =
-    W;
-
-
-  c.height =
-    H;
-
-
-  const x =
-    c.getContext(
-      '2d'
-    );
-
-
-  x.fillStyle =
-    '#fff';
-
-
-  x.fillRect(
-    0,
-    0,
-    W,
-    H
-  );
-
-
-  x.fillStyle =
-    '#000';
-
-
-  for(
-    let r=0;
-    r<n;
-    r++
-  ){
-
-    for(
-      let k=0;
-      k<n;
-      k++
-    ){
-
-      if(
-        q.isDark(
-          r,
-          k
-        )
-      ){
-
-        x.fillRect(
-          ox+(m+k)*cell,
-          oy+(m+r)*cell,
-          cell,
-          cell
-        );
-
-      }
-
-    }
-
-  }
-
-
-  x.fillStyle =
-    '#1E1B3A';
-
-
-  x.textAlign =
-    'center';
-
-
-  x.font =
-    '700 44px system-ui,sans-serif';
-
-
-  x.fillText(
-    String(
-      b.label
-    ).slice(
-      0,
-      26
-    ),
-    W/2,
-    oy+sz+60
-  );
-
-
-  x.font =
-    '32px system-ui,sans-serif';
-
-
-  x.fillText(
-    b.n +
-      (
-        b.n==1
-          ? ' persona'
-          : ' persone'
-      ),
-    W/2,
-    oy+sz+112
-  );
-
-
-  x.font =
-    '700 40px monospace';
-
-
-  x.fillText(
-    b.code,
-    W/2,
-    oy+sz+164
-  );
-
-
-  return c;
-}
-
-
-function showQR(b){
-
-  cur =
-    b;
-
-
-  $('qimg').src =
-    qrCanvas(
-      b
-    ).toDataURL(
-      'image/png'
-    );
-
-
-  $('ov')
-    .classList
-    .add('on');
-}
-
-
-$('close').onclick =
-  () =>
-    $('ov')
-      .classList
-      .remove('on');
-
-
-$('share').onclick =
-  () => {
-
-    qrCanvas(
-      cur
-    ).toBlob(
-      async bl => {
-
-        try{
-
-          const f =
-            new File(
-              [bl],
-              cur.code +
-              '.png',
-              {
-                type:
-                  'image/png'
-              }
-            );
-
-
-          if(
-            navigator.canShare &&
-            navigator.canShare({
-              files:[f]
-            })
-          ){
-
-            await navigator.share({
-
-              files:[f],
-
-              text:
-                'Ecco il tuo QR per entrare alla festa. Mostralo all\'ingresso.'
-
-            });
-
-          }
-          else{
-
-            alert(
-              'Su questo telefono tieni premuto sull\'immagine per salvarla o inviarla.'
-            );
-
-          }
-
-        }catch(e){}
-
-      }
-    );
-  };
-
-
-/* ============================================================
-   SCANNER - SOLO ADMIN
-   ============================================================ */
-
-let stream =
-  null;
-
-
-let scanning =
-  false;
-
-
-let hold =
-  false;
-
-
-const v =
-  $('vid');
-
-
-const cv =
-  document.createElement(
-    'canvas'
-  );
-
-
-const cx =
-  cv.getContext(
-    '2d',
-    {
-      willReadFrequently:true
-    }
-  );
-
-
-let bd =
-  null;
-
-
-let busy =
-  false;
-
-
-let tk =
-  0;
-
-
-try{
-
-  if(
-    'BarcodeDetector'
-    in window &&
-    BarcodeDetector
-      .getSupportedFormats
-  ){
-
-    BarcodeDetector
-      .getSupportedFormats()
-      .then(
-        f => {
-
-          if(
-            f.includes(
-              'qr_code'
-            )
-          ){
-
-            bd =
-              new BarcodeDetector({
-                formats:[
-                  'qr_code'
-                ]
-              });
-
-          }
-
-        }
-      )
-      .catch(
-        () => {}
-      );
-
-  }
-
-}catch(e){}
-
-
-/* ============================================================
-   START SCANNER
-   ============================================================ */
-
-async function startScan(){
-
-  if(scanning)
-    return;
-
-
-  $('cam').textContent =
-    'Avvio fotocamera…';
-
-
-  try{
-
-    stream =
-      await navigator
-        .mediaDevices
-        .getUserMedia({
-
-          video:{
-            facingMode:{
-              ideal:
-                'environment'
-            },
-
-            width:{
-              ideal:1280
-            },
-
-            height:{
-              ideal:720
-            }
-
-          },
-
-          audio:false
-
-        });
-
-
-    v.srcObject =
-      stream;
-
-
-    await v.play();
-
-
-    try{
-
-      const tr =
-        stream
-          .getVideoTracks()[0];
-
-
-      const cap =
-        tr.getCapabilities
-          ? tr.getCapabilities()
-          : {};
-
-
-      if(
-        cap.focusMode &&
-        cap.focusMode.includes(
-          'continuous'
-        )
-      ){
-
-        await tr.applyConstraints({
-          advanced:[
-            {
-              focusMode:
-                'continuous'
-            }
-          ]
-        });
-
-      }
-
-    }catch(e){}
-
-
-    scanning =
-      true;
-
-
-    $('cam').textContent =
-      'Fotocamera attiva: tieni il QR fermo davanti, a 15-25 cm, con lo schermo alla massima luminosità.';
-
-
-    tick(
-      ++tk
-    );
-
-
-  }catch(e){
-
-    const n =
-      e &&
-      e.name;
-
-
-    $('cam').textContent =
-      n === 'NotAllowedError'
-        ? 'Fotocamera bloccata: consenti l\'accesso alla fotocamera per questo sito, poi ricarica.'
-
-        : n === 'NotFoundError'
-        ? 'Nessuna fotocamera trovata su questo dispositivo.'
-
-        : n === 'NotReadableError'
-        ? 'La fotocamera è usata da un\'altra app: chiudila e riprova.'
-
-        : 'Fotocamera non disponibile: apri il link nel browser normale (Chrome o Safari).';
-
-  }
-
-}
-
-
-function stopScan(){
-
-  scanning =
-    false;
-
-
-  if(stream){
-
-    stream
-      .getTracks()
-      .forEach(
-        t =>
-          t.stop()
-      );
-
-
-    stream =
-      null;
-  }
-}
-
-
-/* ============================================================
-   SCANNER LOOP
-   ============================================================ */
-
-async function tick(id){
-
-  if(
-    !scanning ||
-    id !== tk
-  )
-    return;
-
-
-  if(
-    !hold &&
-    !busy &&
-    v.readyState >= 2 &&
-    v.videoWidth
-  ){
-
-    busy =
-      true;
-
-
-    try{
-
-      let data =
-        null;
-
-
-      if(bd){
-
-        const c =
-          await bd.detect(
-            v
-          );
-
-
-        if(c.length)
-          data =
-            c[0].rawValue;
-
-      }
-      else if(
-        window.jsQR
-      ){
-
-        const sc =
-          Math.min(
-            1,
-            960 /
-            v.videoWidth
-          );
-
-
-        cv.width =
-          v.videoWidth * sc;
-
-
-        cv.height =
-          v.videoHeight * sc;
-
-
-        cx.drawImage(
-          v,
-          0,
-          0,
-          cv.width,
-          cv.height
-        );
-
-
-        const im =
-          cx.getImageData(
-            0,
-            0,
-            cv.width,
-            cv.height
-          );
-
-
-        const r =
-          jsQR(
-            im.data,
-            im.width,
-            im.height,
-            {
-              inversionAttempts:
-                'dontInvert'
-            }
-          );
-
-
-        if(r)
-          data =
-            r.data;
-
-      }
-
-
-      if(data){
-
-        hold =
-          true;
-
-
-        handle(
-          data
-        );
-      }
-
-
-    }catch(e){}
-
-
-    busy =
-      false;
-  }
-
-
-  setTimeout(
-    () =>
-      requestAnimationFrame(
-        () =>
-          tick(id)
-      ),
-    80
-  );
-}
-
-
-/* ============================================================
-   FOTO QR
-   ============================================================ */
-
-$('pic').onchange =
-  e => {
-
-    const f =
-      e.target.files[0];
-
-
-    if(!f)
-      return;
-
-
-    const img =
-      new Image();
-
-
-    img.onload =
-      () => {
-
-        const sc =
-          Math.min(
-            1,
-            1200 /
-            Math.max(
-              img.width,
-              img.height
-            )
-          );
-
-
-        cv.width =
-          img.width * sc;
-
-
-        cv.height =
-          img.height * sc;
-
-
-        cx.drawImage(
-          img,
-          0,
-          0,
-          cv.width,
-          cv.height
-        );
-
-
-        const im =
-          cx.getImageData(
-            0,
-            0,
-            cv.width,
-            cv.height
-          );
-
-
-        const r =
-          jsQR(
-            im.data,
-            im.width,
-            im.height
-          );
-
-
-        if(
-          r &&
-          r.data
-        ){
-
-          handle(
-            r.data
-          );
-
-        }
-        else{
-
-          show(
-            'bad',
-            'QR NON LETTO',
-            [
-              'Riprova con più luce e il QR ben centrato.'
-            ]
-          );
-
-        }
-
-      };
-
-
-    img.src =
-      URL.createObjectURL(
-        f
-      );
-
-
-    e.target.value =
-      '';
-
-  };
-
-
-/* ============================================================
-   CODICE MANUALE
-   ============================================================ */
-
-$('manGo').onclick =
-  () => {
-
-    let c =
-      $('man')
-        .value
-        .trim()
-        .replace(/\D/g,'');
-
-
-    if(
-      !c
-    )
-      return;
-
-
-    if(
-      c.length !== 4
-    ){
-
-      show(
-        'bad',
-        'CODICE NON VALIDO',
-        [
-          'Il codice deve contenere 4 cifre.'
-        ]
-      );
-
-      return;
-    }
-
-
-    $('man')
-      .value =
-      '';
-
-
-    hold =
-      true;
-
-
-    handle(
-      c
-    );
-  };
-
-
-/* ============================================================
-   ENTER MANUALE
-   ============================================================ */
-
-$('man').addEventListener(
-  'keydown',
-  e => {
-
-    if(
-      e.key === 'Enter'
-    ){
-
-      $('manGo')
-        .click();
-
-    }
-
-  }
-);
-
-
-/* ============================================================
-   RISULTATI SCANNER
-   ============================================================ */
-
-function show(
-  kind,
-  title,
-  lines,
-  extra
-){
-
-  $('res').innerHTML =
-    `
-      <div
-        class="res ${kind}"
-      >
-
-        <h2>
-          ${title}
-        </h2>
-
-        ${
-          lines
-            .filter(Boolean)
-            .map(
-              l =>
-                `<p>${l}</p>`
-            )
-            .join('')
-        }
-
-        ${extra || ''}
+        ${escapeHtml(g.phone)}
+        ·
+        ${people}
+        ${people === 1
+          ? 'persona'
+          : 'persone'}
 
       </div>
-    `;
 
+      <div>
 
-  try{
+        Codice
 
-    if(
-      navigator.vibrate
-    ){
+        <span class="code">
+          ${escapeHtml(g.code)}
+        </span>
 
-      navigator.vibrate(
-        kind === 'ok'
-          ? 80
-          : [120,80,120]
-      );
+        <span class="status ${
+          paid
+            ? 'paid'
+            : 'unpaid'
+        }">
 
-    }
+          ${
+            paid
+              ? 'PAGATO €' +
+                Number(
+                  g.amount || 0
+                ).toFixed(2)
+              : 'DA PAGARE'
+          }
 
-  }catch(e){}
+        </span>
+
+      </div>
+
+      ${
+        entered > 0
+          ? `
+            <div
+              class="status entered"
+              style="margin-top:8px"
+            >
+              Entrati:
+              ${entered}/${people}
+            </div>
+          `
+          : ''
+      }
+
+      ${
+        g.att
+          ? g.att
+              .map(
+                p => `
+                  <div class="person">
+
+                    <span>
+                      ${escapeHtml(p.n)}
+
+                      ${
+                        p.e
+                          ? ' ✓'
+                          : ''
+                      }
+                    </span>
+
+                  </div>
+                `
+              )
+              .join('')
+          : ''
+      }
+
+    </div>
+  `;
 }
 
 
-const release =
-  ms =>
-    setTimeout(
-      () => {
-        hold =
-          false;
-      },
-      ms
+/* ============================================================
+   ADMIN SEARCH
+   ============================================================ */
+
+async function searchBooking() {
+
+  const code =
+    document
+      .getElementById(
+        'searchCode'
+      )
+      .value
+      .trim();
+
+
+  if (
+    !/^\d{4}$/.test(code)
+  ) {
+
+    showSearchError(
+      'Inserisci un codice di 4 cifre.'
     );
+
+    return;
+  }
+
+
+  try {
+
+    const result =
+      await api(
+        'scan',
+        { code }
+      );
+
+
+    const box =
+      document.getElementById(
+        'searchResult'
+      );
+
+
+    if (
+      result.status ===
+      'invalid'
+    ) {
+
+      box.innerHTML =
+        '<div class="message error">' +
+        'Codice non trovato.' +
+        '</div>';
+
+      return;
+    }
+
+
+    if (
+      result.status ===
+      'cancelled'
+    ) {
+
+      box.innerHTML =
+        '<div class="message error">' +
+        'Questa prenotazione è annullata.' +
+        '</div>';
+
+      return;
+    }
+
+
+    const g =
+      result.b;
+
+
+    if (
+      result.status ===
+      'used'
+    ) {
+
+      box.innerHTML =
+        bookingAdminHTML(
+          g,
+          true
+        );
+
+      return;
+    }
+
+
+    box.innerHTML =
+      bookingAdminHTML(
+        g,
+        false
+      );
+
+
+  } catch (err) {
+
+    showSearchError(
+      err.message
+    );
+  }
+
+}
 
 
 /* ============================================================
-   GESTIONE QR
+   ADMIN BOOKING
    ============================================================ */
 
-async function handle(
-  raw
-){
+function bookingAdminHTML(
+  g,
+  used
+) {
 
-  show(
-    'ok',
-    'Verifica in corso…',
-    []
-  );
+  return `
 
+    <div class="booking">
 
-  try{
+      <div class="booking-name">
+        ${escapeHtml(g.name)}
+      </div>
 
-    /*
-      Il QR ora contiene direttamente
-      il codice a 4 cifre.
-    */
+      <div class="booking-info">
 
-    const r =
-      await api(
-        'scan',
-        {
-          code:
-            String(raw)
-              .trim()
-              .toUpperCase(),
-
-          auto:1
+        ${escapeHtml(g.phone)}
+        ·
+        ${g.att.length}
+        ${
+          g.att.length === 1
+            ? 'persona'
+            : 'persone'
         }
-      );
 
+      </div>
 
-    const b =
-      r.b;
+      <div>
 
+        Codice
 
-    if(
-      r.status === 'invalid'
-    ){
+        <span class="code">
+          ${escapeHtml(g.code)}
+        </span>
 
-      show(
-        'bad',
-        '❌ NON VALIDO',
-        [
-          'Questo QR non è nella lista.'
-        ]
-      );
+      </div>
 
+      <br>
 
-      release(2500);
+      <div>
 
-      return;
-    }
+        Pagamento:
 
-
-    const nm =
-      esc(
-        b.name ||
-        b.phone
-      );
-
-
-    if(
-      r.status === 'cancelled'
-    ){
-
-      show(
-        'bad',
-        '❌ ANNULLATO',
-        [
-          nm,
-          'La prenotazione è stata annullata.'
-        ]
-      );
-
-
-      release(2500);
-
-      return;
-    }
-
-
-    if(
-      r.status === 'used'
-    ){
-
-      show(
-        'bad',
-        '❌ GIÀ UTILIZZATO',
-        [
-          nm,
-
-          `Tutte le ${b.att.length} persone sono già entrate.`,
-
-          r.last
-            ? 'Ultimo ingresso: ' +
-              r.last
-            : ''
-        ]
-      );
-
-
-      release(2500);
-
-      return;
-    }
-
-
-    if(
-      r.status === 'admitted'
-    ){
-
-      show(
-        'ok',
-        '✅ INGRESSO CONSENTITO',
-        [
-          esc(
-            b.name ||
-            b.phone
-          ),
-
-          'Ingresso: ' +
-          r.t
-        ]
-      );
-
-
-      release(1500);
-
-      return;
-    }
-
-
-    const pend =
-      b.att.filter(
-        a => !a.e
-      );
-
-
-    show(
-      'ok',
-      '✅ QR VALIDO',
-      [
-        nm,
-
-        `Prenotazione per ${b.att.length} persone · già entrate ${b.att.length-pend.length}`,
-
-        'Spunta chi entra adesso:'
-      ],
-
-      `
-        <div
-          style="
-            text-align:left;
-            margin:12px 0
-          "
-        >
+        <span class="status ${
+          g.paid
+            ? 'paid'
+            : 'unpaid'
+        }">
 
           ${
-            pend
-              .map(
-                a =>
-                  `
-                    <label
-                      style="
-                        display:flex;
-                        gap:12px;
-                        align-items:center;
-                        margin:0;
-                        padding:10px 0;
-                        font-size:18px;
-                        color:var(--ink)
-                      "
-                    >
-
-                      <input
-                        type="checkbox"
-                        class="ck"
-                        value="${a.k}"
-                        checked
-                        style="
-                          width:26px;
-                          height:26px;
-                          padding:0;
-                          flex:0 0 auto
-                        "
-                      >
-
-                      ${esc(
-                        a.n ||
-                        'Persona ' +
-                        a.k
-                      )}
-
-                    </label>
-                  `
-              )
-              .join('')
+            g.paid
+              ? 'PAGATO €' +
+                Number(
+                  g.amount || 0
+                ).toFixed(2)
+              : 'DA PAGARE'
           }
 
-        </div>
+        </span>
 
+      </div>
 
-        <button
-          class="btn full"
-          id="go"
-        >
-          Conferma ingresso
-        </button>
-      `
-    );
+      <br>
 
-
-    $('go').onclick =
-      () => {
-
-        const ix =
-          [
-            ...document
-              .querySelectorAll(
-                '.ck:checked'
-              )
-          ]
+      ${
+        g.att
           .map(
-            c => +c.value
-          );
+            p => `
+              <div class="person">
 
+                <span>
+                  ${escapeHtml(p.n)}
 
-        if(
-          !ix.length
-        ){
+                  ${
+                    p.e
+                      ? ' ✓ ENTRATO'
+                      : ''
+                  }
+                </span>
 
-          hold =
-            false;
+              </div>
+            `
+          )
+          .join('')
+      }
 
+      <br>
 
-          $('res').innerHTML =
-            '';
+      ${
+        used
 
+          ? `
 
-          return;
-        }
+            <div class="message">
+              Tutte le persone sono già entrate.
+            </div>
 
+          `
 
-        admit(
-          b,
-          ix
-        );
+          : `
 
-      };
+            <button
+              class="green full"
+              onclick="admitAll('${escapeHtml(g.code)}')"
+            >
+              FAI ENTRARE TUTTI
+            </button>
 
+          `
+      }
 
-  }catch(e){
+      <br><br>
 
-    show(
-      'bad',
-      'ERRORE',
-      [
-        esc(
-          e.message
-        )
-      ]
-    );
+      <button
+        class="secondary full"
+        onclick="adminPayment(
+          '${escapeHtml(g.code)}',
+          ${g.paid},
+          ${Number(g.amount || 0)}
+        )"
+      >
+        MODIFICA PAGAMENTO
+      </button>
 
+    </div>
 
-    release(2500);
-  }
+  `;
 }
 
 
@@ -3239,160 +1531,285 @@ async function handle(
    ADMIT
    ============================================================ */
 
-async function admit(
-  b,
-  ix
-){
+async function admitAll(code) {
 
-  try{
+  try {
 
-    const r =
+    const result =
       await api(
-        'admit',
-        {
-          code:b.code,
-          idx:ix
-        }
+        'scan',
+        { code }
       );
 
 
-    if(
-      !r.entered.length
-    ){
-
-      show(
-        'bad',
-        '❌ GIÀ UTILIZZATO',
-        [
-          esc(
-            b.name ||
-            b.phone
-          ),
-
-          'Già entrato: ' +
-          esc(
-            r.skipped.join(', ')
-          )
-        ]
-      );
-
-    }
-    else{
-
-      show(
-        'ok',
-        '✅ INGRESSO CONSENTITO',
-        [
-          esc(
-            b.name ||
-            b.phone
-          ),
-
-          'Entrano: ' +
-          esc(
-            r.entered.join(', ')
-          ),
-
-          `Totale entrati ${r.total} su ${r.of}`,
-
-          'Ingresso: ' +
-          r.t
-        ]
-      );
-
-    }
+    const g =
+      result.b;
 
 
-    release(1500);
-
-
-  }catch(e){
-
-    show(
-      'bad',
-      'ERRORE',
-      [
-        esc(
-          e.message
+    const indexes =
+      g.att
+        .filter(
+          a => !a.e
         )
-      ]
+        .map(
+          a => a.k
+        );
+
+
+    if (!indexes.length) {
+
+      showSearchError(
+        'Tutti sono già entrati.'
+      );
+
+      return;
+    }
+
+
+    await api(
+      'admit',
+      {
+        code,
+        idx: indexes
+      }
     );
 
 
-    release(2500);
+    await searchBooking();
+
+
+  } catch (err) {
+
+    showSearchError(
+      err.message
+    );
   }
+
 }
 
 
 /* ============================================================
-   NAVIGAZIONE
+   PAYMENT ADMIN
    ============================================================ */
 
-$('nav').onclick =
-  e => {
+async function adminPayment(
+  code,
+  currentPaid,
+  currentAmount
+) {
 
-    const t =
-      e.target.closest(
-        'button'
+  const paid =
+    confirm(
+      'Premi OK se la prenotazione è PAGATA.\n\n' +
+      'Premi Annulla per impostarla come DA PAGARE.'
+    );
+
+
+  let amount = 0;
+
+
+  if (paid) {
+
+    const input =
+      prompt(
+        'Importo pagato:',
+        currentAmount ||
+        '25'
       );
 
 
-    if(!t)
+    if (input === null) {
       return;
+    }
 
 
-    document
-      .querySelectorAll(
-        'nav button'
-      )
-      .forEach(
-        x =>
-          x.classList.toggle(
-            'on',
-            x === t
-          )
+    amount =
+      Number(input);
+
+
+    if (
+      !isFinite(amount) ||
+      amount < 0
+    ) {
+
+      showSearchError(
+        'Importo non valido.'
       );
 
-
-    $('list').hidden =
-      t.dataset.tab !==
-      'list';
-
-
-    $('scan').hidden =
-      t.dataset.tab !==
-      'scan';
-
-
-    if(
-      t.dataset.tab ===
-      'scan'
-    ){
-
-      hold =
-        false;
-
-
-      startScan();
-
+      return;
     }
-    else{
+  }
 
-      stopScan();
 
-    }
+  try {
 
-  };
+    await api(
+      'paid',
+      {
+        code,
+        value: paid,
+        amount
+      }
+    );
+
+
+    await searchBooking();
+
+
+  } catch (err) {
+
+    showSearchError(
+      err.message
+    );
+  }
+
+}
+
+
+/* ============================================================
+   ADMIN LIST
+   ============================================================ */
+
+function renderAdmin() {
+
+  const box =
+    document.getElementById(
+      'adminList'
+    );
+
+
+  if (!bookings.length) {
+
+    box.innerHTML =
+      '<div class="loading">' +
+      'Nessuna prenotazione.' +
+      '</div>';
+
+    return;
+  }
+
+
+  box.innerHTML =
+    bookings
+      .map(
+        bookingHTML
+      )
+      .join('');
+}
+
+
+/* ============================================================
+   MESSAGGI
+   ============================================================ */
+
+function showMessage(text) {
+
+  const box =
+    document.getElementById(
+      'globalMessage'
+    );
+
+
+  box.className =
+    'message';
+
+
+  box.textContent =
+    text;
+
+
+  setTimeout(
+    () => {
+      box.className =
+        'hidden';
+    },
+    4000
+  );
+}
+
+
+function showError(text) {
+
+  const box =
+    document.getElementById(
+      'globalMessage'
+    );
+
+
+  box.className =
+    'message error';
+
+
+  box.textContent =
+    text;
+}
+
+
+function showSearchError(text) {
+
+  const box =
+    document.getElementById(
+      'searchResult'
+    );
+
+
+  box.innerHTML =
+    `
+      <div class="message error">
+        ${escapeHtml(text)}
+      </div>
+    `;
+}
+
+
+/* ============================================================
+   ESCAPE HTML
+   ============================================================ */
+
+function escapeHtml(value) {
+
+  return String(value || '')
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+    .replace(
+      /</g,
+      '&lt;'
+    )
+    .replace(
+      />/g,
+      '&gt;'
+    )
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+    .replace(
+      /'/g,
+      '&#039;'
+    );
+}
 
 
 /* ============================================================
    AVVIO
+   ============================================================
+
+   ATTENZIONE:
+   init() parte DOPO che il browser ha già mostrato la pagina.
    ============================================================ */
 
-init();
+window.addEventListener(
+  'DOMContentLoaded',
+  () => {
+
+    init();
+
+  }
+);
 
 </script>
 
 </body>
-
 </html>
