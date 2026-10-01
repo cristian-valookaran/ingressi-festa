@@ -1,432 +1,730 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 
 <head>
 
-<meta charset="UTF-8">
+<meta charset="utf-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <title>Ingressi festa</title>
 
+<link
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&display=swap"
+  rel="stylesheet">
+
 <style>
 
-* {
-  box-sizing: border-box;
+:root{
+  --bg:#F6F3FF;
+  --card:#fff;
+  --ink:#1E1B3A;
+  --mut:#6B6890;
+  --line:#DDD8F2;
+  --acc:#D62D6A;
+  --onacc:#fff;
+  --ok:#0F7A55;
+  --okbg:#D6F4E6;
+  --bad:#B3243A;
+  --badbg:#FCDDE2;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px)
 }
 
-body {
-  margin: 0;
-  font-family:
-    Inter,
+@media (prefers-color-scheme:dark){
+
+  :root:not([data-theme="light"]){
+
+    --bg:#15132B;
+    --card:#211E42;
+    --ink:#F2EFFF;
+    --mut:#A9A5CF;
+    --line:#38346A;
+    --ok:#5EE0A8;
+    --okbg:#0F3A2B;
+    --bad:#FF8A9B;
+    --badbg:#4A1622
+
+  }
+
+}
+
+
+/* ============================================================
+   COLORI UTENTI
+   ============================================================ */
+
+body.admin{
+
+  --bg:#fff;
+  --card:#fff;
+  --ink:#111;
+  --mut:#555;
+  --line:#D8D8D8;
+  --acc:#111;
+  --onacc:#fff;
+  --ok:#087443;
+  --okbg:#DDF5E9;
+  --bad:#B00020;
+  --badbg:#FBE3E7;
+
+}
+
+
+body.molly{
+
+  --acc:#0F6BEB;
+  --onacc:#fff;
+
+}
+
+
+body.anuraj{
+
+  --acc:#7C3AED;
+  --onacc:#fff;
+
+}
+
+
+html{
+  scroll-padding-top:env(safe-area-inset-top,0px)
+}
+
+
+*,*::before,*::after{
+  box-sizing:inherit
+}
+
+
+body{
+
+  margin:0;
+
+  background:var(--bg);
+
+  color:var(--ink);
+
+  font:16px/1.45
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  sans-serif;
+
+}
+
+
+main{
+
+  max-width:560px;
+
+  margin:0 auto;
+
+  padding:18px 16px 40px;
+
+}
+
+
+h1{
+
+  font:
+    800 30px/1.1
+    "Bricolage Grotesque",
     system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
     sans-serif;
 
-  background: #f6f3ff;
-  color: #17152e;
+  margin:0 0 6px;
+
 }
 
-body.admin {
-  background: #ffffff;
-  color: #111111;
+
+.userBadge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  padding:5px 12px;
+
+  border-radius:999px;
+
+  background:var(--acc);
+
+  color:var(--onacc);
+
+  font-size:12px;
+
+  font-weight:800;
+
+  letter-spacing:.04em;
+
+  margin-bottom:10px;
+
 }
 
-.container {
-  width: min(100%, 760px);
-  margin: 0 auto;
-  padding: 24px 16px 60px;
+
+.stats{
+
+  color:var(--mut);
+
+  font-size:14px;
+
+  margin-bottom:16px
+
 }
 
-body.admin .container {
-  max-width: 900px;
+.stats b{
+  color:var(--ink)
 }
 
-.badge {
-  display: inline-block;
-  padding: 7px 14px;
-  border-radius: 999px;
 
-  background: #7c3aed;
-  color: white;
+nav{
 
-  font-size: 13px;
-  font-weight: 800;
-  text-transform: uppercase;
+  display:flex;
+
+  gap:6px;
+
+  margin-bottom:16px
+
 }
 
-body.admin .badge {
-  background: #111111;
-  color: #ffffff;
+
+nav button{
+
+  flex:1;
+
+  padding:12px;
+
+  border:
+    1.5px solid
+    var(--line);
+
+  background:var(--card);
+
+  color:var(--ink);
+
+  border-radius:12px;
+
+  font:
+    600 15px
+    system-ui;
+
 }
 
-h1 {
-  margin: 12px 0 4px;
 
-  font-size: 34px;
-  line-height: 1.05;
+nav button.on{
+
+  background:var(--acc);
+
+  color:var(--onacc);
+
+  border-color:var(--acc)
+
 }
 
-.subtitle {
-  color: #69658a;
-  margin-bottom: 28px;
+
+.box{
+
+  background:var(--card);
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:16px;
+
+  padding:14px;
+
+  margin-bottom:14px
+
 }
 
-body.admin .subtitle {
-  color: #555555;
+
+label{
+
+  display:block;
+
+  font-size:13px;
+
+  color:var(--mut);
+
+  margin:8px 0 4px
+
 }
 
-.card {
-  background: white;
 
-  border: 1px solid #ded8f4;
-  border-radius: 18px;
+input{
 
-  padding: 20px;
+  width:100%;
 
-  margin-bottom: 18px;
+  padding:12px;
 
-  box-shadow:
-    0 4px 20px rgba(70, 50, 130, .04);
+  font:inherit;
+
+  background:var(--bg);
+
+  color:var(--ink);
+
+  border:
+    1.5px solid
+    var(--line);
+
+  border-radius:10px
+
 }
 
-body.admin .card {
-  border-color: #dddddd;
-  box-shadow: none;
+
+input:focus,
+button:focus-visible,
+a:focus-visible{
+
+  outline:
+    3px solid
+    var(--acc);
+
+  outline-offset:1px
+
 }
 
-label {
-  display: block;
 
-  margin-bottom: 7px;
+.row{
 
-  font-size: 14px;
-  color: #69658a;
+  display:flex;
+
+  gap:8px
+
 }
 
-body.admin label {
-  color: #555555;
+.row>*{
+  flex:1
 }
 
-input,
-select {
-  width: 100%;
 
-  border: 1px solid #ddd7f5;
-  border-radius: 12px;
+.btn{
 
-  padding: 13px;
+  display:block;
 
-  font-size: 16px;
+  text-align:center;
 
-  background: #f8f6ff;
-  color: #17152e;
+  text-decoration:none;
 
-  outline: none;
+  padding:12px 16px;
+
+  border:0;
+
+  border-radius:12px;
+
+  background:var(--acc);
+
+  color:var(--onacc);
+
+  font:
+    700 16px
+    system-ui;
+
+  cursor:pointer
+
 }
 
-body.admin input,
-body.admin select {
-  border-color: #cccccc;
-  background: #ffffff;
-  color: #111111;
+
+.btn.g{
+
+  background:transparent;
+
+  color:var(--ink);
+
+  border:
+    1.5px solid
+    var(--line)
+
 }
 
-input:focus {
-  border-color: #7c3aed;
+
+.btn.s{
+
+  padding:8px 12px;
+
+  font-size:14px
+
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 
-  gap: 10px;
+.btn.full{
+
+  width:100%;
+
+  margin-top:10px
+
 }
 
-.participants {
-  margin-top: 14px;
+
+.btn:disabled{
+  opacity:.5
 }
 
-.participant {
-  margin-bottom: 10px;
+
+.msg{
+
+  min-height:20px;
+
+  margin-top:8px;
+
+  font-size:14px;
+
+  color:var(--bad)
+
 }
 
-button {
-  border: 0;
-  border-radius: 12px;
 
-  padding: 13px 18px;
+.sync{
 
-  font-size: 15px;
-  font-weight: 800;
+  font-size:13px;
 
-  cursor: pointer;
+  color:var(--mut)
+
 }
 
-button:disabled {
-  opacity: .55;
-  cursor: not-allowed;
+
+.it{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  align-items:center;
+
+  gap:8px 10px;
+
+  padding:12px 0;
+
+  border-top:
+    1px solid
+    var(--line)
+
 }
 
-.primary {
-  width: 100%;
 
-  background: #7c3aed;
-  color: white;
-
-  margin-top: 16px;
+.it:first-child{
+  border-top:0
 }
 
-body.admin .primary {
-  background: #111111;
-  color: white;
+
+.who{
+
+  flex:
+    1 1 60%;
+
+  min-width:0
+
 }
 
-.secondary {
-  background: white;
-  border: 1px solid #ddd7f5;
-  color: #27223f;
+
+.who b{
+  display:block
 }
 
-body.admin .secondary {
-  border-color: #cccccc;
-  color: #111111;
+
+.who span{
+
+  font-size:13px;
+
+  color:var(--mut)
+
 }
 
-.payment-title {
-  margin-top: 16px;
-  margin-bottom: 8px;
 
-  font-size: 14px;
-  color: #69658a;
+.who strong{
+  color:var(--ink)
 }
 
-.payment-buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 
-  gap: 10px;
+.pp{
+
+  font:
+    800 18px
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif;
+
+  min-width:44px;
+
+  text-align:right
+
 }
 
-.pay-btn {
-  background: white;
-  border: 1px solid #ddd7f5;
-  color: #27223f;
+
+.acts{
+
+  display:flex;
+
+  gap:6px;
+
+  width:100%
+
 }
 
-.pay-btn.active-paid {
-  background: #11875d;
-  border-color: #11875d;
-  color: white;
+
+.it.off{
+  opacity:.5
 }
 
-.pay-btn.active-unpaid {
-  background: #c6283d;
-  border-color: #c6283d;
-  color: white;
+
+.it.off .who b{
+  text-decoration:line-through
 }
 
-.amount-box {
-  margin-top: 10px;
+
+.done,
+.money{
+
+  color:var(--ok)
+
 }
 
-.message {
-  margin-top: 12px;
 
-  font-size: 14px;
-  font-weight: 600;
+.money{
+  font-weight:800
 }
 
-.success {
-  color: #11875d;
+
+.dot{
+
+  display:inline-block;
+
+  width:9px;
+
+  height:9px;
+
+  border-radius:50%;
+
+  margin-right:3px;
+
+  vertical-align:middle
+
 }
 
-.error {
-  color: #c6283d;
+
+.totalBox{
+
+  margin-bottom:12px;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  background:var(--card);
+
+  border:
+    1px solid
+    var(--line)
+
 }
 
-.list-header {
-  display: flex;
 
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 10px;
-
-  margin-bottom: 12px;
+.totalBox strong{
+  font-size:22px
 }
 
-.booking {
-  padding: 18px 0;
 
-  border-bottom: 1px solid #e5e0f3;
+.bar{
+
+  align-items:center;
+
+  margin-top:4px
+
 }
 
-body.admin .booking {
-  border-bottom-color: #dddddd;
+
+.big{
+
+  font:
+    800 44px
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif;
+
+  text-align:center;
+
+  letter-spacing:.25em;
+
+  padding:16px
+
 }
 
-.booking:last-child {
-  border-bottom: 0;
+
+.res{
+
+  border-radius:16px;
+
+  padding:20px;
+
+  margin-top:14px;
+
+  text-align:center
+
 }
 
-.booking-top {
-  display: flex;
 
-  justify-content: space-between;
-  align-items: flex-start;
+.res.ok{
 
-  gap: 12px;
+  background:var(--okbg);
+
+  color:var(--ok)
+
 }
 
-.booking-name {
-  font-size: 18px;
-  font-weight: 850;
+
+.res.bad{
+
+  background:var(--badbg);
+
+  color:var(--bad)
+
 }
 
-.booking-meta {
-  margin-top: 5px;
 
-  color: #69658a;
-  font-size: 14px;
+.res h2{
+
+  margin:0 0 8px;
+
+  font:
+    800 28px/1.1
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif
+
 }
 
-body.admin .booking-meta {
-  color: #555555;
+
+.res p{
+
+  margin:4px 0;
+
+  color:var(--ink)
+
 }
 
-.code {
-  flex-shrink: 0;
 
-  background: #f1edff;
+.ov{
 
-  padding: 8px 13px;
+  position:fixed;
 
-  border-radius: 12px;
+  inset:0;
 
-  font-size: 23px;
-  font-weight: 900;
+  background:rgba(10,8,30,.7);
 
-  letter-spacing: 4px;
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:16px;
+
+  z-index:9
+
 }
 
-body.admin .code {
-  background: #111111;
-  color: white;
+
+.ov.on{
+  display:flex
 }
 
-.people {
-  margin-top: 10px;
 
-  font-size: 14px;
+.pop{
+
+  background:var(--card);
+
+  border-radius:18px;
+
+  padding:16px;
+
+  max-width:420px;
+
+  width:100%;
+
+  max-height:100%;
+
+  overflow:auto;
+
+  text-align:center
+
 }
 
-.person {
-  padding: 4px 0;
+
+.bigcode{
+
+  font:
+    800 72px/1
+    "Bricolage Grotesque",
+    system-ui,
+    sans-serif;
+
+  letter-spacing:.12em;
+
+  margin:6px 0 4px;
+
+  color:var(--acc)
+
 }
 
-.payment-status {
-  margin-top: 10px;
 
-  font-weight: 900;
+.hint{
+
+  font-size:13px;
+
+  color:var(--mut);
+
+  margin:8px 0
+
 }
 
-.paid {
-  color: #11875d;
+
+.payOk{
+
+  color:#087A4B;
+
+  font-weight:800;
+
+  white-space:nowrap
+
 }
 
-.unpaid {
-  color: #c6283d;
+
+.payNo{
+
+  color:#C2182B;
+
+  font-weight:800;
+
+  white-space:nowrap
+
 }
 
-.booking-actions {
-  display: flex;
 
-  flex-wrap: wrap;
+.payBox{
 
-  gap: 8px;
+  width:100%;
 
-  margin-top: 12px;
+  padding:10px 12px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:12px;
+
+  background:var(--bg);
+
+  margin-top:8px
+
 }
 
-.invite {
-  background: #7c3aed;
-  color: white;
-}
 
-body.admin .invite {
-  background: #111111;
-}
-
-.search-box {
-  margin-bottom: 14px;
-}
-
-.search-box input {
-  font-size: 17px;
-}
-
-.admin-tools {
-  display: grid;
-
-  grid-template-columns: 1fr;
-
-  gap: 12px;
-
-  margin-bottom: 18px;
-}
-
-.admit-box {
-  display: grid;
-
-  grid-template-columns: 1fr auto;
-
-  gap: 8px;
-}
-
-.loading {
-  text-align: center;
-
-  padding: 50px 10px;
-
-  color: #69658a;
-}
-
-body.admin .loading {
-  color: #555;
-}
-
-.empty {
-  padding: 25px 0;
-
-  text-align: center;
-
-  color: #777;
-}
-
-@media (max-width: 600px) {
-
-  .row {
-    grid-template-columns: 1fr;
-  }
-
-  .booking-top {
-    flex-direction: column;
-  }
-
-  .code {
-    align-self: flex-start;
-  }
-
-  .admit-box {
-    grid-template-columns: 1fr;
-  }
-
+[hidden]{
+  display:none!important
 }
 
 </style>
@@ -436,13 +734,276 @@ body.admin .loading {
 
 <body>
 
-<div class="container">
+<main>
 
-  <div id="app">
+  <div
+    class="userBadge"
+    id="userBadge"
+    hidden>
+  </div>
 
-    <div class="loading">
-      Caricamento...
+
+  <h1>Ingressi festa</h1>
+
+
+  <div
+    class="stats"
+    id="stats">
+    Caricamento…
+  </div>
+
+
+  <div
+    class="msg"
+    id="top">
+  </div>
+
+
+  <div
+    class="sync"
+    id="sync">
+  </div>
+
+
+  <nav id="nav" hidden>
+
+    <button
+      data-tab="list"
+      class="on">
+      Prenotazioni
+    </button>
+
+    <button
+      data-tab="scan">
+      Ingresso
+    </button>
+
+  </nav>
+
+
+  <!-- ========================================================
+       LISTA
+       ======================================================== -->
+
+  <section
+    id="list"
+    hidden>
+
+    <div class="box">
+
+      <label for="co">
+        C/O (chi prenota)
+      </label>
+
+      <input
+        id="co"
+        placeholder="Irene"
+        autocomplete="off">
+
+
+      <div class="row">
+
+        <div>
+
+          <label for="ph">
+            Telefono
+          </label>
+
+          <input
+            id="ph"
+            type="tel"
+            inputmode="tel"
+            placeholder="333 1234567"
+            autocomplete="off">
+
+        </div>
+
+
+        <div>
+
+          <label for="pe">
+            Persone
+          </label>
+
+          <input
+            id="pe"
+            type="number"
+            min="1"
+            max="50"
+            value="1"
+            inputmode="numeric">
+
+        </div>
+
+      </div>
+
+
+      <div id="names"></div>
+
+
+      <button
+        class="btn full"
+        id="add">
+
+        Crea prenotazione e codice
+
+      </button>
+
+
+      <div
+        class="msg"
+        id="fmsg">
+      </div>
+
     </div>
+
+
+    <div
+      class="totalBox"
+      id="totalBox"
+      hidden>
+
+      <div>
+        Totale incassato
+      </div>
+
+      <strong
+        id="totalCollected">
+        € 0,00
+      </strong>
+
+    </div>
+
+
+    <div class="row bar">
+
+      <input
+        id="q"
+        type="search"
+        placeholder="Cerca per C/O, nome, telefono o codice"
+        hidden>
+
+
+      <button
+        class="btn g s"
+        id="rf"
+        style="flex:0 0 auto">
+
+        ↻ Aggiorna
+
+      </button>
+
+    </div>
+
+
+    <div
+      class="hint"
+      id="upd">
+    </div>
+
+
+    <div
+      class="box"
+      id="items"
+      style="margin-top:8px">
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================
+       SCANNER
+       ======================================================== -->
+
+  <section
+    id="scan"
+    hidden>
+
+    <label for="man">
+      Codice di 4 cifre
+    </label>
+
+
+    <input
+      id="man"
+      class="big"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      maxlength="4"
+      placeholder="0000"
+      autocomplete="off">
+
+
+    <p class="hint">
+
+      Scrivi il codice che ti mostra
+      l'invitato: il risultato compare
+      appena inserisci la quarta cifra.
+
+    </p>
+
+
+    <div id="res"></div>
+
+  </section>
+
+</main>
+
+
+<!-- ==========================================================
+     MODALE CODICE
+     ========================================================== -->
+
+<div
+  class="ov"
+  id="ov">
+
+  <div class="pop">
+
+    <div class="hint">
+      Codice di ingresso
+    </div>
+
+
+    <div
+      class="bigcode"
+      id="bigcode">
+    </div>
+
+
+    <p
+      class="hint"
+      id="sub">
+    </p>
+
+
+    <a
+      class="btn full"
+      id="wa"
+      target="_blank"
+      rel="noopener">
+
+      Invia su WhatsApp
+
+    </a>
+
+
+    <button
+      class="btn g full"
+      id="cp">
+
+      Copia messaggio
+
+    </button>
+
+
+    <button
+      class="btn g s full"
+      id="close">
+
+      Chiudi
+
+    </button>
 
   </div>
 
@@ -452,1269 +1013,349 @@ body.admin .loading {
 <script>
 
 /* ============================================================
-   CONFIGURAZIONE
+   API
    ============================================================ */
 
-const API_URL =
-  'INCOLLA_QUI_IL_TUO_URL_APPS_SCRIPT_EXEC';
+const API =
+'https://script.google.com/macros/s/AKfycbxO-R2yW13gYo4jHB-rls7jxcv-GDUsv8jsaFsWVwkTLRmrkc4RRERwDSSPU8HUMLov/exec';
 
 
-/* ============================================================
-   STATO
-   ============================================================ */
+const USERS_OK = [
+  'admin',
+  'molly',
+  'anuraj'
+];
 
-const state = {
 
-  user: null,
+const COLORS = {
 
-  role: null,
+  admin:'#111111',
 
-  name: '',
+  molly:'#0F6BEB',
 
-  price: 25,
+  anuraj:'#7C3AED'
 
-  free: 0,
-
-  used: 0,
-
-  list: [],
-
-  paymentPaid: false,
-
-  loading: false
 };
 
 
-/* ============================================================
-   IDENTIFICA UTENTE DAL LINK
-   ============================================================ */
+let U = null;
 
-function getUser() {
+let ME = null;
 
-  const hash =
-    location.hash
-      .replace('#', '')
-      .trim()
-      .toLowerCase();
+let L = [];
 
+let FREE = 0;
 
-  if (
-    hash === 'admin' ||
-    hash === 'molly' ||
-    hash === 'anuraj'
-  ) {
-    return hash;
-  }
+let USED = 0;
 
+let CAP = 200;
 
-  /*
-   * Se non c'è hash,
-   * mostra una pagina semplice.
-   */
+let PRICE = 25;
 
-  return null;
-}
+let PEND = [];
+
+let cur = null;
+
+let gen = 0;
+
+let opBusy = 0;
+
+let poll = null;
 
 
-/* ============================================================
-   REQUEST
-   ============================================================ */
+const $ =
+  id =>
+    document.getElementById(id);
 
-async function api(action, data = {}) {
 
-  const body = {
+const esc =
+  s =>
+    String(s ?? '')
+      .replace(
+        /[&<>"']/g,
+        c => ({
+          '&':'&amp;',
+          '<':'&lt;',
+          '>':'&gt;',
+          '"':'&quot;',
+          "'":'&#39;'
+        }[c])
+      );
 
-    action,
 
-    user: state.user,
+const sleep =
+  ms =>
+    new Promise(
+      r => setTimeout(r,ms)
+    );
 
-    rid:
-      Date.now().toString() +
-      Math.random().toString(16).slice(2),
 
-    ...data
+const money =
+  n =>
+    new Intl.NumberFormat(
+      'it-IT',
+      {
+        style:'currency',
+        currency:'EUR'
+      }
+    ).format(
+      Number(n || 0)
+    );
+
+
+const bump =
+  () => {
+    gen++;
   };
 
 
-  const response = await fetch(
-    API_URL,
-    {
-      method: 'POST',
-
-      headers: {
-        'Content-Type':
-          'text/plain;charset=utf-8'
-      },
-
-      body: JSON.stringify(body)
-    }
-  );
-
-
-  const text =
-    await response.text();
-
-
-  let result;
-
-  try {
-
-    result =
-      JSON.parse(text);
-
-  } catch (e) {
-
-    throw new Error(
-      'Risposta non valida da Google.'
-    );
-  }
-
-
-  if (!result.ok) {
-
-    throw new Error(
-      result.error ||
-      'Errore'
-    );
-  }
-
-
-  return result;
-}
+const hhmmss =
+  () =>
+    new Date()
+      .toLocaleTimeString('it-IT');
 
 
 /* ============================================================
-   INIT
+   IDENTIFICAZIONE UTENTE
+
+   URL:
+   #admin
+   #molly
+   #anuraj
+
+   Nessun PIN.
    ============================================================ */
 
-async function init() {
-
-  state.user =
-    getUser();
-
-
-  if (!state.user) {
-
-    renderLogin();
-
-    return;
-  }
-
-
-  document.body.classList.toggle(
-    'admin',
-    state.user === 'admin'
-  );
-
-
-  try {
-
-    /*
-     * UNA SOLA CHIAMATA AL SERVER
-     * ALL'APERTURA.
-     */
-
-    const data =
-      await api('init');
-
-
-    state.role =
-      data.role;
-
-    state.name =
-      data.name;
-
-    state.price =
-      Number(data.price || 25);
-
-    state.free =
-      Number(data.free || 0);
-
-    state.used =
-      Number(data.used || 0);
-
-    state.list =
-      data.list || [];
-
-
-    render();
-
-  } catch (err) {
-
-    showFatalError(
-      err.message
-    );
-  }
-}
-
-
-/* ============================================================
-   PAGINA ACCESSO
-   ============================================================ */
-
-function renderLogin() {
-
-  document.getElementById(
-    'app'
-  ).innerHTML = `
-
-    <div class="card">
-
-      <h1>Ingressi festa</h1>
-
-      <p>
-        Link non valido.
-      </p>
-
-      <p>
-        Usa uno dei link:
-      </p>
-
-      <p>
-        <b>#admin</b><br>
-        <b>#molly</b><br>
-        <b>#anuraj</b>
-      </p>
-
-    </div>
-  `;
-}
-
-
-/* ============================================================
-   ERRORE
-   ============================================================ */
-
-function showFatalError(message) {
-
-  document.getElementById(
-    'app'
-  ).innerHTML = `
-
-    <div class="card">
-
-      <h1>Ingressi festa</h1>
-
-      <div class="message error">
-        ${escapeHtml(message)}
-      </div>
-
-      <br>
-
-      <button
-        class="secondary"
-        onclick="location.reload()"
-      >
-        Riprova
-      </button>
-
-    </div>
-  `;
-}
-
-
-/* ============================================================
-   RENDER PRINCIPALE
-   ============================================================ */
-
-function render() {
-
-  const admin =
-    state.role === 'admin';
-
-
-  document.getElementById(
-    'app'
-  ).innerHTML = `
-
-    <span class="badge">
-      ${escapeHtml(state.name)}
-    </span>
-
-    <h1>Ingressi festa</h1>
-
-    <div class="subtitle">
-
-      Posti ancora liberi:
-      <b>${state.free}</b>
-
-    </div>
-
-
-    ${
-      admin
-        ? renderAdminTools()
-        : ''
-    }
-
-
-    ${renderCreateForm()}
-
-
-    <div class="card">
-
-      <div class="list-header">
-
-        <b>
-          Prenotazioni
-        </b>
-
-        <button
-          class="secondary"
-          onclick="refresh()"
-        >
-          ↻ Aggiorna
-        </button>
-
-      </div>
-
-
-      ${
-        admin
-          ? `
-            <div class="search-box">
-
-              <input
-                id="search"
-                placeholder="Cerca C/O, nome o codice..."
-                oninput="filterBookings()"
-              >
-
-            </div>
-          `
-          : ''
-      }
-
-
-      <div id="bookingList">
-
-        ${renderBookings(state.list)}
-
-      </div>
-
-    </div>
-
-  `;
-}
-
-
-/* ============================================================
-   FORM CREAZIONE
-   ============================================================ */
-
-function renderCreateForm() {
-
-  return `
-
-    <div class="card">
-
-      <label>
-        C/O (chi prenota)
-      </label>
-
-      <input
-        id="co"
-        placeholder="Paolo Rossi"
-      >
-
-
-      <div class="row">
-
-        <div>
-
-          <label>
-            Telefono
-          </label>
-
-          <input
-            id="phone"
-            placeholder="333 1234567"
-            inputmode="tel"
-          >
-
-        </div>
-
-
-        <div>
-
-          <label>
-            Persone
-          </label>
-
-          <input
-            id="peopleCount"
-            type="number"
-            min="1"
-            max="50"
-            value="1"
-            oninput="updatePeople()"
-          >
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="participants"
-        id="participants"
-      >
-
-        ${participantInput(1)}
-
-      </div>
-
-
-      <!-- PAGAMENTO -->
-
-      <div class="payment-title">
-        Pagamento
-      </div>
-
-
-      <div class="payment-buttons">
-
-        <button
-          id="payYes"
-          class="pay-btn"
-          onclick="selectPayment(true)"
-        >
-          ✓ PAGATO
-        </button>
-
-
-        <button
-          id="payNo"
-          class="pay-btn active-unpaid"
-          onclick="selectPayment(false)"
-        >
-          ✕ NO PAGATO
-        </button>
-
-      </div>
-
-
-      <div
-        id="amountBox"
-        class="amount-box"
-        style="display:none"
-      >
-
-        <label>
-          Importo pagato (€)
-        </label>
-
-        <input
-          id="amount"
-          type="number"
-          min="0"
-          step="0.01"
-          value="${state.price}"
-        >
-
-      </div>
-
-
-      <div
-        id="paymentHint"
-        class="subtitle"
-        style="margin:10px 0 0"
-      >
-        Da pagare:
-        €${state.price.toFixed(2)}
-        per persona
-      </div>
-
-
-      <button
-        id="createBtn"
-        class="primary"
-        onclick="createBooking()"
-      >
-        Crea prenotazione e codice
-      </button>
-
-
-      <div id="createMessage"></div>
-
-    </div>
-
-  `;
-}
-
-
-/* ============================================================
-   INPUT PARTECIPANTI
-   ============================================================ */
-
-function participantInput(number) {
-
-  return `
-
-    <div class="participant">
-
-      <label>
-        Partecipante ${number}
-      </label>
-
-      <input
-        class="personInput"
-        placeholder="Nome partecipante"
-      >
-
-    </div>
-
-  `;
-}
-
-
-function updatePeople() {
-
-  const input =
-    document.getElementById(
-      'peopleCount'
+(function(){
+
+  const m =
+    location.pathname
+      .toLowerCase()
+      .match(
+        /(?:^|\/)(admin|molly|anuraj)(?:\/|$)/
+      );
+
+
+  const h =
+    String(
+      location.hash || ''
+    )
+    .replace(
+      /^#\/?/,
+      ''
     );
 
-  let count =
-    Number(input.value);
+
+  const u =
+    m
+      ? m[1]
+      : String(
+          new URLSearchParams(
+            location.search
+          ).get('u') || h
+        ).toLowerCase();
 
 
-  if (!count || count < 1) {
-    count = 1;
-  }
+  U =
+    USERS_OK.indexOf(u) >= 0
+      ? u
+      : null;
 
-  if (count > 50) {
-    count = 50;
-  }
-
-
-  input.value =
-    count;
+})();
 
 
-  let html = '';
+/* ============================================================
+   API
+   ============================================================ */
 
-  for (
-    let i = 1;
-    i <= count;
+async function api(action,d){
+
+  const body =
+    JSON.stringify(
+      Object.assign(
+        {
+          user:U,
+
+          action,
+
+          rid:
+            Date.now().toString(36) +
+            Math.random()
+              .toString(36)
+              .slice(2,8)
+
+        },
+
+        d || {}
+      )
+    );
+
+
+  let last = '';
+
+
+  for(
+    let i = 0;
+    i < 4;
     i++
-  ) {
+  ){
 
-    html +=
-      participantInput(i);
-  }
+    let r,t,j;
 
-
-  document.getElementById(
-    'participants'
-  ).innerHTML = html;
-}
+    const ctl =
+      new AbortController();
 
 
-/* ============================================================
-   PAGAMENTO
-   ============================================================ */
-
-function selectPayment(paid) {
-
-  state.paymentPaid =
-    paid;
-
-
-  const yes =
-    document.getElementById(
-      'payYes'
-    );
-
-  const no =
-    document.getElementById(
-      'payNo'
-    );
-
-  const amountBox =
-    document.getElementById(
-      'amountBox'
-    );
-
-  const hint =
-    document.getElementById(
-      'paymentHint'
-    );
-
-
-  if (paid) {
-
-    yes.classList.add(
-      'active-paid'
-    );
-
-    no.classList.remove(
-      'active-unpaid'
-    );
-
-    amountBox.style.display =
-      'block';
-
-    hint.textContent =
-      'Inserisci l’importo effettivamente pagato.';
-
-  } else {
-
-    no.classList.add(
-      'active-unpaid'
-    );
-
-    yes.classList.remove(
-      'active-paid'
-    );
-
-    amountBox.style.display =
-      'none';
-
-
-    const count =
-      Number(
-        document.getElementById(
-          'peopleCount'
-        ).value || 1
+    const to =
+      setTimeout(
+        () => ctl.abort(),
+        20000
       );
 
 
-    hint.textContent =
-      'Da pagare: €' +
-      (state.price * count)
-        .toFixed(2);
+    try{
 
-  }
-}
-
-
-/* ============================================================
-   CREAZIONE PRENOTAZIONE
-   ============================================================ */
-
-async function createBooking() {
-
-  const btn =
-    document.getElementById(
-      'createBtn'
-    );
+      r =
+        await fetch(
+          API,
+          {
+            method:'POST',
+            body,
+            signal:ctl.signal
+          }
+        );
 
 
-  const message =
-    document.getElementById(
-      'createMessage'
-    );
+      t =
+        await r.text();
 
 
-  const co =
-    document.getElementById(
-      'co'
-    ).value.trim();
+    }catch(e){
+
+      clearTimeout(to);
 
 
-  const phone =
-    document.getElementById(
-      'phone'
-    ).value.trim();
+      last =
+        e.name === 'AbortError'
+          ? 'Google non risponde'
+          : 'Nessuna connessione a Google';
 
 
-  const names =
-    Array.from(
-      document.querySelectorAll(
-        '.personInput'
-      )
-    )
-    .map(
-      x => x.value.trim()
-    )
-    .filter(Boolean);
-
-
-  if (!co) {
-
-    message.innerHTML =
-      '<div class="message error">Inserisci il C/O.</div>';
-
-    return;
-  }
-
-
-  if (!names.length) {
-
-    message.innerHTML =
-      '<div class="message error">Inserisci almeno un partecipante.</div>';
-
-    return;
-  }
-
-
-  btn.disabled = true;
-
-  btn.textContent =
-    'Salvataggio...';
-
-
-  try {
-
-    const amountInput =
-      document.getElementById(
-        'amount'
+      await sleep(
+        600 * (i + 1)
       );
 
 
-    const amount =
-      state.paymentPaid
-        ? Number(
-            amountInput.value || 0
-          )
-        : 0;
+      continue;
 
-
-    const result =
-      await api(
-        'create',
-        {
-
-          co,
-
-          phone,
-
-          names,
-
-          paid:
-            state.paymentPaid,
-
-          amount
-        }
-      );
-
-
-    /*
-     * Aggiorna subito la UI
-     * senza fare una seconda init.
-     */
-
-    state.free =
-      result.free;
-
-
-    state.list.unshift(
-      result.b
-    );
-
-
-    message.innerHTML = `
-
-      <div class="message success">
-
-        Prenotazione creata.
-        Codice:
-        <b>${result.code}</b>
-
-        <br><br>
-
-        <button
-          class="invite"
-          onclick="shareInvite('${result.code}')"
-        >
-          Condividi invito
-        </button>
-
-      </div>
-
-    `;
-
-
-    document.getElementById(
-      'co'
-    ).value = '';
-
-    document.getElementById(
-      'phone'
-    ).value = '';
-
-
-    document.getElementById(
-      'peopleCount'
-    ).value = '1';
-
-
-    updatePeople();
-
-    state.paymentPaid =
-      false;
-
-    selectPayment(false);
-
-
-    /*
-     * Aggiorna solo la lista.
-     */
-
-    document.getElementById(
-      'bookingList'
-    ).innerHTML =
-      renderBookings(
-        state.list
-      );
-
-
-  } catch (err) {
-
-    message.innerHTML = `
-
-      <div class="message error">
-
-        ${escapeHtml(
-          err.message
-        )}
-
-      </div>
-
-    `;
-
-  } finally {
-
-    btn.disabled = false;
-
-    btn.textContent =
-      'Crea prenotazione e codice';
-  }
-}
-
-
-/* ============================================================
-   INVITO
-   ============================================================ */
-
-function inviteText(code) {
-
-  return (
-    'Ciao Sei Benvenuto alla festa Indiana ' +
-    'il tuo codice di accesso è il seguente: ' +
-    code
-  );
-}
-
-
-async function shareInvite(code) {
-
-  const text =
-    inviteText(code);
-
-
-  /*
-   * Sul telefono apre direttamente
-   * la condivisione.
-   */
-
-  if (
-    navigator.share
-  ) {
-
-    try {
-
-      await navigator.share({
-        text: text
-      });
-
-      return;
-
-    } catch (e) {
-
-      /*
-       * L'utente può aver chiuso
-       * la finestra di condivisione.
-       */
-
-      return;
-    }
-  }
-
-
-  /*
-   * Desktop / browser senza share.
-   */
-
-  try {
-
-    await navigator.clipboard.writeText(
-      text
-    );
-
-    alert(
-      'Messaggio copiato. Puoi incollarlo su WhatsApp.'
-    );
-
-  } catch (e) {
-
-    prompt(
-      'Copia questo messaggio:',
-      text
-    );
-  }
-}
-
-
-/* ============================================================
-   PRENOTAZIONI
-   ============================================================ */
-
-function renderBookings(list) {
-
-  if (!list.length) {
-
-    return `
-      <div class="empty">
-        Nessuna prenotazione.
-      </div>
-    `;
-  }
-
-
-  return list
-    .map(
-      g => renderBooking(g)
-    )
-    .join('');
-}
-
-
-function renderBooking(g) {
-
-  const people =
-    g.att || [];
-
-
-  const count =
-    people.length;
-
-
-  const due =
-    state.price * count;
-
-
-  let paymentHTML;
-
-
-  if (g.paid) {
-
-    paymentHTML = `
-
-      <div class="payment-status paid">
-
-        ✓ PAGATO ·
-        €${Number(
-          g.amount || 0
-        ).toFixed(2)}
-
-      </div>
-
-    `;
-
-  } else {
-
-    paymentHTML = `
-
-      <div class="payment-status unpaid">
-
-        ✕ NON PAGATO ·
-        -€${due.toFixed(2)}
-
-      </div>
-
-    `;
-  }
-
-
-  const peopleHTML =
-    people
-      .map(
-        p => `
-
-          <div class="person">
-
-            ${escapeHtml(
-              p.n
-            )}
-
-            ${
-              p.e
-                ? ' · ✓ ENTRATO'
-                : ''
-            }
-
-          </div>
-
-        `
-      )
-      .join('');
-
-
-  return `
-
-    <div
-      class="booking"
-      data-code="${escapeHtml(g.code)}"
-      data-search="${escapeHtml(
-        (
-          g.code +
-          ' ' +
-          g.co +
-          ' ' +
-          g.phone +
-          ' ' +
-          people.map(
-            p => p.n
-          ).join(' ')
-        ).toLowerCase()
-      )}"
-    >
-
-      <div class="booking-top">
-
-        <div>
-
-          <div class="booking-name">
-
-            C/O
-            ${escapeHtml(g.co)}
-
-          </div>
-
-
-          <div class="booking-meta">
-
-            ${escapeHtml(g.phone)}
-
-            ·
-
-            ${count}
-            ${
-              count === 1
-                ? 'persona'
-                : 'persone'
-            }
-
-          </div>
-
-        </div>
-
-
-        <div class="code">
-
-          ${escapeHtml(g.code)}
-
-        </div>
-
-      </div>
-
-
-      <div class="people">
-
-        ${peopleHTML}
-
-      </div>
-
-
-      ${paymentHTML}
-
-
-      <div class="booking-actions">
-
-        <button
-          class="invite"
-          onclick="shareInvite('${escapeHtml(g.code)}')"
-        >
-          Invia codice
-        </button>
-
-
-        ${
-          state.role === 'admin' ||
-          g.by === state.name
-            ? `
-              <button
-                class="secondary"
-                onclick="editPayment('${escapeHtml(g.code)}')"
-              >
-                ${
-                  g.paid
-                    ? 'Modifica pagamento'
-                    : 'Segna pagato'
-                }
-              </button>
-            `
-            : ''
-        }
-
-
-        ${
-          state.role === 'admin'
-            ? `
-              <button
-                class="secondary"
-                onclick="openAdmission('${escapeHtml(g.code)}')"
-              >
-                Ingresso
-              </button>
-            `
-            : ''
-        }
-
-      </div>
-
-    </div>
-
-  `;
-}
-
-
-/* ============================================================
-   MODIFICA PAGAMENTO
-   ============================================================ */
-
-async function editPayment(code) {
-
-  const booking =
-    state.list.find(
-      g => g.code === code
-    );
-
-
-  if (!booking) {
-    return;
-  }
-
-
-  const count =
-    booking.att.length;
-
-
-  const due =
-    state.price * count;
-
-
-  const paid =
-    confirm(
-      booking.paid
-        ? 'Il pagamento è già segnato come PAGATO.\n\nOK = modificare importo\nAnnulla = impostare NON PAGATO'
-        : 'Vuoi segnare questa prenotazione come PAGATA?'
-    );
-
-
-  if (!paid) {
-
-    if (
-      booking.paid &&
-      !confirm(
-        'Impostare la prenotazione come NON PAGATA?'
-      )
-    ) {
-      return;
     }
 
 
-    try {
+    clearTimeout(to);
 
-      await api(
-        'paid',
-        {
-          code,
-          value: false,
-          amount: 0
-        }
+
+    try{
+
+      j =
+        JSON.parse(t);
+
+    }catch(e){
+
+      last =
+        'Google non ha risposto correttamente (codice ' +
+        r.status +
+        ')';
+
+
+      await sleep(
+        600 * (i + 1)
       );
 
 
-      booking.paid =
-        false;
+      continue;
 
-      booking.amount =
-        0;
-
-
-      refreshList();
-
-    } catch (e) {
-
-      alert(
-        e.message
-      );
     }
 
-    return;
+
+    if(j.busy){
+
+      last =
+        j.error;
+
+
+      await sleep(
+        800 * (i + 1)
+      );
+
+
+      continue;
+
+    }
+
+
+    if(!j.ok){
+
+      throw new Error(
+        j.error ||
+        'Errore'
+      );
+
+    }
+
+
+    return j;
+
   }
 
 
-  const defaultAmount =
-    booking.amount ||
-    due;
-
-
-  const amount =
-    prompt(
-      'Inserisci importo pagato (€):',
-      Number(
-        defaultAmount
-      ).toFixed(2)
+  const e =
+    new Error(
+      last +
+      '. Riprova tra qualche secondo.'
     );
 
 
-  if (
-    amount === null
-  ) {
-    return;
-  }
+  e.net = true;
 
 
-  const number =
-    Number(
-      amount.replace(',', '.')
-    );
+  throw e;
+
+}
 
 
-  if (
-    !isFinite(number) ||
-    number < 0
-  ) {
+/* ============================================================
+   DATI
+   ============================================================ */
 
-    alert(
-      'Importo non valido.'
-    );
+function applyData(j){
 
-    return;
-  }
+  L =
+    j.list || [];
 
 
-  try {
-
-    await api(
-      'paid',
-      {
-        code,
-        value: true,
-        amount: number
-      }
-    );
+  FREE =
+    j.free;
 
 
-    booking.paid =
-      true;
-
-    booking.amount =
-      number;
+  USED =
+    j.used;
 
 
-    refreshList();
+  CAP =
+    j.capacity;
 
-  } catch (e) {
 
-    alert(
-      e.message
-    );
-  }
+  PRICE =
+    j.price || PRICE;
+
+
+  $('upd').textContent =
+    'Aggiornato alle ' +
+    hhmmss();
+
+
+  render();
+
 }
 
 
@@ -1722,186 +1363,1412 @@ async function editPayment(code) {
    REFRESH
    ============================================================ */
 
-async function refresh() {
+async function refresh(){
 
-  try {
-
-    const data =
-      await api('init');
-
-
-    state.free =
-      data.free;
-
-    state.used =
-      data.used;
-
-    state.list =
-      data.list || [];
+  if(
+    PEND.length ||
+    opBusy > 0
+  ) return;
 
 
-    refreshList();
-
-  } catch (e) {
-
-    alert(
-      e.message
-    );
-  }
-}
+  const g0 =
+    gen;
 
 
-function refreshList() {
-
-  const box =
-    document.getElementById(
-      'bookingList'
-    );
+  const j =
+    await api('init');
 
 
-  if (box) {
+  if(
+    g0 !== gen ||
+    PEND.length ||
+    opBusy > 0
+  ) return;
 
-    box.innerHTML =
-      renderBookings(
-        state.list
-      );
-  }
+
+  applyData(j);
+
 }
 
 
 /* ============================================================
-   RICERCA ADMIN
+   START
    ============================================================ */
 
-function filterBookings() {
+function start(j){
 
-  const input =
-    document.getElementById(
-      'search'
-    );
+  ME = j;
 
 
-  if (!input) {
-    return;
+  document.body
+    .classList
+    .add(U);
+
+
+  $('userBadge').textContent =
+    j.role === 'admin'
+      ? 'ADMIN'
+      : j.name.toUpperCase();
+
+
+  $('userBadge').hidden =
+    false;
+
+
+  $('list').hidden =
+    false;
+
+
+  /*
+    SOLO ADMIN:
+    ricerca completa,
+    totale incassato,
+    scanner.
+  */
+
+  if(j.role === 'admin'){
+
+    $('nav').hidden =
+      false;
+
+    $('q').hidden =
+      false;
+
+    $('totalBox').hidden =
+      false;
+
   }
 
 
-  const query =
-    input.value
-      .trim()
-      .toLowerCase();
+  /*
+    ORGANIZZATORI:
+    vedono solo la propria lista.
+    Però possono gestire i pagamenti.
+  */
+
+  applyData(j);
 
 
-  const elements =
-    document.querySelectorAll(
-      '.booking'
+  if(!poll){
+
+    poll =
+      setInterval(
+        () => {
+
+          if(
+            document.visibilityState ===
+            'visible'
+          ){
+
+            refresh()
+              .catch(() => {});
+
+          }
+
+        },
+
+        20000
+      );
+
+  }
+
+}
+
+
+/* ============================================================
+   INIT
+   ============================================================ */
+
+async function init(){
+
+  if(!U){
+
+    $('stats').textContent =
+      '';
+
+    $('top').textContent =
+      'Link non valido. Usa #admin, #molly oppure #anuraj.';
+
+    return;
+
+  }
+
+
+  try{
+
+    start(
+      await api('init')
     );
 
 
-  elements.forEach(
-    el => {
+  }catch(e){
 
-      const text =
-        el.dataset.search ||
+    $('stats').textContent =
+      '';
+
+    $('top').textContent =
+      e.message;
+
+  }
+
+}
+
+
+$('rf').onclick =
+  async () => {
+
+    const b =
+      $('rf');
+
+
+    b.disabled =
+      true;
+
+
+    b.textContent =
+      '…';
+
+
+    try{
+
+      await refresh();
+
+      $('fmsg').textContent =
         '';
 
 
-      el.style.display =
-        !query ||
-        text.includes(query)
-          ? ''
-          : 'none';
+    }catch(e){
+
+      $('fmsg').textContent =
+        e.message;
+
     }
-  );
-}
+
+
+    b.disabled =
+      false;
+
+
+    b.textContent =
+      '↻ Aggiorna';
+
+  };
+
+
+document.addEventListener(
+  'visibilitychange',
+  () => {
+
+    if(
+      document.visibilityState ===
+      'visible' &&
+      ME
+    ){
+
+      refresh()
+        .catch(() => {});
+
+    }
+
+  }
+);
 
 
 /* ============================================================
-   ADMIN TOOLS
+   LISTA
    ============================================================ */
 
-function renderAdminTools() {
+function render(){
 
-  return `
-
-    <div class="card">
-
-      <b>
-        Controllo ingressi
-      </b>
-
-      <div
-        class="admin-tools"
-        style="margin-top:12px"
-      >
-
-        <div class="admit-box">
-
-          <input
-            id="admitCode"
-            placeholder="Inserisci codice 4 cifre"
-            inputmode="numeric"
-            maxlength="4"
-          >
-
-          <button
-            class="primary"
-            style="margin:0"
-            onclick="checkAdmission()"
-          >
-            Controlla
-          </button>
-
-        </div>
+  if(!ME) return;
 
 
-        <div id="admitResult"></div>
-
-      </div>
-
-    </div>
-
-  `;
-}
+  const admin =
+    ME.role === 'admin';
 
 
-/* ============================================================
-   CONTROLLO INGRESSO
-   ============================================================ */
-
-async function checkAdmission() {
-
-  const input =
-    document.getElementById(
-      'admitCode'
-    );
+  const q =
+    admin
+      ? $('q').value
+          .trim()
+          .toLowerCase()
+      : '';
 
 
-  const code =
-    input.value.trim();
+  if(admin){
+
+    USED =
+      L
+        .filter(
+          b => !b.cancelled
+        )
+        .reduce(
+          (t,b) =>
+            t + b.att.length,
+          0
+        );
 
 
-  if (
-    !/^\d{4}$/.test(code)
-  ) {
+    FREE =
+      CAP - USED;
 
-    alert(
-      'Inserisci un codice di 4 cifre.'
-    );
-
-    return;
   }
 
 
-  const box =
-    document.getElementById(
-      'admitResult'
+  const act =
+    L.filter(
+      b => !b.cancelled
     );
 
 
-  try {
+  const ent =
+    act.reduce(
+      (t,b) =>
+        t +
+        b.att.filter(
+          a => a.e
+        ).length,
 
-    const result =
+      0
+    );
+
+
+  $('stats').innerHTML =
+    admin
+
+      ? `Prenotati <b>${USED}</b> su ${CAP} · Entrati <b>${ent}</b> · Liberi <b>${FREE}</b>`
+
+      : `Posti ancora liberi: <b>${FREE}</b>`;
+
+
+  if(admin){
+
+    $('totalCollected')
+      .textContent =
+        money(
+          act.reduce(
+            (t,b) =>
+              t +
+              (
+                b.paid
+                  ? b.amount || 0
+                  : 0
+              ),
+
+            0
+          )
+        );
+
+  }
+
+
+  const R =
+    L
+      .filter(
+        b =>
+          !q ||
+          (
+            b.co +
+            ' ' +
+            b.phone +
+            ' ' +
+            b.code +
+            ' ' +
+            b.att
+              .map(a => a.n)
+              .join(' ')
+          )
+          .toLowerCase()
+          .includes(q)
+      )
+      .slice()
+      .reverse();
+
+
+  $('items').innerHTML =
+    R.length
+
+      ? R.map(
+          b => {
+
+            const n =
+              b.att.length;
+
+
+            const e =
+              b.att.filter(
+                a => a.e
+              ).length;
+
+
+            const due =
+              Number(
+                b.due ||
+                n * PRICE
+              );
+
+
+            /*
+              PAGAMENTO:
+
+              PAGATO:
+              ✓ €25,00
+
+              NON PAGATO:
+              ✗ - €25,00
+            */
+
+            const payment =
+              b.paid
+
+                ? `
+                  <span class="payOk">
+                    ✓ ${money(b.amount)}
+                  </span>
+                `
+
+                : `
+                  <span class="payNo">
+                    ✗ - ${money(due)}
+                  </span>
+                `;
+
+
+            const adm =
+              admin
+
+                ? `
+                  ·
+                  <i
+                    class="dot"
+                    style="background:${esc(
+                      COLORS[
+                        String(
+                          b.by
+                        ).toLowerCase()
+                      ] || '#888'
+                    )}">
+                  </i>
+
+                  ${esc(b.by)}
+                `
+
+                : '';
+
+
+            /*
+              PAGAMENTO GESTIBILE
+              DA ADMIN, MOLLY E ANURAJ
+            */
+
+            const paymentButton =
+
+              b.paid
+
+                ? `
+                  <button
+                    class="btn g s"
+                    data-a="paid"
+                    data-c="${esc(b.code)}">
+
+                    Modifica pagamento
+
+                  </button>
+                `
+
+                : `
+                  <button
+                    class="btn g s"
+                    data-a="paid"
+                    data-c="${esc(b.code)}">
+
+                    Segna pagato
+
+                  </button>
+                `;
+
+
+            return `
+
+              <div
+                class="it ${b.cancelled?'off':''}">
+
+                <div class="who">
+
+                  <b>
+                    C/O ${esc(b.co)}
+                  </b>
+
+
+                  <span>
+
+                    ${esc(b.phone)}
+                    ·
+                    ${n}
+                    ${n == 1
+                      ? 'persona'
+                      : 'persone'
+                    }
+
+                    · Codice
+                    <strong>
+                      ${esc(b.code)}
+                    </strong>
+
+                    ${adm}
+
+                    <br>
+
+                    ${payment}
+
+                    <br>
+
+                    ${esc(
+                      b.att
+                        .map(
+                          a =>
+                            (
+                              a.e
+                                ? '✓ '
+                                : ''
+                            ) +
+                            (
+                              a.n ||
+                              'senza nome'
+                            )
+                        )
+                        .join(', ')
+                    )}
+
+                  </span>
+
+                </div>
+
+
+                ${
+                  admin
+
+                    ? `
+                      <div
+                        class="pp ${
+                          e >= n &&
+                          !b.cancelled
+                            ? 'done'
+                            : ''
+                        }">
+
+                        ${e}/${n}
+
+                      </div>
+                    `
+
+                    : ''
+                }
+
+
+                <div class="acts">
+
+                  <button
+                    class="btn s"
+                    data-a="code"
+                    data-c="${esc(b.code)}"
+                    ${b.cancelled?'hidden':''}>
+
+                    Invia codice
+
+                  </button>
+
+
+                  ${paymentButton}
+
+
+                  ${
+                    admin
+
+                      ? `
+                        <button
+                          class="btn g s"
+                          data-a="tog"
+                          data-c="${esc(b.code)}">
+
+                          ${
+                            b.cancelled
+                              ? 'Ripristina'
+                              : 'Annulla'
+                          }
+
+                        </button>
+                      `
+
+                      : ''
+                  }
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        ).join('')
+
+      : `
+        <p
+          class="hint"
+          style="margin:0">
+
+          Nessuna prenotazione.
+
+        </p>
+      `;
+
+}
+
+
+$('q').oninput =
+  render;
+
+
+/* ============================================================
+   NOMI
+   ============================================================ */
+
+const clampN =
+  () =>
+    Math.max(
+      1,
+      Math.min(
+        50,
+        parseInt(
+          $('pe').value,
+          10
+        ) || 1
+      )
+    );
+
+
+function renderNames(){
+
+  const n =
+    clampN();
+
+
+  const old =
+    [
+      ...document
+        .querySelectorAll('.nx')
+    ]
+    .map(
+      i => i.value
+    );
+
+
+  $('names').innerHTML =
+    Array.from(
+      {length:n},
+      (_,i) => `
+
+        <label>
+          Partecipante ${i+1}
+        </label>
+
+        <input
+          class="nx"
+          placeholder="Nome e cognome"
+          value="${esc(old[i] || '')}"
+          autocomplete="off">
+
+      `
+    )
+    .join('');
+
+}
+
+
+$('pe').oninput =
+  renderNames;
+
+
+renderNames();
+
+
+/* ============================================================
+   CREA PRENOTAZIONE
+   ============================================================ */
+
+$('add').onclick =
+  async () => {
+
+    const m =
+      $('fmsg');
+
+
+    const btn =
+      $('add');
+
+
+    const co =
+      $('co')
+        .value
+        .trim();
+
+
+    const n =
+      clampN();
+
+
+    const names =
+      [
+        ...
+        document
+          .querySelectorAll('.nx')
+      ]
+      .map(
+        i =>
+          i.value.trim()
+      )
+      .slice(0,n);
+
+
+    while(
+      names.length < n
+    ){
+
+      names.push('');
+
+    }
+
+
+    if(!co){
+
+      m.textContent =
+        'Scrivi il nome C/O.';
+
+      return;
+
+    }
+
+
+    btn.disabled =
+      true;
+
+
+    btn.textContent =
+      'Salvataggio…';
+
+
+    m.textContent =
+      '';
+
+
+    opBusy++;
+
+
+    try{
+
+      const j =
+        await api(
+          'create',
+          {
+            co,
+            phone:
+              $('ph').value,
+            names
+          }
+        );
+
+
+      L.push(j.b);
+
+      FREE =
+        j.free;
+
+
+      bump();
+
+
+      $('co').value =
+        '';
+
+      $('ph').value =
+        '';
+
+      $('pe').value =
+        1;
+
+
+      renderNames();
+
+      render();
+
+
+      showCode(
+        j.b
+      );
+
+
+    }catch(e){
+
+      m.textContent =
+        e.message;
+
+    }
+
+
+    opBusy--;
+
+
+    btn.disabled =
+      false;
+
+
+    btn.textContent =
+      'Crea prenotazione e codice';
+
+  };
+
+
+/* ============================================================
+   AZIONI LISTA
+   ============================================================ */
+
+$('items').onclick =
+  async e => {
+
+    const t =
+      e.target.closest(
+        'button'
+      );
+
+
+    if(!t) return;
+
+
+    const b =
+      L.find(
+        x =>
+          x.code ===
+          t.dataset.c
+      );
+
+
+    if(!b) return;
+
+
+    const a =
+      t.dataset.a;
+
+
+    if(a === 'code'){
+
+      showCode(b);
+
+      return;
+
+    }
+
+
+    if(a === 'paid'){
+
+      managePayment(b);
+
+      return;
+
+    }
+
+
+    if(a === 'tog'){
+
+      const old =
+        b.cancelled;
+
+
+      b.cancelled =
+        !old;
+
+
+      bump();
+
+      render();
+
+      opBusy++;
+
+
+      try{
+
+        await api(
+          'cancel',
+          {
+            code:b.code,
+            value:!old
+          }
+        );
+
+
+      }catch(err){
+
+        b.cancelled =
+          old;
+
+        bump();
+
+        render();
+
+
+        alert(
+          'Non salvato: ' +
+          err.message
+        );
+
+      }
+
+
+      opBusy--;
+
+    }
+
+  };
+
+
+/* ============================================================
+   PAGAMENTI
+
+   ADMIN + MOLLY + ANURAJ
+   ============================================================ */
+
+async function managePayment(b){
+
+  const def =
+    b.paid &&
+    b.amount > 0
+
+      ? b.amount
+
+      : b.att.length *
+        PRICE;
+
+
+  const raw =
+    prompt(
+
+      b.paid
+
+        ? 'Importo pagato in euro (0 = segna NON pagato):'
+
+        : 'Importo pagato in euro:',
+
+      String(def)
+
+    );
+
+
+  if(raw === null)
+    return;
+
+
+  let a =
+    Number(
+      String(raw)
+        .replace(',','.')
+    );
+
+
+  if(
+    !isFinite(a) ||
+    a < 0
+  ){
+
+    alert(
+      'Importo non valido.'
+    );
+
+    return;
+
+  }
+
+
+  a =
+    Math.round(
+      a * 100
+    ) / 100;
+
+
+  const old = {
+
+    paid:b.paid,
+
+    amount:b.amount
+
+  };
+
+
+  b.paid =
+    a > 0;
+
+
+  b.amount =
+    a > 0
+      ? a
+      : 0;
+
+
+  bump();
+
+  render();
+
+  opBusy++;
+
+
+  try{
+
+    await api(
+      'paid',
+      {
+        code:b.code,
+
+        value:a > 0,
+
+        amount:a
+      }
+    );
+
+
+  }catch(e){
+
+    b.paid =
+      old.paid;
+
+    b.amount =
+      old.amount;
+
+
+    bump();
+
+    render();
+
+
+    alert(
+      'Pagamento non salvato: ' +
+      e.message
+    );
+
+  }
+
+
+  opBusy--;
+
+}
+
+
+/* ============================================================
+   CONDIVISIONE CODICE
+   ============================================================ */
+
+function waNum(p){
+
+  const raw =
+    String(p || '')
+      .trim();
+
+
+  const d =
+    raw.replace(
+      /\D/g,
+      ''
+    );
+
+
+  if(
+    raw.startsWith('+')
+  )
+    return d;
+
+
+  if(
+    d.startsWith('00')
+  )
+    return d.slice(2);
+
+
+  if(
+    d.length <= 10 &&
+    d.startsWith('3')
+  )
+    return '39' + d;
+
+
+  return d;
+
+}
+
+
+function showCode(b){
+
+  cur =
+    b;
+
+
+  const n =
+    b.att.length;
+
+
+  const msg =
+`Ciao ${b.co}!
+
+Sei il benvenuto alla festa Indiana 🎉
+
+Il tuo codice di accesso è:
+
+${b.code}
+
+Mostralo all'ingresso.
+
+Valido per ${n} ${
+  n == 1
+    ? 'persona'
+    : 'persone'
+}.`;
+
+
+  cur.msg =
+    msg;
+
+
+  $('bigcode')
+    .textContent =
+      b.code;
+
+
+  $('sub')
+    .textContent =
+      'C/O ' +
+      b.co +
+      ' · ' +
+      n +
+      (
+        n == 1
+          ? ' persona'
+          : ' persone'
+      );
+
+
+  $('wa').href =
+    'https://wa.me/' +
+    waNum(b.phone) +
+    '?text=' +
+    encodeURIComponent(msg);
+
+
+  $('cp').textContent =
+    'Copia messaggio';
+
+
+  $('ov')
+    .classList
+    .add('on');
+
+}
+
+
+$('close').onclick =
+  () =>
+    $('ov')
+      .classList
+      .remove('on');
+
+
+$('cp').onclick =
+  async () => {
+
+    try{
+
+      await navigator
+        .clipboard
+        .writeText(
+          cur.msg
+        );
+
+
+      $('cp').textContent =
+        'Copiato ✓';
+
+
+    }catch(e){
+
+      const t =
+        document
+          .createElement(
+            'textarea'
+          );
+
+
+      t.value =
+        cur.msg;
+
+
+      document.body
+        .appendChild(t);
+
+
+      t.select();
+
+
+      try{
+
+        document.execCommand(
+          'copy'
+        );
+
+
+        $('cp').textContent =
+          'Copiato ✓';
+
+
+      }catch(x){
+
+        $('cp').textContent =
+          'Copia non riuscita';
+
+      }
+
+
+      t.remove();
+
+    }
+
+  };
+
+
+/* ============================================================
+   INGRESSO
+   ============================================================ */
+
+function show(
+  kind,
+  title,
+  lines,
+  extra
+){
+
+  $('res').innerHTML =
+
+    `<div class="res ${kind}">
+
+      <h2>
+        ${title}
+      </h2>
+
+      ${
+        lines
+          .filter(Boolean)
+          .map(
+            l =>
+              `<p>${l}</p>`
+          )
+          .join('')
+      }
+
+      ${extra || ''}
+
+    </div>`;
+
+
+  try{
+
+    navigator.vibrate &&
+      navigator.vibrate(
+        kind === 'ok'
+          ? 80
+          : [120,80,120]
+      );
+
+  }catch(e){}
+
+}
+
+
+$('man').oninput =
+  () => {
+
+    const v =
+      $('man')
+        .value
+        .replace(
+          /\D/g,
+          ''
+        )
+        .slice(0,4);
+
+
+    $('man').value =
+      v;
+
+
+    if(
+      v.length === 4
+    ){
+
+      $('man').value =
+        '';
+
+      handle(v);
+
+    }
+
+  };
+
+
+$('man').addEventListener(
+  'keydown',
+  e => {
+
+    if(
+      e.key === 'Enter'
+    ){
+
+      const v =
+        $('man').value;
+
+
+      if(
+        v &&
+        v.length !== 4
+      ){
+
+        show(
+          'bad',
+          'CODICE NON VALIDO',
+          [
+            'Il codice ha 4 cifre.'
+          ]
+        );
+
+      }
+
+    }
+
+  }
+);
+
+
+const focusMan =
+  () => {
+
+    try{
+
+      $('man').focus();
+
+    }catch(e){}
+
+  };
+
+
+/* ============================================================
+   VERIFICA CODICE
+   ============================================================ */
+
+async function handle(code){
+
+  const b =
+    L.find(
+      x =>
+        x.code === code
+    );
+
+
+  if(b){
+
+    const nm =
+      'C/O ' +
+      esc(b.co);
+
+
+    if(b.cancelled){
+
+      show(
+        'bad',
+        '❌ ANNULLATO',
+        [
+          nm,
+          'La prenotazione è stata annullata.'
+        ]
+      );
+
+
+      focusMan();
+
+      return;
+
+    }
+
+
+    if(
+      b.att.every(
+        a => a.e
+      )
+    ){
+
+      const last =
+        b.att
+          .map(a => a.t)
+          .filter(Boolean)
+          .pop() || '';
+
+
+      show(
+        'bad',
+        '❌ GIÀ UTILIZZATO',
+        [
+          nm,
+
+          `Tutte le ${b.att.length} persone sono già entrate.`,
+
+          last
+            ? 'Ultimo ingresso: ' +
+              last
+            : ''
+        ]
+      );
+
+
+      focusMan();
+
+      return;
+
+    }
+
+
+    if(
+      b.att.length === 1
+    ){
+
+      admitLocal(
+        b,
+        [b.att[0].k]
+      );
+
+    }else{
+
+      groupUI(b);
+
+    }
+
+
+    return;
+
+  }
+
+
+  show(
+    'ok',
+    'Verifica in corso…',
+    []
+  );
+
+
+  try{
+
+    const r =
       await api(
         'scan',
         {
@@ -1910,246 +2777,481 @@ async function checkAdmission() {
       );
 
 
-    if (
-      result.status ===
+    if(
+      r.status ===
       'invalid'
-    ) {
+    ){
 
-      box.innerHTML = `
-        <div class="message error">
-          Codice non trovato.
-        </div>
-      `;
+      show(
+        'bad',
+        '❌ NON VALIDO',
+        [
+          'Questo codice non è nella lista.'
+        ]
+      );
+
+
+      focusMan();
 
       return;
+
     }
 
 
-    if (
-      result.status ===
-      'cancelled'
-    ) {
-
-      box.innerHTML = `
-        <div class="message error">
-          Prenotazione annullata.
-        </div>
-      `;
-
-      return;
-    }
-
-
-    const g =
-      result.b;
-
-
-    box.innerHTML = `
-
-      <div class="card">
-
-        <b>
-          C/O ${escapeHtml(g.co)}
-        </b>
-
-        <p>
-          Codice:
-          <b>${escapeHtml(g.code)}</b>
-        </p>
-
-        <div>
-
-          ${
-            g.att
-              .map(
-                p => `
-
-                  <label
-                    style="
-                      display:flex;
-                      align-items:center;
-                      gap:8px;
-                      margin:8px 0;
-                    "
-                  >
-
-                    <input
-                      type="checkbox"
-                      class="admitPerson"
-                      value="${p.k}"
-                      ${
-                        p.e
-                          ? 'disabled checked'
-                          : ''
-                      }
-                    >
-
-                    ${escapeHtml(p.n)}
-
-                    ${
-                      p.e
-                        ? ' ✓ entrato'
-                        : ''
-                    }
-
-                  </label>
-
-                `
-              )
-              .join('')
-          }
-
-        </div>
-
-
-        <button
-          class="primary"
-          onclick="admitSelected('${escapeHtml(g.code)}')"
-        >
-          Segna ingresso
-        </button>
-
-      </div>
-
-    `;
-
-  } catch (e) {
-
-    box.innerHTML = `
-
-      <div class="message error">
-
-        ${escapeHtml(
-          e.message
-        )}
-
-      </div>
-
-    `;
-  }
-}
-
-
-/* ============================================================
-   AMMISSIONE
-   ============================================================ */
-
-async function admitSelected(code) {
-
-  const checked =
-    Array.from(
-      document.querySelectorAll(
-        '.admitPerson:checked:not(:disabled)'
+    if(
+      !L.some(
+        x =>
+          x.code ===
+          r.b.code
       )
-    )
-    .map(
-      el => Number(el.value)
-    );
+    ){
 
-
-  if (!checked.length) {
-
-    alert(
-      'Seleziona almeno una persona.'
-    );
-
-    return;
-  }
-
-
-  try {
-
-    const result =
-      await api(
-        'admit',
-        {
-          code,
-          idx: checked
-        }
+      L.push(
+        r.b
       );
 
-
-    alert(
-      result.entered.length
-        ? 'Ingresso registrato: ' +
-          result.entered.join(', ')
-        : 'Nessun ingresso registrato.'
-    );
-
-
-    await refresh();
-
-    /*
-     * Aggiorna anche il pannello admin.
-     */
-
-    const input =
-      document.getElementById(
-        'admitCode'
-      );
-
-
-    if (input) {
-
-      input.value =
-        code;
-
-      await checkAdmission();
     }
 
-  } catch (e) {
 
-    alert(
-      e.message
+    render();
+
+    handle(code);
+
+
+  }catch(e){
+
+    show(
+      'bad',
+      'ERRORE',
+      [
+        esc(e.message)
+      ]
     );
+
+
+    focusMan();
+
   }
+
 }
 
 
 /* ============================================================
-   ESCAPE HTML
+   PRENOTAZIONI MULTIPLE
    ============================================================ */
 
-function escapeHtml(value) {
+function groupUI(b){
 
-  return String(
-    value ?? ''
-  )
-  .replace(
-    /&/g,
-    '&amp;'
-  )
-  .replace(
-    /</g,
-    '&lt;'
-  )
-  .replace(
-    />/g,
-    '&gt;'
-  )
-  .replace(
-    /"/g,
-    '&quot;'
-  )
-  .replace(
-    /'/g,
-    '&#039;'
+  const pend =
+    b.att.filter(
+      a => !a.e
+    );
+
+
+  const done =
+    b.att.length -
+    pend.length;
+
+
+  show(
+
+    'ok',
+
+    '✅ CODICE VALIDO',
+
+    [
+      'C/O ' +
+      esc(b.co),
+
+      `Prenotazione per ${b.att.length} persone · già entrate ${done}`,
+
+      'Spunta chi entra adesso:'
+
+    ],
+
+
+    `
+
+      <div
+        style="
+          text-align:left;
+          margin:12px 0
+        ">
+
+        ${
+          pend.map(
+            a => `
+
+              <label
+                style="
+                  display:flex;
+                  gap:12px;
+                  align-items:center;
+                  margin:0;
+                  padding:10px 0;
+                  font-size:18px;
+                  color:var(--ink)
+                ">
+
+                <input
+                  type="checkbox"
+                  class="ck"
+                  value="${a.k}"
+                  checked
+                  style="
+                    width:26px;
+                    height:26px;
+                    padding:0;
+                    flex:0 0 auto
+                  ">
+
+                ${esc(
+                  a.n ||
+                  'Persona ' +
+                  a.k
+                )}
+
+              </label>
+
+            `
+          ).join('')
+        }
+
+      </div>
+
+
+      <button
+        class="btn full"
+        id="go">
+
+        Conferma ingresso
+
+      </button>
+
+    `
   );
+
+
+  $('go').onclick =
+    () => {
+
+      const ix =
+        [
+          ...
+          document
+            .querySelectorAll(
+              '.ck:checked'
+            )
+        ]
+        .map(
+          c => +c.value
+        );
+
+
+      if(!ix.length){
+
+        $('res').innerHTML =
+          '';
+
+        focusMan();
+
+        return;
+
+      }
+
+
+      admitLocal(
+        b,
+        ix
+      );
+
+    };
+
 }
 
 
 /* ============================================================
-   HASH CHANGE
+   INGRESSO LOCALE + SALVATAGGIO BACKGROUND
    ============================================================ */
 
-window.addEventListener(
-  'hashchange',
-  () => {
+function admitLocal(b,ix){
 
-    init();
+  b =
+    L.find(
+      x =>
+        x.code ===
+        b.code
+    ) || b;
+
+
+  const t =
+    new Date()
+      .toLocaleString(
+        'it-IT',
+        {
+          day:'2-digit',
+          month:'2-digit',
+          year:'numeric',
+          hour:'2-digit',
+          minute:'2-digit'
+        }
+      )
+      .replace(',','');
+
+
+  const nm =
+    k => {
+
+      const a =
+        b.att.find(
+          x =>
+            x.k === k
+        );
+
+
+      return esc(
+        a &&
+        a.n ||
+        'Persona ' +
+        k
+      );
+
+    };
+
+
+  ix.forEach(
+    k => {
+
+      const a =
+        b.att.find(
+          x =>
+            x.k === k
+        );
+
+
+      if(a){
+
+        a.e =
+          true;
+
+        a.t =
+          t;
+
+      }
+
+    }
+  );
+
+
+  bump();
+
+
+  show(
+
+    'ok',
+
+    '✅ INGRESSO CONSENTITO',
+
+    [
+
+      'C/O ' +
+      esc(b.co),
+
+      'Entrano: ' +
+      ix
+        .map(nm)
+        .join(', '),
+
+      `Totale entrati ${b.att.filter(a=>a.e).length} su ${b.att.length}`,
+
+      'Ingresso: ' +
+      t
+
+    ]
+
+  );
+
+
+  render();
+
+
+  PEND.push({
+
+    code:b.code,
+
+    idx:ix,
+
+    name:
+      'C/O ' +
+      b.co
+
+  });
+
+
+  syncBanner();
+
+  flush();
+
+  focusMan();
+
+}
+
+
+function syncBanner(){
+
+  $('sync').textContent =
+    PEND.length
+
+      ? 'Salvataggio sul Foglio in corso: ' +
+        PEND.length +
+        ' ingressi in attesa…'
+
+      : '';
+
+}
+
+
+let flushing =
+  false;
+
+
+async function flush(){
+
+  if(flushing)
+    return;
+
+
+  flushing =
+    true;
+
+
+  while(
+    PEND.length
+  ){
+
+    const p =
+      PEND[0];
+
+
+    try{
+
+      const r =
+        await api(
+          'admit',
+          {
+            code:p.code,
+            idx:p.idx
+          }
+        );
+
+
+      PEND.shift();
+
+
+      if(
+        !r.entered.length
+      ){
+
+        alert(
+          'Attenzione: ' +
+          p.name +
+          ' risultava già entrato da un altro dispositivo.'
+        );
+
+      }
+
+
+    }catch(e){
+
+      if(e.net){
+
+        syncBanner();
+
+        await sleep(4000);
+
+        continue;
+
+      }
+
+
+      PEND.shift();
+
+
+      alert(
+        'Ingresso di ' +
+        p.name +
+        ' non salvato sul Foglio: ' +
+        e.message
+      );
+
+    }
+
+
+    syncBanner();
 
   }
-);
+
+
+  flushing =
+    false;
+
+}
+
+
+/* ============================================================
+   NAVIGAZIONE
+   ============================================================ */
+
+$('nav').onclick =
+  e => {
+
+    const t =
+      e.target.closest(
+        'button'
+      );
+
+
+    if(!t)
+      return;
+
+
+    document
+      .querySelectorAll(
+        'nav button'
+      )
+      .forEach(
+        x =>
+          x.classList.toggle(
+            'on',
+            x === t
+          )
+      );
+
+
+    $('list').hidden =
+      t.dataset.tab !==
+      'list';
+
+
+    $('scan').hidden =
+      t.dataset.tab !==
+      'scan';
+
+
+    if(
+      t.dataset.tab ===
+      'scan'
+    ){
+
+      focusMan();
+
+    }
+
+
+    refresh()
+      .catch(() => {});
+
+  };
 
 
 /* ============================================================
