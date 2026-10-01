@@ -10,7 +10,7 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>Ingressi Festa</title>
+<title>Ingressi festa</title>
 
 <style>
 
@@ -19,9 +19,7 @@
 }
 
 body {
-
   margin: 0;
-
   font-family:
     Inter,
     system-ui,
@@ -30,679 +28,403 @@ body {
     "Segoe UI",
     sans-serif;
 
-  background: #f5f2ff;
-
-  color: #18152f;
+  background: #f6f3ff;
+  color: #17152e;
 }
-
 
 body.admin {
-  background: #f4f4f4;
-  color: #111;
+  background: #ffffff;
+  color: #111111;
 }
 
-
-.app {
-
-  width: min(100% - 32px, 700px);
-
+.container {
+  width: min(100%, 760px);
   margin: 0 auto;
-
-  padding: 22px 0 60px;
-
+  padding: 24px 16px 60px;
 }
 
-
-.header {
-
-  margin-bottom: 25px;
-
+body.admin .container {
+  max-width: 900px;
 }
 
-
-.userBadge {
-
+.badge {
   display: inline-block;
-
-  padding: 7px 15px;
-
+  padding: 7px 14px;
   border-radius: 999px;
 
   background: #7c3aed;
-
   color: white;
 
   font-size: 13px;
-
   font-weight: 800;
-
-  margin-bottom: 8px;
-
+  text-transform: uppercase;
 }
 
-
-body.molly .userBadge {
-  background: #db2777;
+body.admin .badge {
+  background: #111111;
+  color: #ffffff;
 }
-
-
-body.anuraj .userBadge {
-  background: #7c3aed;
-}
-
-
-body.admin .userBadge {
-
-  background: #111;
-
-  color: white;
-
-}
-
 
 h1 {
+  margin: 12px 0 4px;
 
-  margin: 0 0 5px;
-
-  font-size: 32px;
-
-  line-height: 1.1;
-
+  font-size: 34px;
+  line-height: 1.05;
 }
-
 
 .subtitle {
-
-  color: #6d668c;
-
-  font-size: 16px;
-
+  color: #69658a;
+  margin-bottom: 28px;
 }
-
 
 body.admin .subtitle {
-  color: #555;
+  color: #555555;
 }
 
-
 .card {
-
   background: white;
 
-  border: 1px solid #ddd6fe;
-
+  border: 1px solid #ded8f4;
   border-radius: 18px;
 
-  padding: 18px;
+  padding: 20px;
 
   margin-bottom: 18px;
 
+  box-shadow:
+    0 4px 20px rgba(70, 50, 130, .04);
 }
-
 
 body.admin .card {
-
-  border-color: #ddd;
-
+  border-color: #dddddd;
+  box-shadow: none;
 }
 
-
 label {
-
   display: block;
 
   margin-bottom: 7px;
 
-  color: #716b91;
-
   font-size: 14px;
-
+  color: #69658a;
 }
 
+body.admin label {
+  color: #555555;
+}
 
-input {
-
+input,
+select {
   width: 100%;
 
+  border: 1px solid #ddd7f5;
+  border-radius: 12px;
+
   padding: 13px;
-
-  border-radius: 11px;
-
-  border: 1px solid #ddd6fe;
-
-  background: #faf9ff;
-
-  color: #18152f;
 
   font-size: 16px;
 
-  outline: none;
+  background: #f8f6ff;
+  color: #17152e;
 
+  outline: none;
 }
 
+body.admin input,
+body.admin select {
+  border-color: #cccccc;
+  background: #ffffff;
+  color: #111111;
+}
 
 input:focus {
-
   border-color: #7c3aed;
-
 }
 
-
 .row {
-
   display: grid;
-
   grid-template-columns: 1fr 1fr;
 
   gap: 10px;
-
 }
 
+.participants {
+  margin-top: 14px;
+}
+
+.participant {
+  margin-bottom: 10px;
+}
 
 button {
-
   border: 0;
+  border-radius: 12px;
 
-  border-radius: 11px;
-
-  padding: 12px 15px;
+  padding: 13px 18px;
 
   font-size: 15px;
-
   font-weight: 800;
 
   cursor: pointer;
-
 }
-
 
 button:disabled {
-
-  opacity: .5;
-
+  opacity: .55;
   cursor: not-allowed;
-
 }
-
 
 .primary {
-
   width: 100%;
 
-  margin-top: 16px;
-
   background: #7c3aed;
-
   color: white;
 
+  margin-top: 16px;
 }
-
-
-body.molly .primary {
-  background: #db2777;
-}
-
 
 body.admin .primary {
-
-  background: #111;
-
+  background: #111111;
   color: white;
-
 }
-
 
 .secondary {
-
   background: white;
-
-  border: 1px solid #ddd6fe;
-
-  color: #29243f;
-
+  border: 1px solid #ddd7f5;
+  color: #27223f;
 }
-
 
 body.admin .secondary {
-
-  border-color: #bbb;
-
-  color: #111;
-
+  border-color: #cccccc;
+  color: #111111;
 }
 
-
-.danger {
-
-  background: #fee2e2;
-
-  color: #b91c1c;
-
-}
-
-
-.success {
-
-  background: #dcfce7;
-
-  color: #15803d;
-
-}
-
-
-/* ==========================================================
-   PAGAMENTO
-   ========================================================== */
-
-.paymentTitle {
-
+.payment-title {
   margin-top: 16px;
-
   margin-bottom: 8px;
 
-  color: #716b91;
-
   font-size: 14px;
-
+  color: #69658a;
 }
 
-
-.paymentButtons {
-
+.payment-buttons {
   display: grid;
-
   grid-template-columns: 1fr 1fr;
 
   gap: 10px;
-
 }
 
-
-.payButton {
-
-  padding: 13px;
-
-  border-radius: 12px;
-
-  border: 1px solid #ddd6fe;
-
+.pay-btn {
   background: white;
-
-  color: #211d38;
-
+  border: 1px solid #ddd7f5;
+  color: #27223f;
 }
 
-
-.payButton.activePaid {
-
-  background: #12845f;
-
-  border-color: #12845f;
-
+.pay-btn.active-paid {
+  background: #11875d;
+  border-color: #11875d;
   color: white;
-
 }
 
-
-.payButton.activeUnpaid {
-
-  background: #dc2626;
-
-  border-color: #dc2626;
-
+.pay-btn.active-unpaid {
+  background: #c6283d;
+  border-color: #c6283d;
   color: white;
-
 }
 
+.amount-box {
+  margin-top: 10px;
+}
 
-.amountBox {
-
+.message {
   margin-top: 12px;
 
+  font-size: 14px;
+  font-weight: 600;
 }
 
-
-.amountHint {
-
-  margin-top: 7px;
-
-  font-size: 13px;
-
-  color: #777;
-
+.success {
+  color: #11875d;
 }
 
-
-/* ==========================================================
-   PRENOTAZIONE
-   ========================================================== */
-
-.booking {
-
-  position: relative;
-
+.error {
+  color: #c6283d;
 }
 
-
-.bookingHeader {
-
+.list-header {
   display: flex;
 
+  align-items: center;
   justify-content: space-between;
 
-  gap: 15px;
+  gap: 10px;
 
-  align-items: flex-start;
-
+  margin-bottom: 12px;
 }
 
+.booking {
+  padding: 18px 0;
 
-.bookingName {
-
-  font-size: 19px;
-
-  font-weight: 850;
-
+  border-bottom: 1px solid #e5e0f3;
 }
 
-
-.bookingInfo {
-
-  color: #726c91;
-
-  margin-top: 5px;
-
-  font-size: 14px;
-
+body.admin .booking {
+  border-bottom-color: #dddddd;
 }
 
-
-.code {
-
-  font-size: 25px;
-
-  font-weight: 900;
-
-  letter-spacing: 4px;
-
-  background: #f5f3ff;
-
-  padding: 9px 13px;
-
-  border-radius: 12px;
-
-  white-space: nowrap;
-
-}
-
-
-body.admin .code {
-
-  background: #eee;
-
-  color: #111;
-
-}
-
-
-.participants {
-
-  margin-top: 14px;
-
-}
-
-
-.participant {
-
-  padding: 8px 0;
-
-  border-bottom: 1px solid #eee;
-
-}
-
-
-.participant:last-child {
+.booking:last-child {
   border-bottom: 0;
 }
 
+.booking-top {
+  display: flex;
 
-.paymentStatus {
+  justify-content: space-between;
+  align-items: flex-start;
 
-  margin-top: 13px;
+  gap: 12px;
+}
 
-  font-size: 15px;
+.booking-name {
+  font-size: 18px;
+  font-weight: 850;
+}
 
+.booking-meta {
+  margin-top: 5px;
+
+  color: #69658a;
+  font-size: 14px;
+}
+
+body.admin .booking-meta {
+  color: #555555;
+}
+
+.code {
+  flex-shrink: 0;
+
+  background: #f1edff;
+
+  padding: 8px 13px;
+
+  border-radius: 12px;
+
+  font-size: 23px;
   font-weight: 900;
 
+  letter-spacing: 4px;
 }
 
-
-.paymentPaid {
-
-  color: #12845f;
-
+body.admin .code {
+  background: #111111;
+  color: white;
 }
 
+.people {
+  margin-top: 10px;
 
-.paymentUnpaid {
-
-  color: #dc2626;
-
+  font-size: 14px;
 }
 
+.person {
+  padding: 4px 0;
+}
 
-.bookingActions {
+.payment-status {
+  margin-top: 10px;
 
+  font-weight: 900;
+}
+
+.paid {
+  color: #11875d;
+}
+
+.unpaid {
+  color: #c6283d;
+}
+
+.booking-actions {
   display: flex;
 
   flex-wrap: wrap;
 
   gap: 8px;
 
-  margin-top: 14px;
-
+  margin-top: 12px;
 }
 
-
-/* ==========================================================
-   MESSAGGIO
-   ========================================================== */
-
-.messageBox {
-
-  margin-top: 14px;
-
-  padding: 13px;
-
-  border-radius: 12px;
-
-  background: #f8f7ff;
-
-  border: 1px solid #e3defa;
-
-  white-space: pre-line;
-
-  font-size: 14px;
-
-  line-height: 1.5;
-
-}
-
-
-body.admin .messageBox {
-
-  background: #f5f5f5;
-
-  border-color: #ddd;
-
-}
-
-
-/* ==========================================================
-   ADMIN SCANNER
-   ========================================================== */
-
-.adminPanel {
-
-  background: #111;
-
+.invite {
+  background: #7c3aed;
   color: white;
+}
 
-  border-radius: 18px;
+body.admin .invite {
+  background: #111111;
+}
 
-  padding: 18px;
+.search-box {
+  margin-bottom: 14px;
+}
+
+.search-box input {
+  font-size: 17px;
+}
+
+.admin-tools {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  gap: 12px;
 
   margin-bottom: 18px;
-
 }
 
+.admit-box {
+  display: grid;
 
-.adminPanel label {
+  grid-template-columns: 1fr auto;
 
-  color: #bbb;
-
+  gap: 8px;
 }
-
-
-.adminPanel input {
-
-  background: #222;
-
-  color: white;
-
-  border-color: #444;
-
-}
-
-
-.scannerResult {
-
-  margin-top: 15px;
-
-  padding: 15px;
-
-  background: #222;
-
-  border-radius: 12px;
-
-}
-
-
-.checkRow {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  padding: 8px 0;
-
-}
-
-
-.checkRow input {
-
-  width: 18px;
-
-  height: 18px;
-
-}
-
-
-/* ==========================================================
-   STATI
-   ========================================================== */
-
-.notice {
-
-  padding: 11px 13px;
-
-  border-radius: 11px;
-
-  margin-bottom: 15px;
-
-  background: #f1f0ff;
-
-  color: #514b71;
-
-}
-
-
-.error {
-
-  background: #fee2e2;
-
-  color: #991b1b;
-
-}
-
-
-.ok {
-
-  background: #dcfce7;
-
-  color: #166534;
-
-}
-
 
 .loading {
+  text-align: center;
+
+  padding: 50px 10px;
+
+  color: #69658a;
+}
+
+body.admin .loading {
+  color: #555;
+}
+
+.empty {
+  padding: 25px 0;
 
   text-align: center;
 
-  padding: 35px 10px;
-
   color: #777;
-
 }
 
-
-.hidden {
-  display: none !important;
-}
-
-
-.refresh {
-
-  margin-bottom: 15px;
-
-}
-
-
-.small {
-
-  font-size: 13px;
-
-  color: #777;
-
-}
-
-
-@media(max-width:600px) {
+@media (max-width: 600px) {
 
   .row {
-
     grid-template-columns: 1fr;
-
   }
 
-  .bookingHeader {
-
+  .booking-top {
     flex-direction: column;
-
   }
 
   .code {
-
     align-self: flex-start;
-
   }
 
-  .paymentButtons {
-
+  .admit-box {
     grid-template-columns: 1fr;
-
   }
 
 }
@@ -714,46 +436,385 @@ body.admin .messageBox {
 
 <body>
 
-<div class="app">
+<div class="container">
 
-  <div id="loading" class="loading">
-    Caricamento...
+  <div id="app">
+
+    <div class="loading">
+      Caricamento...
+    </div>
+
   </div>
 
+</div>
 
-  <div id="appContent" class="hidden">
 
-    <div class="header">
+<script>
 
-      <div id="userBadge" class="userBadge"></div>
+/* ============================================================
+   CONFIGURAZIONE
+   ============================================================ */
+
+const API_URL =
+  'INCOLLA_QUI_IL_TUO_URL_APPS_SCRIPT_EXEC';
+
+
+/* ============================================================
+   STATO
+   ============================================================ */
+
+const state = {
+
+  user: null,
+
+  role: null,
+
+  name: '',
+
+  price: 25,
+
+  free: 0,
+
+  used: 0,
+
+  list: [],
+
+  paymentPaid: false,
+
+  loading: false
+};
+
+
+/* ============================================================
+   IDENTIFICA UTENTE DAL LINK
+   ============================================================ */
+
+function getUser() {
+
+  const hash =
+    location.hash
+      .replace('#', '')
+      .trim()
+      .toLowerCase();
+
+
+  if (
+    hash === 'admin' ||
+    hash === 'molly' ||
+    hash === 'anuraj'
+  ) {
+    return hash;
+  }
+
+
+  /*
+   * Se non c'è hash,
+   * mostra una pagina semplice.
+   */
+
+  return null;
+}
+
+
+/* ============================================================
+   REQUEST
+   ============================================================ */
+
+async function api(action, data = {}) {
+
+  const body = {
+
+    action,
+
+    user: state.user,
+
+    rid:
+      Date.now().toString() +
+      Math.random().toString(16).slice(2),
+
+    ...data
+  };
+
+
+  const response = await fetch(
+    API_URL,
+    {
+      method: 'POST',
+
+      headers: {
+        'Content-Type':
+          'text/plain;charset=utf-8'
+      },
+
+      body: JSON.stringify(body)
+    }
+  );
+
+
+  const text =
+    await response.text();
+
+
+  let result;
+
+  try {
+
+    result =
+      JSON.parse(text);
+
+  } catch (e) {
+
+    throw new Error(
+      'Risposta non valida da Google.'
+    );
+  }
+
+
+  if (!result.ok) {
+
+    throw new Error(
+      result.error ||
+      'Errore'
+    );
+  }
+
+
+  return result;
+}
+
+
+/* ============================================================
+   INIT
+   ============================================================ */
+
+async function init() {
+
+  state.user =
+    getUser();
+
+
+  if (!state.user) {
+
+    renderLogin();
+
+    return;
+  }
+
+
+  document.body.classList.toggle(
+    'admin',
+    state.user === 'admin'
+  );
+
+
+  try {
+
+    /*
+     * UNA SOLA CHIAMATA AL SERVER
+     * ALL'APERTURA.
+     */
+
+    const data =
+      await api('init');
+
+
+    state.role =
+      data.role;
+
+    state.name =
+      data.name;
+
+    state.price =
+      Number(data.price || 25);
+
+    state.free =
+      Number(data.free || 0);
+
+    state.used =
+      Number(data.used || 0);
+
+    state.list =
+      data.list || [];
+
+
+    render();
+
+  } catch (err) {
+
+    showFatalError(
+      err.message
+    );
+  }
+}
+
+
+/* ============================================================
+   PAGINA ACCESSO
+   ============================================================ */
+
+function renderLogin() {
+
+  document.getElementById(
+    'app'
+  ).innerHTML = `
+
+    <div class="card">
 
       <h1>Ingressi festa</h1>
 
-      <div class="subtitle">
-        Posti ancora liberi:
-        <strong id="freePlaces">-</strong>
+      <p>
+        Link non valido.
+      </p>
+
+      <p>
+        Usa uno dei link:
+      </p>
+
+      <p>
+        <b>#admin</b><br>
+        <b>#molly</b><br>
+        <b>#anuraj</b>
+      </p>
+
+    </div>
+  `;
+}
+
+
+/* ============================================================
+   ERRORE
+   ============================================================ */
+
+function showFatalError(message) {
+
+  document.getElementById(
+    'app'
+  ).innerHTML = `
+
+    <div class="card">
+
+      <h1>Ingressi festa</h1>
+
+      <div class="message error">
+        ${escapeHtml(message)}
       </div>
+
+      <br>
+
+      <button
+        class="secondary"
+        onclick="location.reload()"
+      >
+        Riprova
+      </button>
+
+    </div>
+  `;
+}
+
+
+/* ============================================================
+   RENDER PRINCIPALE
+   ============================================================ */
+
+function render() {
+
+  const admin =
+    state.role === 'admin';
+
+
+  document.getElementById(
+    'app'
+  ).innerHTML = `
+
+    <span class="badge">
+      ${escapeHtml(state.name)}
+    </span>
+
+    <h1>Ingressi festa</h1>
+
+    <div class="subtitle">
+
+      Posti ancora liberi:
+      <b>${state.free}</b>
 
     </div>
 
 
-    <div id="notice"></div>
+    ${
+      admin
+        ? renderAdminTools()
+        : ''
+    }
 
 
-    <!-- =====================================================
-         FORM ORGANIZZATORE
-         ===================================================== -->
+    ${renderCreateForm()}
 
-    <div
-      id="createCard"
-      class="card hidden"
-    >
 
-      <label>C/O (chi prenota)</label>
+    <div class="card">
+
+      <div class="list-header">
+
+        <b>
+          Prenotazioni
+        </b>
+
+        <button
+          class="secondary"
+          onclick="refresh()"
+        >
+          ↻ Aggiorna
+        </button>
+
+      </div>
+
+
+      ${
+        admin
+          ? `
+            <div class="search-box">
+
+              <input
+                id="search"
+                placeholder="Cerca C/O, nome o codice..."
+                oninput="filterBookings()"
+              >
+
+            </div>
+          `
+          : ''
+      }
+
+
+      <div id="bookingList">
+
+        ${renderBookings(state.list)}
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* ============================================================
+   FORM CREAZIONE
+   ============================================================ */
+
+function renderCreateForm() {
+
+  return `
+
+    <div class="card">
+
+      <label>
+        C/O (chi prenota)
+      </label>
 
       <input
         id="co"
-        placeholder="Nome e cognome"
+        placeholder="Paolo Rossi"
       >
 
 
@@ -761,7 +822,9 @@ body.admin .messageBox {
 
         <div>
 
-          <label>Telefono</label>
+          <label>
+            Telefono
+          </label>
 
           <input
             id="phone"
@@ -774,14 +837,17 @@ body.admin .messageBox {
 
         <div>
 
-          <label>Persone</label>
+          <label>
+            Persone
+          </label>
 
           <input
-            id="count"
+            id="peopleCount"
             type="number"
             min="1"
             max="50"
             value="1"
+            oninput="updatePeople()"
           >
 
         </div>
@@ -790,64 +856,73 @@ body.admin .messageBox {
 
 
       <div
+        class="participants"
         id="participants"
-        style="margin-top:12px"
-      ></div>
+      >
+
+        ${participantInput(1)}
+
+      </div>
 
 
-      <!-- ===================================================
-           PAGAMENTO
-           =================================================== -->
+      <!-- PAGAMENTO -->
 
-      <div class="paymentTitle">
+      <div class="payment-title">
         Pagamento
       </div>
 
 
-      <div class="paymentButtons">
+      <div class="payment-buttons">
 
         <button
-          id="paidBtn"
-          class="payButton activePaid"
-          type="button"
-          onclick="setCreatePayment(true)"
+          id="payYes"
+          class="pay-btn"
+          onclick="selectPayment(true)"
         >
           ✓ PAGATO
         </button>
 
 
         <button
-          id="unpaidBtn"
-          class="payButton"
-          type="button"
-          onclick="setCreatePayment(false)"
+          id="payNo"
+          class="pay-btn active-unpaid"
+          onclick="selectPayment(false)"
         >
-          DA PAGARE
+          ✕ NO PAGATO
         </button>
 
       </div>
 
 
       <div
-        id="createAmountBox"
-        class="amountBox"
+        id="amountBox"
+        class="amount-box"
+        style="display:none"
       >
 
-        <label>Importo pagato (€)</label>
+        <label>
+          Importo pagato (€)
+        </label>
 
         <input
-          id="createAmount"
+          id="amount"
           type="number"
-          step="0.01"
           min="0"
-          value="25"
+          step="0.01"
+          value="${state.price}"
         >
 
-        <div class="amountHint">
-          Prezzo previsto:
-          €<span id="expectedPrice">25</span>
-        </div>
+      </div>
 
+
+      <div
+        id="paymentHint"
+        class="subtitle"
+        style="margin:10px 0 0"
+      >
+        Da pagare:
+        €${state.price.toFixed(2)}
+        per persona
       </div>
 
 
@@ -859,1027 +934,80 @@ body.admin .messageBox {
         Crea prenotazione e codice
       </button>
 
+
+      <div id="createMessage"></div>
+
     </div>
 
-
-    <!-- =====================================================
-         ADMIN SCANNER
-         ===================================================== -->
-
-    <div
-      id="adminPanel"
-      class="adminPanel hidden"
-    >
-
-      <strong>
-        Controllo ingresso
-      </strong>
+  `;
+}
 
 
-      <div style="margin-top:12px">
+/* ============================================================
+   INPUT PARTECIPANTI
+   ============================================================ */
 
-        <label>
-          Inserisci codice
-        </label>
+function participantInput(number) {
 
-        <input
-          id="scanCode"
-          maxlength="4"
-          placeholder="Es. 2245"
-          inputmode="numeric"
-          onkeydown="if(event.key==='Enter') scanCode()"
-        >
+  return `
 
-      </div>
+    <div class="participant">
 
+      <label>
+        Partecipante ${number}
+      </label>
 
-      <button
-        class="primary"
-        style="background:white;color:#111"
-        onclick="scanCode()"
+      <input
+        class="personInput"
+        placeholder="Nome partecipante"
       >
-        Controlla codice
-      </button>
-
-
-      <div
-        id="scannerResult"
-        class="scannerResult hidden"
-      ></div>
 
     </div>
 
-
-    <button
-      class="secondary refresh"
-      onclick="loadData(true)"
-    >
-      ↻ Aggiorna
-    </button>
-
-
-    <div
-      id="updated"
-      class="small"
-      style="margin-bottom:12px"
-    ></div>
-
-
-    <div id="bookings"></div>
-
-  </div>
-
-</div>
-
-
-<script>
-
-
-/* ============================================================
-   CONFIGURAZIONE
-   ============================================================ */
-
-
-/*
-  METTI QUI L'URL DELLA TUA WEB APP GOOGLE APPS SCRIPT.
-
-  Esempio:
-
-  const API =
-    'https://script.google.com/macros/s/XXXXXXXX/exec';
-*/
-
-const API =
-  'https://script.google.com/macros/s/AKfycbxO-R2yW13gYo4jHB-rls7jxcv-GDUsv8jsaFsWVwkTLRmrkc4RRERwDSSPU8HUMLov/exec';
-
-
-/* ============================================================
-   STATO
-   ============================================================ */
-
-let currentUser = null;
-
-let currentRole = null;
-
-let data = null;
-
-let createPaid = true;
-
-
-/* ============================================================
-   IDENTIFICA UTENTE DALL'HASH
-   ============================================================ */
-
-function getUserFromHash() {
-
-  let hash =
-    window.location.hash
-      .replace('#', '')
-      .trim()
-      .toLowerCase();
-
-
-  if (
-    hash !== 'admin' &&
-    hash !== 'molly' &&
-    hash !== 'anuraj'
-  ) {
-
-    /*
-      Default organizzatore.
-      Se vuoi obbligare l'utente a usare
-      #anuraj / #molly / #admin,
-      cambia qui.
-    */
-
-    hash = 'anuraj';
-
-  }
-
-
-  return hash;
-
+  `;
 }
 
 
-/* ============================================================
-   RICHIESTA API
-   ============================================================ */
+function updatePeople() {
 
-async function api(action, extra = {}) {
-
-  const payload = {
-
-    action: action,
-
-    user: currentUser,
-
-    rid:
-      Date.now().toString() +
-      Math.random().toString(36).slice(2),
-
-    ...extra
-
-  };
-
-
-  const response =
-    await fetch(API, {
-
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-
-      body: JSON.stringify(payload)
-
-    });
-
-
-  const text =
-    await response.text();
-
-
-  let result;
-
-
-  try {
-
-    result =
-      JSON.parse(text);
-
-  } catch (e) {
-
-    console.error(text);
-
-    throw new Error(
-      'Risposta non valida da Google'
+  const input =
+    document.getElementById(
+      'peopleCount'
     );
 
+  let count =
+    Number(input.value);
+
+
+  if (!count || count < 1) {
+    count = 1;
+  }
+
+  if (count > 50) {
+    count = 50;
   }
 
 
-  if (!result.ok) {
-
-    throw new Error(
-      result.error ||
-      'Errore del server'
-    );
-
-  }
-
-
-  return result;
-
-}
-
-
-/* ============================================================
-   INIT
-   ============================================================ */
-
-async function start() {
-
-  currentUser =
-    getUserFromHash();
-
-
-  document.body.classList.add(
-    currentUser
-  );
-
-
-  try {
-
-    data =
-      await api('init');
-
-
-    currentRole =
-      data.role;
-
-
-    document
-      .getElementById('loading')
-      .classList.add('hidden');
-
-
-    document
-      .getElementById('appContent')
-      .classList.remove('hidden');
-
-
-    document
-      .getElementById('userBadge')
-      .textContent =
-        data.name;
-
-
-    document
-      .getElementById('freePlaces')
-      .textContent =
-        data.free;
-
-
-    if (data.role === 'admin') {
-
-      document
-        .getElementById('adminPanel')
-        .classList.remove('hidden');
-
-    } else {
-
-      document
-        .getElementById('createCard')
-        .classList.remove('hidden');
-
-      updateParticipants();
-
-    }
-
-
-    renderBookings();
-
-
-    document
-      .getElementById('updated')
-      .textContent =
-        'Aggiornato alle ' +
-        new Date()
-          .toLocaleTimeString('it-IT');
-
-
-  } catch (err) {
-
-    document
-      .getElementById('loading')
-      .innerHTML =
-        '<div class="notice error">' +
-        escapeHtml(err.message) +
-        '</div>';
-
-  }
-
-}
-
-
-/* ============================================================
-   REFRESH
-   ============================================================ */
-
-async function loadData(showMessage = false) {
-
-  try {
-
-    if (showMessage) {
-
-      showNotice(
-        'Aggiornamento...',
-        ''
-      );
-
-    }
-
-
-    data =
-      await api('init');
-
-
-    document
-      .getElementById('freePlaces')
-      .textContent =
-      data.free;
-
-
-    renderBookings();
-
-
-    document
-      .getElementById('updated')
-      .textContent =
-      'Aggiornato alle ' +
-      new Date()
-        .toLocaleTimeString('it-IT');
-
-
-    if (showMessage) {
-
-      showNotice(
-        'Dati aggiornati',
-        'ok'
-      );
-
-    }
-
-
-  } catch (err) {
-
-    showNotice(
-      err.message,
-      'error'
-    );
-
-  }
-
-}
-
-
-/* ============================================================
-   PARTECIPANTI
-   ============================================================ */
-
-function updateParticipants() {
-
-  const count =
-    Math.max(
-      1,
-      Math.min(
-        50,
-        Number(
-          document.getElementById('count').value
-        ) || 1
-      )
-    );
-
-
-  document.getElementById('count').value =
+  input.value =
     count;
-
-
-  const container =
-    document.getElementById('participants');
-
-
-  const oldValues = [];
-
-
-  container
-    .querySelectorAll('input')
-    .forEach(function(input) {
-
-      oldValues.push(input.value);
-
-    });
-
-
-  container.innerHTML = '';
-
-
-  for (let i = 0; i < count; i++) {
-
-    const label =
-      document.createElement('label');
-
-    label.textContent =
-      'Partecipante ' + (i + 1);
-
-
-    const input =
-      document.createElement('input');
-
-    input.className =
-      'participantInput';
-
-    input.placeholder =
-      'Nome partecipante ' + (i + 1);
-
-    input.value =
-      oldValues[i] || '';
-
-
-    input.style.marginBottom =
-      '9px';
-
-
-    container.appendChild(label);
-
-    container.appendChild(input);
-
-  }
-
-
-  const price =
-    count *
-    Number(data?.price || 25);
-
-
-  document
-    .getElementById('expectedPrice')
-    .textContent =
-    price.toFixed(2);
-
-
-  if (
-    createPaid &&
-    !document.getElementById('createAmount').dataset.edited
-  ) {
-
-    document
-      .getElementById('createAmount')
-      .value =
-      price.toFixed(2);
-
-  }
-
-}
-
-
-document
-  .getElementById('count')
-  .addEventListener(
-    'input',
-    updateParticipants
-  );
-
-
-document
-  .getElementById('createAmount')
-  .addEventListener(
-    'input',
-    function() {
-
-      this.dataset.edited =
-        '1';
-
-    }
-  );
-
-
-/* ============================================================
-   PAGAMENTO CREAZIONE
-   ============================================================ */
-
-function setCreatePayment(paid) {
-
-  createPaid =
-    paid;
-
-
-  const paidBtn =
-    document.getElementById('paidBtn');
-
-  const unpaidBtn =
-    document.getElementById('unpaidBtn');
-
-  const amountBox =
-    document.getElementById('createAmountBox');
-
-
-  paidBtn.classList.toggle(
-    'activePaid',
-    paid
-  );
-
-
-  unpaidBtn.classList.toggle(
-    'activeUnpaid',
-    !paid
-  );
-
-
-  amountBox.classList.toggle(
-    'hidden',
-    !paid
-  );
-
-
-  if (paid) {
-
-    const count =
-      Number(
-        document.getElementById('count').value
-      ) || 1;
-
-
-    const expected =
-      count *
-      Number(data?.price || 25);
-
-
-    const input =
-      document.getElementById('createAmount');
-
-
-    if (!input.dataset.edited) {
-
-      input.value =
-        expected.toFixed(2);
-
-    }
-
-  }
-
-}
-
-
-/* ============================================================
-   CREA PRENOTAZIONE
-   ============================================================ */
-
-async function createBooking() {
-
-  const button =
-    document.getElementById('createBtn');
-
-
-  const co =
-    document
-      .getElementById('co')
-      .value
-      .trim();
-
-
-  const phone =
-    document
-      .getElementById('phone')
-      .value
-      .trim();
-
-
-  const names =
-    Array.from(
-      document.querySelectorAll(
-        '.participantInput'
-      )
-    )
-    .map(function(input) {
-
-      return input.value.trim();
-
-    });
-
-
-  if (!co) {
-
-    showNotice(
-      'Inserisci il nome C/O',
-      'error'
-    );
-
-    return;
-
-  }
-
-
-  if (
-    names.some(function(name) {
-      return !name;
-    })
-  ) {
-
-    showNotice(
-      'Inserisci tutti i nomi dei partecipanti',
-      'error'
-    );
-
-    return;
-
-  }
-
-
-  let amount = 0;
-
-
-  if (createPaid) {
-
-    amount =
-      Number(
-        document
-          .getElementById('createAmount')
-          .value
-      );
-
-
-    if (!amount || amount <= 0) {
-
-      showNotice(
-        'Inserisci l’importo pagato',
-        'error'
-      );
-
-      return;
-
-    }
-
-  }
-
-
-  button.disabled = true;
-
-  button.textContent =
-    'Salvataggio...';
-
-
-  try {
-
-    const result =
-      await api(
-        'create',
-        {
-
-          co: co,
-
-          phone: phone,
-
-          names: names,
-
-          paid: createPaid,
-
-          amount: amount
-
-        }
-      );
-
-
-    showNotice(
-      'Prenotazione creata. Codice: ' +
-      result.code,
-      'ok'
-    );
-
-
-    /*
-      Aggiorniamo subito la lista
-      senza dover aspettare un altro refresh.
-    */
-
-    await loadData(false);
-
-
-    /*
-      Mostra automaticamente
-      il messaggio di invito
-      della nuova prenotazione.
-    */
-
-    showInvite(
-      result.b
-    );
-
-
-    /*
-      Reset form.
-    */
-
-    document
-      .getElementById('co')
-      .value = '';
-
-    document
-      .getElementById('phone')
-      .value = '';
-
-    document
-      .getElementById('count')
-      .value = 1;
-
-    document
-      .getElementById('createAmount')
-      .dataset.edited = '';
-
-    document
-      .getElementById('createAmount')
-      .value = '25';
-
-    createPaid = true;
-
-    setCreatePayment(true);
-
-    updateParticipants();
-
-
-  } catch (err) {
-
-    showNotice(
-      err.message,
-      'error'
-    );
-
-  } finally {
-
-    button.disabled = false;
-
-    button.textContent =
-      'Crea prenotazione e codice';
-
-  }
-
-}
-
-
-/* ============================================================
-   RENDER PRENOTAZIONI
-   ============================================================ */
-
-function renderBookings() {
-
-  const container =
-    document.getElementById('bookings');
-
-
-  container.innerHTML = '';
-
-
-  if (
-    !data ||
-    !data.list ||
-    !data.list.length
-  ) {
-
-    container.innerHTML =
-      '<div class="card">' +
-      '<strong>Nessuna prenotazione</strong>' +
-      '</div>';
-
-    return;
-
-  }
-
-
-  data.list.forEach(function(booking) {
-
-    container.appendChild(
-      createBookingCard(booking)
-    );
-
-  });
-
-}
-
-
-/* ============================================================
-   CARD PRENOTAZIONE
-   ============================================================ */
-
-function createBookingCard(b) {
-
-  const card =
-    document.createElement('div');
-
-
-  card.className =
-    'card booking';
-
-
-  const people =
-    b.att.length;
-
-
-  const due =
-    people *
-    Number(data.price || 25);
 
 
   let html = '';
 
-
-  html +=
-    '<div class="bookingHeader">';
-
-
-  html +=
-    '<div>';
-
-
-  html +=
-    '<div class="bookingName">' +
-    'C/O ' +
-    escapeHtml(b.co) +
-    '</div>';
-
-
-  html +=
-    '<div class="bookingInfo">' +
-    escapeHtml(b.phone) +
-    ' · ' +
-    people +
-    (
-      people === 1
-        ? ' persona'
-        : ' persone'
-    ) +
-    '</div>';
-
-
-  html +=
-    '</div>';
-
-
-  html +=
-    '<div class="code">' +
-    escapeHtml(b.code) +
-    '</div>';
-
-
-  html +=
-    '</div>';
-
-
-  html +=
-    '<div class="participants">';
-
-
-  b.att.forEach(function(p) {
+  for (
+    let i = 1;
+    i <= count;
+    i++
+  ) {
 
     html +=
-      '<div class="participant">' +
-      escapeHtml(p.n);
-
-
-    if (p.e) {
-
-      html +=
-        ' <span class="small">' +
-        '✓ entrato' +
-        (
-          p.t
-            ? ' · ' + escapeHtml(p.t)
-            : ''
-        ) +
-        '</span>';
-
-    }
-
-
-    html +=
-      '</div>';
-
-  });
-
-
-  html +=
-    '</div>';
-
-
-  /*
-    PAGAMENTO
-  */
-
-  if (b.paid) {
-
-    html +=
-      '<div class="paymentStatus paymentPaid">' +
-      '✓ PAGATO · €' +
-      Number(b.amount || 0)
-        .toFixed(2) +
-      '</div>';
-
-  } else {
-
-    html +=
-      '<div class="paymentStatus paymentUnpaid">' +
-      '✕ DA PAGARE · €' +
-      due.toFixed(2) +
-      '</div>';
-
+      participantInput(i);
   }
 
 
-  html +=
-    '<div class="bookingActions">';
-
-
-  /*
-    ORGANIZZATORE:
-    gestione pagamento
-  */
-
-  if (currentRole === 'org') {
-
-    if (b.paid) {
-
-      html +=
-        '<button class="secondary" ' +
-        'onclick="openPayment(\'' +
-        escapeAttr(b.code) +
-        '\', true, ' +
-        Number(b.amount || 0) +
-        ')">' +
-        'Modifica pagamento' +
-        '</button>';
-
-    } else {
-
-      html +=
-        '<button class="success" ' +
-        'onclick="openPayment(\'' +
-        escapeAttr(b.code) +
-        '\', false, ' +
-        due +
-        ')">' +
-        'Segna pagato' +
-        '</button>';
-
-    }
-
-
-    html +=
-      '<button class="primary" ' +
-      'style="width:auto;margin-top:0" ' +
-      'onclick="showInviteFromCode(\'' +
-      escapeAttr(b.code) +
-      '\')">' +
-      'Invia codice' +
-      '</button>';
-
-  }
-
-
-  /*
-    ADMIN
-  */
-
-  if (currentRole === 'admin') {
-
-    html +=
-      '<button class="secondary" ' +
-      'onclick="scanDirect(\'' +
-      escapeAttr(b.code) +
-      '\')">' +
-      'Controlla ingresso' +
-      '</button>';
-
-
-    if (b.paid) {
-
-      html +=
-        '<button class="secondary" ' +
-        'onclick="openPayment(\'' +
-        escapeAttr(b.code) +
-        '\', true, ' +
-        Number(b.amount || 0) +
-        ')">' +
-        'Modifica pagamento' +
-        '</button>';
-
-    } else {
-
-      html +=
-        '<button class="success" ' +
-        'onclick="openPayment(\'' +
-        escapeAttr(b.code) +
-        '\', false, ' +
-        due +
-        ')">' +
-        'Segna pagato' +
-        '</button>';
-
-    }
-
-  }
-
-
-  html +=
-    '</div>';
-
-
-  card.innerHTML =
-    html;
-
-
-  return card;
-
+  document.getElementById(
+    'participants'
+  ).innerHTML = html;
 }
 
 
@@ -1887,89 +1015,272 @@ function createBookingCard(b) {
    PAGAMENTO
    ============================================================ */
 
-async function openPayment(
-  code,
-  currentlyPaid,
-  currentAmount
-) {
+function selectPayment(paid) {
 
-  let amount = 0;
+  state.paymentPaid =
+    paid;
 
 
-  if (!currentlyPaid) {
+  const yes =
+    document.getElementById(
+      'payYes'
+    );
 
-    amount =
-      Number(
-        prompt(
-          'Inserisci l’importo pagato (€):',
-          Number(currentAmount || 25)
-            .toFixed(2)
-        )
-      );
+  const no =
+    document.getElementById(
+      'payNo'
+    );
+
+  const amountBox =
+    document.getElementById(
+      'amountBox'
+    );
+
+  const hint =
+    document.getElementById(
+      'paymentHint'
+    );
 
 
-    if (!amount || amount <= 0) {
+  if (paid) {
 
-      return;
+    yes.classList.add(
+      'active-paid'
+    );
 
-    }
+    no.classList.remove(
+      'active-unpaid'
+    );
+
+    amountBox.style.display =
+      'block';
+
+    hint.textContent =
+      'Inserisci l’importo effettivamente pagato.';
 
   } else {
 
-    amount =
+    no.classList.add(
+      'active-unpaid'
+    );
+
+    yes.classList.remove(
+      'active-paid'
+    );
+
+    amountBox.style.display =
+      'none';
+
+
+    const count =
       Number(
-        prompt(
-          'Modifica importo pagato (€):',
-          Number(currentAmount || 0)
-            .toFixed(2)
-        )
+        document.getElementById(
+          'peopleCount'
+        ).value || 1
       );
 
 
-    if (!amount || amount <= 0) {
-
-      return;
-
-    }
+    hint.textContent =
+      'Da pagare: €' +
+      (state.price * count)
+        .toFixed(2);
 
   }
+}
+
+
+/* ============================================================
+   CREAZIONE PRENOTAZIONE
+   ============================================================ */
+
+async function createBooking() {
+
+  const btn =
+    document.getElementById(
+      'createBtn'
+    );
+
+
+  const message =
+    document.getElementById(
+      'createMessage'
+    );
+
+
+  const co =
+    document.getElementById(
+      'co'
+    ).value.trim();
+
+
+  const phone =
+    document.getElementById(
+      'phone'
+    ).value.trim();
+
+
+  const names =
+    Array.from(
+      document.querySelectorAll(
+        '.personInput'
+      )
+    )
+    .map(
+      x => x.value.trim()
+    )
+    .filter(Boolean);
+
+
+  if (!co) {
+
+    message.innerHTML =
+      '<div class="message error">Inserisci il C/O.</div>';
+
+    return;
+  }
+
+
+  if (!names.length) {
+
+    message.innerHTML =
+      '<div class="message error">Inserisci almeno un partecipante.</div>';
+
+    return;
+  }
+
+
+  btn.disabled = true;
+
+  btn.textContent =
+    'Salvataggio...';
 
 
   try {
 
-    await api(
-      'paid',
-      {
+    const amountInput =
+      document.getElementById(
+        'amount'
+      );
 
-        code: code,
 
-        value: true,
+    const amount =
+      state.paymentPaid
+        ? Number(
+            amountInput.value || 0
+          )
+        : 0;
 
-        amount: amount
 
-      }
+    const result =
+      await api(
+        'create',
+        {
+
+          co,
+
+          phone,
+
+          names,
+
+          paid:
+            state.paymentPaid,
+
+          amount
+        }
+      );
+
+
+    /*
+     * Aggiorna subito la UI
+     * senza fare una seconda init.
+     */
+
+    state.free =
+      result.free;
+
+
+    state.list.unshift(
+      result.b
     );
 
 
-    showNotice(
-      'Pagamento aggiornato: €' +
-      amount.toFixed(2),
-      'ok'
-    );
+    message.innerHTML = `
+
+      <div class="message success">
+
+        Prenotazione creata.
+        Codice:
+        <b>${result.code}</b>
+
+        <br><br>
+
+        <button
+          class="invite"
+          onclick="shareInvite('${result.code}')"
+        >
+          Condividi invito
+        </button>
+
+      </div>
+
+    `;
 
 
-    await loadData(false);
+    document.getElementById(
+      'co'
+    ).value = '';
+
+    document.getElementById(
+      'phone'
+    ).value = '';
+
+
+    document.getElementById(
+      'peopleCount'
+    ).value = '1';
+
+
+    updatePeople();
+
+    state.paymentPaid =
+      false;
+
+    selectPayment(false);
+
+
+    /*
+     * Aggiorna solo la lista.
+     */
+
+    document.getElementById(
+      'bookingList'
+    ).innerHTML =
+      renderBookings(
+        state.list
+      );
 
 
   } catch (err) {
 
-    showNotice(
-      err.message,
-      'error'
-    );
+    message.innerHTML = `
 
+      <div class="message error">
+
+        ${escapeHtml(
+          err.message
+        )}
+
+      </div>
+
+    `;
+
+  } finally {
+
+    btn.disabled = false;
+
+    btn.textContent =
+      'Crea prenotazione e codice';
   }
-
 }
 
 
@@ -1977,166 +1288,26 @@ async function openPayment(
    INVITO
    ============================================================ */
 
-function makeInviteMessage(b) {
-
-  const people =
-    b.att.length;
-
-
-  const names =
-    b.att
-      .map(function(p) {
-
-        return p.n;
-
-      })
-      .join(', ');
-
+function inviteText(code) {
 
   return (
-    'Ciao ' +
-    b.co +
-    '! 👋\n\n' +
-
-    'Sei il benvenuto alla Festa Indiana! 🎉\n\n' +
-
-    'La tua prenotazione è stata registrata.\n\n' +
-
-    'Partecipanti: ' +
-    people +
-    '\n' +
-
-    'Nomi: ' +
-    names +
-    '\n\n' +
-
-    '🔑 Il tuo codice di accesso è:\n\n' +
-
-    b.code +
-    '\n\n' +
-
-    'Conserva questo codice e mostracelo all’ingresso.\n\n' +
-
-    'A presto! 🎉'
+    'Ciao Sei Benvenuto alla festa Indiana ' +
+    'il tuo codice di accesso è il seguente: ' +
+    code
   );
-
 }
 
 
-function showInvite(b) {
+async function shareInvite(code) {
 
-  if (!b) return;
-
-
-  const message =
-    makeInviteMessage(b);
+  const text =
+    inviteText(code);
 
 
   /*
-    Dopo la creazione mostra
-    il messaggio direttamente.
-  */
-
-  const old =
-    document.getElementById(
-      'inviteMessage'
-    );
-
-
-  if (old) old.remove();
-
-
-  const box =
-    document.createElement('div');
-
-
-  box.id =
-    'inviteMessage';
-
-  box.className =
-    'card';
-
-
-  box.innerHTML =
-
-    '<strong>📩 Invito pronto</strong>' +
-
-    '<div class="messageBox">' +
-    escapeHtml(message) +
-    '</div>' +
-
-    '<div class="bookingActions">' +
-
-      '<button class="primary" ' +
-      'style="width:auto;margin-top:0" ' +
-      'onclick="shareInviteText(\'' +
-      escapeAttr(message) +
-      '\')">' +
-      'Condividi invito' +
-      '</button>' +
-
-      '<button class="secondary" ' +
-      'onclick="copyText(\'' +
-      escapeAttr(message) +
-      '\')">' +
-      'Copia messaggio' +
-      '</button>' +
-
-      '<button class="secondary" ' +
-      'onclick="whatsappText(\'' +
-      escapeAttr(message) +
-      '\')">' +
-      'WhatsApp' +
-      '</button>' +
-
-    '</div>';
-
-
-  const createCard =
-    document.getElementById(
-      'createCard'
-    );
-
-
-  createCard
-    .parentNode
-    .insertBefore(
-      box,
-      createCard.nextSibling
-    );
-
-}
-
-
-function showInviteFromCode(code) {
-
-  const booking =
-    data.list.find(function(b) {
-
-      return b.code === code;
-
-    });
-
-
-  if (booking) {
-
-    showInvite(booking);
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-
-  }
-
-}
-
-
-/* ============================================================
-   CONDIVISIONE
-   ============================================================ */
-
-async function shareInviteText(text) {
+   * Sul telefono apre direttamente
+   * la condivisione.
+   */
 
   if (
     navigator.share
@@ -2145,32 +1316,26 @@ async function shareInviteText(text) {
     try {
 
       await navigator.share({
-
-        title:
-          'Invito Festa Indiana',
-
         text: text
-
       });
 
       return;
 
-    } catch (e) {}
+    } catch (e) {
 
+      /*
+       * L'utente può aver chiuso
+       * la finestra di condivisione.
+       */
+
+      return;
+    }
   }
 
 
-  await copyText(text);
-
-  showNotice(
-    'Messaggio copiato. Ora puoi incollarlo su WhatsApp.',
-    'ok'
-  );
-
-}
-
-
-async function copyText(text) {
+  /*
+   * Desktop / browser senza share.
+   */
 
   try {
 
@@ -2178,57 +1343,537 @@ async function copyText(text) {
       text
     );
 
+    alert(
+      'Messaggio copiato. Puoi incollarlo su WhatsApp.'
+    );
+
   } catch (e) {
 
-    const area =
-      document.createElement('textarea');
-
-    area.value =
-      text;
-
-    document.body.appendChild(area);
-
-    area.select();
-
-    document.execCommand('copy');
-
-    area.remove();
-
+    prompt(
+      'Copia questo messaggio:',
+      text
+    );
   }
-
-
-  showNotice(
-    'Messaggio copiato!',
-    'ok'
-  );
-
-}
-
-
-function whatsappText(text) {
-
-  const url =
-    'https://wa.me/?text=' +
-    encodeURIComponent(text);
-
-
-  window.open(
-    url,
-    '_blank'
-  );
-
 }
 
 
 /* ============================================================
-   ADMIN SCANNER
+   PRENOTAZIONI
    ============================================================ */
 
-async function scanCode() {
+function renderBookings(list) {
+
+  if (!list.length) {
+
+    return `
+      <div class="empty">
+        Nessuna prenotazione.
+      </div>
+    `;
+  }
+
+
+  return list
+    .map(
+      g => renderBooking(g)
+    )
+    .join('');
+}
+
+
+function renderBooking(g) {
+
+  const people =
+    g.att || [];
+
+
+  const count =
+    people.length;
+
+
+  const due =
+    state.price * count;
+
+
+  let paymentHTML;
+
+
+  if (g.paid) {
+
+    paymentHTML = `
+
+      <div class="payment-status paid">
+
+        ✓ PAGATO ·
+        €${Number(
+          g.amount || 0
+        ).toFixed(2)}
+
+      </div>
+
+    `;
+
+  } else {
+
+    paymentHTML = `
+
+      <div class="payment-status unpaid">
+
+        ✕ NON PAGATO ·
+        -€${due.toFixed(2)}
+
+      </div>
+
+    `;
+  }
+
+
+  const peopleHTML =
+    people
+      .map(
+        p => `
+
+          <div class="person">
+
+            ${escapeHtml(
+              p.n
+            )}
+
+            ${
+              p.e
+                ? ' · ✓ ENTRATO'
+                : ''
+            }
+
+          </div>
+
+        `
+      )
+      .join('');
+
+
+  return `
+
+    <div
+      class="booking"
+      data-code="${escapeHtml(g.code)}"
+      data-search="${escapeHtml(
+        (
+          g.code +
+          ' ' +
+          g.co +
+          ' ' +
+          g.phone +
+          ' ' +
+          people.map(
+            p => p.n
+          ).join(' ')
+        ).toLowerCase()
+      )}"
+    >
+
+      <div class="booking-top">
+
+        <div>
+
+          <div class="booking-name">
+
+            C/O
+            ${escapeHtml(g.co)}
+
+          </div>
+
+
+          <div class="booking-meta">
+
+            ${escapeHtml(g.phone)}
+
+            ·
+
+            ${count}
+            ${
+              count === 1
+                ? 'persona'
+                : 'persone'
+            }
+
+          </div>
+
+        </div>
+
+
+        <div class="code">
+
+          ${escapeHtml(g.code)}
+
+        </div>
+
+      </div>
+
+
+      <div class="people">
+
+        ${peopleHTML}
+
+      </div>
+
+
+      ${paymentHTML}
+
+
+      <div class="booking-actions">
+
+        <button
+          class="invite"
+          onclick="shareInvite('${escapeHtml(g.code)}')"
+        >
+          Invia codice
+        </button>
+
+
+        ${
+          state.role === 'admin' ||
+          g.by === state.name
+            ? `
+              <button
+                class="secondary"
+                onclick="editPayment('${escapeHtml(g.code)}')"
+              >
+                ${
+                  g.paid
+                    ? 'Modifica pagamento'
+                    : 'Segna pagato'
+                }
+              </button>
+            `
+            : ''
+        }
+
+
+        ${
+          state.role === 'admin'
+            ? `
+              <button
+                class="secondary"
+                onclick="openAdmission('${escapeHtml(g.code)}')"
+              >
+                Ingresso
+              </button>
+            `
+            : ''
+        }
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* ============================================================
+   MODIFICA PAGAMENTO
+   ============================================================ */
+
+async function editPayment(code) {
+
+  const booking =
+    state.list.find(
+      g => g.code === code
+    );
+
+
+  if (!booking) {
+    return;
+  }
+
+
+  const count =
+    booking.att.length;
+
+
+  const due =
+    state.price * count;
+
+
+  const paid =
+    confirm(
+      booking.paid
+        ? 'Il pagamento è già segnato come PAGATO.\n\nOK = modificare importo\nAnnulla = impostare NON PAGATO'
+        : 'Vuoi segnare questa prenotazione come PAGATA?'
+    );
+
+
+  if (!paid) {
+
+    if (
+      booking.paid &&
+      !confirm(
+        'Impostare la prenotazione come NON PAGATA?'
+      )
+    ) {
+      return;
+    }
+
+
+    try {
+
+      await api(
+        'paid',
+        {
+          code,
+          value: false,
+          amount: 0
+        }
+      );
+
+
+      booking.paid =
+        false;
+
+      booking.amount =
+        0;
+
+
+      refreshList();
+
+    } catch (e) {
+
+      alert(
+        e.message
+      );
+    }
+
+    return;
+  }
+
+
+  const defaultAmount =
+    booking.amount ||
+    due;
+
+
+  const amount =
+    prompt(
+      'Inserisci importo pagato (€):',
+      Number(
+        defaultAmount
+      ).toFixed(2)
+    );
+
+
+  if (
+    amount === null
+  ) {
+    return;
+  }
+
+
+  const number =
+    Number(
+      amount.replace(',', '.')
+    );
+
+
+  if (
+    !isFinite(number) ||
+    number < 0
+  ) {
+
+    alert(
+      'Importo non valido.'
+    );
+
+    return;
+  }
+
+
+  try {
+
+    await api(
+      'paid',
+      {
+        code,
+        value: true,
+        amount: number
+      }
+    );
+
+
+    booking.paid =
+      true;
+
+    booking.amount =
+      number;
+
+
+    refreshList();
+
+  } catch (e) {
+
+    alert(
+      e.message
+    );
+  }
+}
+
+
+/* ============================================================
+   REFRESH
+   ============================================================ */
+
+async function refresh() {
+
+  try {
+
+    const data =
+      await api('init');
+
+
+    state.free =
+      data.free;
+
+    state.used =
+      data.used;
+
+    state.list =
+      data.list || [];
+
+
+    refreshList();
+
+  } catch (e) {
+
+    alert(
+      e.message
+    );
+  }
+}
+
+
+function refreshList() {
+
+  const box =
+    document.getElementById(
+      'bookingList'
+    );
+
+
+  if (box) {
+
+    box.innerHTML =
+      renderBookings(
+        state.list
+      );
+  }
+}
+
+
+/* ============================================================
+   RICERCA ADMIN
+   ============================================================ */
+
+function filterBookings() {
 
   const input =
     document.getElementById(
-      'scanCode'
+      'search'
+    );
+
+
+  if (!input) {
+    return;
+  }
+
+
+  const query =
+    input.value
+      .trim()
+      .toLowerCase();
+
+
+  const elements =
+    document.querySelectorAll(
+      '.booking'
+    );
+
+
+  elements.forEach(
+    el => {
+
+      const text =
+        el.dataset.search ||
+        '';
+
+
+      el.style.display =
+        !query ||
+        text.includes(query)
+          ? ''
+          : 'none';
+    }
+  );
+}
+
+
+/* ============================================================
+   ADMIN TOOLS
+   ============================================================ */
+
+function renderAdminTools() {
+
+  return `
+
+    <div class="card">
+
+      <b>
+        Controllo ingressi
+      </b>
+
+      <div
+        class="admin-tools"
+        style="margin-top:12px"
+      >
+
+        <div class="admit-box">
+
+          <input
+            id="admitCode"
+            placeholder="Inserisci codice 4 cifre"
+            inputmode="numeric"
+            maxlength="4"
+          >
+
+          <button
+            class="primary"
+            style="margin:0"
+            onclick="checkAdmission()"
+          >
+            Controlla
+          </button>
+
+        </div>
+
+
+        <div id="admitResult"></div>
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* ============================================================
+   CONTROLLO INGRESSO
+   ============================================================ */
+
+async function checkAdmission() {
+
+  const input =
+    document.getElementById(
+      'admitCode'
     );
 
 
@@ -2240,206 +1885,175 @@ async function scanCode() {
     !/^\d{4}$/.test(code)
   ) {
 
-    showScannerError(
+    alert(
       'Inserisci un codice di 4 cifre.'
     );
 
     return;
-
   }
 
 
-  await scanDirect(code);
-
-}
-
-
-async function scanDirect(code) {
-
-  const result =
+  const box =
     document.getElementById(
-      'scannerResult'
+      'admitResult'
     );
-
-
-  result.classList.remove(
-    'hidden'
-  );
-
-
-  result.innerHTML =
-    'Controllo...';
 
 
   try {
 
-    const r =
+    const result =
       await api(
         'scan',
         {
-          code: code
+          code
         }
       );
 
 
     if (
-      r.status === 'invalid'
+      result.status ===
+      'invalid'
     ) {
 
-      result.innerHTML =
-        '<strong>❌ Codice non valido</strong>';
+      box.innerHTML = `
+        <div class="message error">
+          Codice non trovato.
+        </div>
+      `;
 
       return;
-
     }
 
 
     if (
-      r.status === 'cancelled'
+      result.status ===
+      'cancelled'
     ) {
 
-      result.innerHTML =
-        '<strong>❌ Prenotazione annullata</strong>';
+      box.innerHTML = `
+        <div class="message error">
+          Prenotazione annullata.
+        </div>
+      `;
 
       return;
-
     }
 
 
-    const b =
-      r.b;
+    const g =
+      result.b;
 
 
-    let html = '';
+    box.innerHTML = `
+
+      <div class="card">
+
+        <b>
+          C/O ${escapeHtml(g.co)}
+        </b>
+
+        <p>
+          Codice:
+          <b>${escapeHtml(g.code)}</b>
+        </p>
+
+        <div>
+
+          ${
+            g.att
+              .map(
+                p => `
+
+                  <label
+                    style="
+                      display:flex;
+                      align-items:center;
+                      gap:8px;
+                      margin:8px 0;
+                    "
+                  >
+
+                    <input
+                      type="checkbox"
+                      class="admitPerson"
+                      value="${p.k}"
+                      ${
+                        p.e
+                          ? 'disabled checked'
+                          : ''
+                      }
+                    >
+
+                    ${escapeHtml(p.n)}
+
+                    ${
+                      p.e
+                        ? ' ✓ entrato'
+                        : ''
+                    }
+
+                  </label>
+
+                `
+              )
+              .join('')
+          }
+
+        </div>
 
 
-    html +=
-      '<strong>' +
-      escapeHtml(b.co) +
-      '</strong>';
+        <button
+          class="primary"
+          onclick="admitSelected('${escapeHtml(g.code)}')"
+        >
+          Segna ingresso
+        </button>
 
+      </div>
 
-    html +=
-      '<div style="margin-top:8px">' +
-      escapeHtml(b.phone) +
-      '</div>';
+    `;
 
+  } catch (e) {
 
-    if (
-      r.status === 'used'
-    ) {
+    box.innerHTML = `
 
-      html +=
-        '<div style="margin-top:10px;color:#fca5a5">' +
-        '⚠ Tutte le persone sono già entrate.' +
-        '</div>';
+      <div class="message error">
 
-    }
+        ${escapeHtml(
+          e.message
+        )}
 
+      </div>
 
-    html +=
-      '<div style="margin-top:12px">';
-
-
-    b.att.forEach(function(p) {
-
-      html +=
-
-        '<label class="checkRow">' +
-
-        '<input type="checkbox" ' +
-        'value="' +
-        p.k +
-        '" ' +
-        (
-          p.e
-            ? 'checked disabled'
-            : ''
-        ) +
-        '>' +
-
-        '<span>' +
-        escapeHtml(p.n) +
-        (
-          p.e
-            ? ' ✓ già entrato'
-            : ''
-        ) +
-        '</span>' +
-
-        '</label>';
-
-    });
-
-
-    html +=
-      '</div>';
-
-
-    if (
-      r.status === 'valid'
-    ) {
-
-      html +=
-
-        '<button ' +
-        'class="primary" ' +
-        'style="background:white;color:#111" ' +
-        'onclick="admitSelected(\'' +
-        escapeAttr(b.code) +
-        '\')">' +
-        'Conferma ingresso' +
-        '</button>';
-
-    }
-
-
-    result.innerHTML =
-      html;
-
-
-  } catch (err) {
-
-    result.innerHTML =
-      '<strong style="color:#fca5a5">' +
-      escapeHtml(err.message) +
-      '</strong>';
-
+    `;
   }
-
 }
 
 
 /* ============================================================
-   CONFERMA INGRESSO
+   AMMISSIONE
    ============================================================ */
 
 async function admitSelected(code) {
 
-  const checkboxes =
-    document.querySelectorAll(
-      '#scannerResult input[type="checkbox"]:checked:not(:disabled)'
+  const checked =
+    Array.from(
+      document.querySelectorAll(
+        '.admitPerson:checked:not(:disabled)'
+      )
+    )
+    .map(
+      el => Number(el.value)
     );
 
 
-  const indexes =
-    Array.from(
-      checkboxes
-    ).map(function(input) {
+  if (!checked.length) {
 
-      return Number(input.value);
-
-    });
-
-
-  if (!indexes.length) {
-
-    showScannerError(
+    alert(
       'Seleziona almeno una persona.'
     );
 
     return;
-
   }
 
 
@@ -2449,121 +2063,90 @@ async function admitSelected(code) {
       await api(
         'admit',
         {
-
-          code: code,
-
-          idx: indexes
-
+          code,
+          idx: checked
         }
       );
 
 
-    showNotice(
-      'Ingresso registrato: ' +
-      result.entered.join(', '),
-      'ok'
+    alert(
+      result.entered.length
+        ? 'Ingresso registrato: ' +
+          result.entered.join(', ')
+        : 'Nessun ingresso registrato.'
     );
 
 
-    await loadData(false);
+    await refresh();
+
+    /*
+     * Aggiorna anche il pannello admin.
+     */
+
+    const input =
+      document.getElementById(
+        'admitCode'
+      );
 
 
-    await scanDirect(code);
+    if (input) {
 
+      input.value =
+        code;
 
-  } catch (err) {
+      await checkAdmission();
+    }
 
-    showScannerError(
-      err.message
+  } catch (e) {
+
+    alert(
+      e.message
     );
-
   }
-
 }
 
 
 /* ============================================================
-   MESSAGGI
-   ============================================================ */
-
-function showNotice(
-  message,
-  type
-) {
-
-  const box =
-    document.getElementById(
-      'notice'
-    );
-
-
-  box.innerHTML =
-    '<div class="notice ' +
-    (type || '') +
-    '">' +
-    escapeHtml(message) +
-    '</div>';
-
-}
-
-
-function showScannerError(message) {
-
-  const box =
-    document.getElementById(
-      'scannerResult'
-    );
-
-
-  box.classList.remove(
-    'hidden'
-  );
-
-
-  box.innerHTML =
-    '<div style="color:#fca5a5">' +
-    escapeHtml(message) +
-    '</div>';
-
-}
-
-
-/* ============================================================
-   SICUREZZA HTML
+   ESCAPE HTML
    ============================================================ */
 
 function escapeHtml(value) {
 
-  return String(value ?? '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
-
-}
-
-
-function escapeAttr(value) {
-
-  return String(value ?? '')
-    .replace(/\\/g, '\\\\')
-    .replace(/'/g, "\\'")
-    .replace(/\n/g, '\\n')
-    .replace(/\r/g, '');
-
+  return String(
+    value ?? ''
+  )
+  .replace(
+    /&/g,
+    '&amp;'
+  )
+  .replace(
+    /</g,
+    '&lt;'
+  )
+  .replace(
+    />/g,
+    '&gt;'
+  )
+  .replace(
+    /"/g,
+    '&quot;'
+  )
+  .replace(
+    /'/g,
+    '&#039;'
+  );
 }
 
 
 /* ============================================================
-   HASH
+   HASH CHANGE
    ============================================================ */
 
 window.addEventListener(
   'hashchange',
-  function() {
+  () => {
 
-    location.reload();
+    init();
 
   }
 );
@@ -2573,7 +2156,7 @@ window.addEventListener(
    AVVIO
    ============================================================ */
 
-start();
+init();
 
 </script>
 
