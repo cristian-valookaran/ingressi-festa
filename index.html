@@ -1354,10 +1354,19 @@ function applyData(j){
     hhmmss();
 
 
+  saveLocalCache();
   render();
 
 }
 
+
+/* ============================================================
+   CACHE LOCALE: apertura immediata
+   ============================================================ */
+const LOCAL_CACHE_VERSION = 'v3';
+const LOCAL_CACHE_KEY = () => 'festa_cache_' + LOCAL_CACHE_VERSION + '_' + U;
+function saveLocalCache(){ try{ localStorage.setItem(LOCAL_CACHE_KEY(), JSON.stringify({list:L,free:FREE,used:USED,capacity:CAP,price:PRICE,savedAt:Date.now()})); }catch(e){} }
+function loadLocalCache(){ try{ const x=JSON.parse(localStorage.getItem(LOCAL_CACHE_KEY())||'null'); return x&&Array.isArray(x.list)?x:null; }catch(e){ return null; } }
 
 /* ============================================================
    REFRESH
@@ -1480,39 +1489,29 @@ function start(j){
    ============================================================ */
 
 async function init(){
-
   if(!U){
-
-    $('stats').textContent =
-      '';
-
-    $('top').textContent =
-      'Link non valido. Usa #admin, #molly oppure #anuraj.';
-
+    $('stats').textContent='';
+    $('top').textContent='Link non valido. Usa #admin, #molly oppure #anuraj.';
     return;
-
   }
 
+  // L'interfaccia parte subito: i dati reali arrivano in background.
+  const cached=loadLocalCache();
+  const names={admin:'Admin',molly:'Molly',anuraj:'Anuraj'};
+  start({
+    ok:true,
+    role:U==='admin'?'admin':'org',
+    name:names[U]||U,
+    capacity:cached&&cached.capacity?cached.capacity:CAP,
+    price:cached&&cached.price?cached.price:PRICE,
+    free:cached&&typeof cached.free==='number'?cached.free:CAP,
+    used:cached&&typeof cached.used==='number'?cached.used:0,
+    list:cached?cached.list:[]
+  });
 
-  try{
-
-    start(
-      await api('init')
-    );
-
-
-  }catch(e){
-
-    $('stats').textContent =
-      '';
-
-    $('top').textContent =
-      e.message;
-
-  }
-
+  api('init').then(j=>{ if(j&&j.ok) applyData(j); })
+    .catch(e=>{ if(!cached) $('top').textContent=e.message; });
 }
-
 
 $('rf').onclick =
   async () => {
