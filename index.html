@@ -88,6 +88,13 @@ body.anuraj{
 
 }
 
+body.thomas{
+
+  --acc:#087E8B;
+  --onacc:#fff;
+
+}
+
 
 html{
   scroll-padding-top:env(safe-area-inset-top,0px)
@@ -1023,7 +1030,8 @@ const API =
 const USERS_OK = [
   'admin',
   'molly',
-  'anuraj'
+  'anuraj',
+  'thomas'
 ];
 
 
@@ -1033,7 +1041,9 @@ const COLORS = {
 
   molly:'#0F6BEB',
 
-  anuraj:'#7C3AED'
+  anuraj:'#7C3AED',
+
+  thomas:'#087E8B'
 
 };
 
@@ -1047,6 +1057,8 @@ let L = [];
 let FREE = 0;
 
 let USED = 0;
+
+let ENTERED = 0;
 
 let CAP = 160;
 
@@ -1132,7 +1144,7 @@ const hhmmss =
     location.pathname
       .toLowerCase()
       .match(
-        /(?:^|\/)(admin|molly|anuraj)(?:\/|$)/
+        /(?:^|\/)(admin|molly|anuraj|thomas)(?:\/|$)/
       );
 
 
@@ -1340,6 +1352,9 @@ function applyData(j){
   USED =
     j.used;
 
+  ENTERED =
+    Number(j.entered || 0);
+
 
   CAP =
     j.capacity;
@@ -1363,9 +1378,9 @@ function applyData(j){
 /* ============================================================
    CACHE LOCALE: apertura immediata
    ============================================================ */
-const LOCAL_CACHE_VERSION = 'v3';
+const LOCAL_CACHE_VERSION = 'v4';
 const LOCAL_CACHE_KEY = () => 'festa_cache_' + LOCAL_CACHE_VERSION + '_' + U;
-function saveLocalCache(){ try{ localStorage.setItem(LOCAL_CACHE_KEY(), JSON.stringify({list:L,free:FREE,used:USED,capacity:CAP,price:PRICE,savedAt:Date.now()})); }catch(e){} }
+function saveLocalCache(){ try{ localStorage.setItem(LOCAL_CACHE_KEY(), JSON.stringify({list:L,free:FREE,used:USED,entered:ENTERED,capacity:CAP,price:PRICE,savedAt:Date.now()})); }catch(e){} }
 function loadLocalCache(){ try{ const x=JSON.parse(localStorage.getItem(LOCAL_CACHE_KEY())||'null'); return x&&Array.isArray(x.list)?x:null; }catch(e){ return null; } }
 
 /* ============================================================
@@ -1408,81 +1423,38 @@ function start(j){
 
   ME = j;
 
-
-  document.body
-    .classList
-    .add(U);
-
+  document.body.classList.add(U);
 
   $('userBadge').textContent =
     j.role === 'admin'
       ? 'ADMIN'
       : j.name.toUpperCase();
 
+  $('userBadge').hidden = false;
 
-  $('userBadge').hidden =
-    false;
+  const doorOnly = j.role === 'door';
 
-
-  $('list').hidden =
-    false;
-
-
-  /*
-    SOLO ADMIN:
-    ricerca completa,
-    totale incassato,
-    scanner.
-  */
+  $('list').hidden = doorOnly;
+  $('scan').hidden = !doorOnly;
+  $('nav').hidden = doorOnly || j.role !== 'admin';
 
   if(j.role === 'admin'){
-
-    $('nav').hidden =
-      false;
-
-    $('q').hidden =
-      false;
-
-    $('totalBox').hidden =
-      false;
-
+    $('q').hidden = false;
+    $('totalBox').hidden = false;
   }
-
-
-  /*
-    ORGANIZZATORI:
-    vedono solo la propria lista.
-    Però possono gestire i pagamenti.
-  */
 
   applyData(j);
 
+  if(doorOnly) focusMan();
 
   if(!poll){
-
-    poll =
-      setInterval(
-        () => {
-
-          if(
-            document.visibilityState ===
-            'visible'
-          ){
-
-            refresh()
-              .catch(() => {});
-
-          }
-
-        },
-
-        20000
-      );
-
+    poll = setInterval(() => {
+      if(document.visibilityState === 'visible'){
+        refresh().catch(() => {});
+      }
+    }, 20000);
   }
-
 }
-
 
 /* ============================================================
    INIT
@@ -1491,22 +1463,23 @@ function start(j){
 async function init(){
   if(!U){
     $('stats').textContent='';
-    $('top').textContent='Link non valido. Usa #admin, #molly oppure #anuraj.';
+    $('top').textContent='Link non valido. Usa #admin, #molly, #anuraj oppure #thomas.';
     return;
   }
 
   // L'interfaccia parte subito: i dati reali arrivano in background.
   const cached=loadLocalCache();
-  const names={admin:'Admin',molly:'Molly',anuraj:'Anuraj'};
+  const names={admin:'Admin',molly:'Molly',anuraj:'Anuraj',thomas:'Thomas'};
   start({
     ok:true,
-    role:U==='admin'?'admin':'org',
+    role:U==='admin'?'admin':(U==='thomas'?'door':'org'),
     name:names[U]||U,
     capacity:cached&&cached.capacity?cached.capacity:CAP,
     price:cached&&cached.price?cached.price:PRICE,
     free:cached&&typeof cached.free==='number'?cached.free:CAP,
     used:cached&&typeof cached.used==='number'?cached.used:0,
-    list:cached?cached.list:[]
+    entered:cached&&typeof cached.entered==='number'?cached.entered:0,
+    list:U==='thomas'?[]:(cached?cached.list:[])
   });
 
   api('init').then(j=>{ if(j&&j.ok) applyData(j); })
@@ -1621,23 +1594,19 @@ function render(){
 
 
   const ent =
-    act.reduce(
-      (t,b) =>
-        t +
-        b.att.filter(
-          a => a.e
-        ).length,
-
-      0
-    );
-
+    ME.role === 'door'
+      ? ENTERED
+      : act.reduce(
+          (t,b) => t + b.att.filter(a => a.e).length,
+          0
+        );
 
   $('stats').innerHTML =
-admin
-
-      ? `Prenotati <b>${USED}</b> su ${CAP} · Entrati <b>${ent}</b> · Liberi <b>${FREE}</b>`
-
-      : `Posti ancora liberi: <b>${FREE}</b>`;
+    ME.role === 'door'
+      ? `Entrati <b>${ENTERED}</b> su <b>${USED}</b>`
+      : admin
+        ? `Prenotati <b>${USED}</b> su ${CAP} · Entrati <b>${ent}</b> · Liberi <b>${FREE}</b>`
+        : `Posti ancora liberi: <b>${FREE}</b>`;
       
   if(admin){
 
@@ -2667,170 +2636,58 @@ const focusMan =
 
 async function handle(code){
 
-  const b =
-    L.find(
-      x =>
-        x.code === code
-    );
-
-
-  if(b){
-
-    const nm =
-      'C/O ' +
-      esc(b.co);
-
-
-    if(b.cancelled){
-
-      show(
-        'bad',
-        '❌ ANNULLATO',
-        [
-          nm,
-          'La prenotazione è stata annullata.'
-        ]
-      );
-
-
-      focusMan();
-
-      return;
-
-    }
-
-
-    if(
-      b.att.every(
-        a => a.e
-      )
-    ){
-
-      const last =
-        b.att
-          .map(a => a.t)
-          .filter(Boolean)
-          .pop() || '';
-
-
-      show(
-        'bad',
-        '❌ GIÀ UTILIZZATO',
-        [
-          nm,
-
-          `Tutte le ${b.att.length} persone sono già entrate.`,
-
-          last
-            ? 'Ultimo ingresso: ' +
-              last
-            : ''
-        ]
-      );
-
-
-      focusMan();
-
-      return;
-
-    }
-
-
-    if(
-      b.att.length === 1
-    ){
-
-      admitLocal(
-        b,
-        [b.att[0].k]
-      );
-
-    }else{
-
-      groupUI(b);
-
-    }
-
-
-    return;
-
-  }
-
-
-  show(
-    'ok',
-    'Verifica in corso…',
-    []
-  );
-
+  show('ok', 'Verifica in corso…', []);
 
   try{
+    // Verifica sempre sul server: lo stato locale può essere vecchio se un altro telefono ha appena registrato l'ingresso.
+    const r = await api('scan', {code});
 
-    const r =
-      await api(
-        'scan',
-        {
-          code
-        }
-      );
-
-
-    if(
-      r.status ===
-      'invalid'
-    ){
-
-      show(
-        'bad',
-        '❌ NON VALIDO',
-        [
-          'Questo codice non è nella lista.'
-        ]
-      );
-
-
+    if(r.status === 'invalid'){
+      show('bad', '❌ NON VALIDO', ['Questo codice non è nella lista.']);
       focusMan();
-
       return;
-
     }
 
-
-    if(
-      !L.some(
-        x =>
-          x.code ===
-          r.b.code
-      )
-    ){
-
-      L.push(
-        r.b
-      );
-
-    }
-
+    const b = r.b;
+    const pos = L.findIndex(x => x.code === b.code);
+    if(pos >= 0) L[pos] = b;
+    else L.push(b);
 
     render();
 
-    handle(code);
+    if(r.status === 'cancelled' || b.cancelled){
+      show('bad', '❌ ANNULLATO', [
+        'C/O ' + esc(b.co),
+        'La prenotazione è stata annullata.'
+      ]);
+      focusMan();
+      return;
+    }
 
+    if(r.status === 'used'){
+      const last = b.att.map(a => a.t).filter(Boolean).pop() || '';
+      show('bad', '❌ GIÀ UTILIZZATO', [
+        'C/O ' + esc(b.co),
+        `Tutte le ${b.att.length} persone sono già entrate.`,
+        last ? 'Ultimo ingresso: ' + esc(last) : ''
+      ]);
+      focusMan();
+      return;
+    }
+
+    if(b.att.length === 1){
+      await admitServer(b, [b.att[0].k]);
+    }else{
+      groupUI(b);
+    }
 
   }catch(e){
-
-    show(
-      'bad',
-      'ERRORE',
-      [
-        esc(e.message)
-      ]
-    );
-
-
+    show('bad', 'ERRORE DI VERIFICA', [
+      esc(e.message),
+      'Non far entrare l’invitato finché il codice non è stato verificato.'
+    ]);
     focusMan();
-
   }
-
 }
 
 
@@ -2958,10 +2815,7 @@ function groupUI(b){
       }
 
 
-      admitLocal(
-        b,
-        ix
-      );
+      admitServer(b, ix);
 
     };
 
@@ -2969,232 +2823,67 @@ function groupUI(b){
 
 
 /* ============================================================
-   INGRESSO LOCALE + SALVATAGGIO BACKGROUND
+   REGISTRA INGRESSO: conferma solo dopo risposta server
    ============================================================ */
 
-function admitLocal(b,ix){
+async function admitServer(b, ix){
 
-  b =
-    L.find(
-      x =>
-        x.code ===
-        b.code
-    ) || b;
+  const btn = $('go');
+  if(btn) btn.disabled = true;
 
+  show('ok', 'Registrazione ingresso…', [
+    'Attendi la conferma del server.'
+  ]);
 
-  const t =
-    new Date()
-      .toLocaleString(
-        'it-IT',
-        {
-          day:'2-digit',
-          month:'2-digit',
-          year:'numeric',
-          hour:'2-digit',
-          minute:'2-digit'
-        }
-      )
-      .replace(',','');
+  try{
+    // Questa risposta è la conferma autorevole della registrazione.
+    const r = await api('admit', {
+      code: b.code,
+      idx: ix
+    });
 
+    const lines = [
+      'C/O ' + esc(b.co),
+      r.entered.length
+        ? 'Entrati adesso: ' + r.entered.map(esc).join(', ')
+        : '',
+      r.skipped.length
+        ? 'Già entrati da un altro dispositivo: ' + r.skipped.map(esc).join(', ')
+        : ''
+    ];
 
-  const nm =
-    k => {
+    show(
+      r.entered.length ? 'ok' : 'bad',
+      r.entered.length ? '✅ INGRESSO CONFERMATO' : '⚠️ GIÀ ENTRATO',
+      lines
+    );
 
-      const a =
-        b.att.find(
-          x =>
-            x.k === k
-        );
-
-
-      return esc(
-        a &&
-        a.n ||
-        'Persona ' +
-        k
-      );
-
-    };
-
-
-  ix.forEach(
-    k => {
-
-      const a =
-        b.att.find(
-          x =>
-            x.k === k
-        );
-
-
-      if(a){
-
-        a.e =
-          true;
-
-        a.t =
-          t;
-
-      }
-
-    }
-  );
-
-
-  bump();
-
-
-  show(
-
-    'ok',
-
-    '✅ INGRESSO CONSENTITO',
-
-    [
-
-      'C/O ' +
-      esc(b.co),
-
-      'Entrano: ' +
-      ix
-        .map(nm)
-        .join(', '),
-
-      `Totale entrati ${b.att.filter(a=>a.e).length} su ${b.att.length}`,
-
-      'Ingresso: ' +
-      t
-
-    ]
-
-  );
-
-
-  render();
-
-
-  PEND.push({
-
-    code:b.code,
-
-    idx:ix,
-
-    name:
-      'C/O ' +
-      b.co
-
-  });
-
-
-  syncBanner();
-
-  flush();
-
-  focusMan();
-
-}
-
-
-function syncBanner(){
-
-  $('sync').textContent =
-    PEND.length
-
-      ? 'Salvataggio sul Foglio in corso: ' +
-        PEND.length +
-        ' ingressi in attesa…'
-
-      : '';
-
-}
-
-
-let flushing =
-  false;
-
-
-async function flush(){
-
-  if(flushing)
-    return;
-
-
-  flushing =
-    true;
-
-
-  while(
-    PEND.length
-  ){
-
-    const p =
-      PEND[0];
-
-
+    // Aggiorna i dati visualizzati in background: un errore di refresh
+    // non annulla né smentisce una registrazione già confermata dal server.
     try{
+      const latest = await api('scan', {code: b.code});
+      const fresh = latest.b;
+      const pos = L.findIndex(x => x.code === fresh.code);
+      if(pos >= 0) L[pos] = fresh;
+      else L.push(fresh);
 
-      const r =
-        await api(
-          'admit',
-          {
-            code:p.code,
-            idx:p.idx
-          }
-        );
+      const initData = await api('init');
+      ENTERED = Number(initData.entered || 0);
+      USED = Number(initData.used || 0);
+      FREE = Number(initData.free || 0);
+      render();
+    }catch(refreshError){}
 
-
-      PEND.shift();
-
-
-      if(
-        !r.entered.length
-      ){
-
-        alert(
-          'Attenzione: ' +
-          p.name +
-          ' risultava già entrato da un altro dispositivo.'
-        );
-
-      }
-
-
-    }catch(e){
-
-      if(e.net){
-
-        syncBanner();
-
-        await sleep(4000);
-
-        continue;
-
-      }
-
-
-      PEND.shift();
-
-
-      alert(
-        'Ingresso di ' +
-        p.name +
-        ' non salvato sul Foglio: ' +
-        e.message
-      );
-
-    }
-
-
-    syncBanner();
-
+  }catch(e){
+    show('bad', '❌ INGRESSO NON CONFERMATO', [
+      esc(e.message),
+      'Controlla lo stato della prenotazione prima di far entrare l’invitato.'
+    ]);
+  }finally{
+    if(btn) btn.disabled = false;
+    focusMan();
   }
-
-
-  flushing =
-    false;
-
 }
-
 
 /* ============================================================
    NAVIGAZIONE
